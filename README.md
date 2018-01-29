@@ -33,4 +33,4 @@ Le git contient les dossiers suivants :
 
 *Remarques pour Mac OS X:
 * apt-get est utilisé pour installer des packages avec Linux. L'équivalent pour Mac est Homebrew.
-* Si `xclip -sel clip < ~/.ssh/id_rsa.pub` ne copie pas la clé, essayez d'obtenir la clé publique avec cat `~/.ssh/id_rsa.pub puis copiez là.`
+* Si `xclip -sel clip < ~/.ssh/id_rsa.pub` ne copie pas la clé, essayez d'obtenir la clé publique avec `cat ~/.ssh/id_rsa.pub` puis copiez là.
