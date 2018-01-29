@@ -32,4 +32,4 @@ Le git contient les dossiers suivants :
 * Enfin : `git push`
 
 *Remarques pour Mac OS X:
-* apt-get est utilisé pour installé des packages avec Linux. L'équivalent pour Mac est Homebrew.
+* apt-get est utilisé pour installer des packages avec Linux. L'équivalent pour Mac est Homebrew.
