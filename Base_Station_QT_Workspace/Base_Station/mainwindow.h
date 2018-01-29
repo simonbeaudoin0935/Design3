@@ -59,8 +59,6 @@ private slots:
 
     void serial_send_on_timeout();
 
-    void on_pushButton_Serial_Send1_clicked();
-
     void on_pushButton_Camera_Scan_clicked();
 
     void on_comboBox_Camera_Selector_currentIndexChanged(const QString &arg1);

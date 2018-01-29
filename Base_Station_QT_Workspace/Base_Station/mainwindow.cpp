@@ -370,10 +370,6 @@ void MainWindow::serial_send_on_timeout()
     }
 }
 
-void MainWindow::on_pushButton_Serial_Send1_clicked()
-{
-    this->serial_send_on_timeout();
-}
 
 void MainWindow::on_pushButton_Camera_Scan_clicked()
 {
@@ -388,7 +384,7 @@ void MainWindow::on_pushButton_Camera_Scan_clicked()
 
 void MainWindow::on_comboBox_Camera_Selector_currentIndexChanged(const QString &arg1)
 {
-
+    Q_UNUSED(arg1)
 
     QCameraInfo v_cameraInfo(ui->comboBox_Camera_Selector->currentText().toUtf8());
     ui->textBrowser_Camera_Descriptor->clear();
