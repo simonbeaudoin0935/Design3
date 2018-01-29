@@ -1,0 +1,28 @@
+18:47:47 **** Incremental Build of configuration Debug for project Motor_Controller ****
+make -j8 all 
+Building file: ../src/main.c
+Invoking: MCU GCC Compiler
+/home/simon/Design_3/Motor_Controller_SW4STM_Workspace/Motor_Controller/Debug
+arm-none-eabi-gcc -mcpu=cortex-m4 -mthumb -mfloat-abi=hard -mfpu=fpv4-sp-d16 -DSTM32 -DSTM32F4 -DSTM32F407VGTx -DSTM32F407G_DISC1 -DDEBUG -DSTM32F40XX -DSTM32F40_41xxx -DUSE_STDPERIPH_DRIVER -I"/home/simon/Design_3/Motor_Controller_SW4STM_Workspace/Motor_Controller/StdPeriph_Driver/inc" -I"/home/simon/Design_3/Motor_Controller_SW4STM_Workspace/Motor_Controller/inc" -I"/home/simon/Design_3/Motor_Controller_SW4STM_Workspace/Motor_Controller/CMSIS/device" -I"/home/simon/Design_3/Motor_Controller_SW4STM_Workspace/Motor_Controller/CMSIS/core" -O0 -g3 -Wall -fmessage-length=0 -ffunction-sections -c -MMD -MP -MF"src/main.d" -MT"src/main.o" -o "src/main.o" "../src/main.c"
+In file included from ../src/main.c:12:0:
+/home/simon/Design_3/Motor_Controller_SW4STM_Workspace/Motor_Controller/CMSIS/device/stm32f4xx.h:108:0: warning: "STM32F40_41xxx" redefined
+   #define STM32F40_41xxx
+ 
+<command-line>:0:0: note: this is the location of the previous definition
+Finished building: ../src/main.c
+ 
+Building target: Motor_Controller.elf
+Invoking: MCU G++ Linker
+arm-none-eabi-g++ -mcpu=cortex-m4 -mthumb -mfloat-abi=hard -mfpu=fpv4-sp-d16 -T"/home/simon/Design_3/Motor_Controller_SW4STM_Workspace/Motor_Controller/LinkerScript.ld" -Wl,-Map=output.map -Wl,--gc-sections -fno-exceptions -fno-rtti -o "Motor_Controller.elf" @"objects.list"   -lm
+Finished building target: Motor_Controller.elf
+ 
+make --no-print-directory post-build
+Generating binary and Printing size information:
+arm-none-eabi-objcopy -O binary "Motor_Controller.elf" "Motor_Controller.bin"
+arm-none-eabi-size "Motor_Controller.elf"
+   text	   data	    bss	    dec	    hex	filename
+   8320	   1120	   1468	  10908	   2a9c	Motor_Controller.elf
+ 
+
+18:47:48 Build Finished (took 516ms)
+
