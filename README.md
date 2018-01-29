@@ -30,3 +30,6 @@ Le git contient les dossiers suivants :
 * Quand vous modifiez la structure, ajoutez ou supprimez des fichiers : `git add .`
 * Quand vous voulez commit les changements : `git commit -m "votre commentaire"`
 * Enfin : `git push`
+
+*Remarques pour Mac OS X:
+* apt-get est utilisé pour installé des packages avec Linux. L'équivalent pour Mac est Homebrew.
