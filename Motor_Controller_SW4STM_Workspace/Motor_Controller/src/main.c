@@ -46,7 +46,36 @@ int main(void)
 
 			if(parseMessage(v_byte) == 1){
 				GPIOD->ODR ^= 0x4000;
-				motor1_set_speed(g_messageContent[0]);
+
+				signed char speed_x = g_messageContent[0];
+				signed char speed_y = g_messageContent[1];
+				signed char speed_r = g_messageContent[2];
+
+				if(speed_x < 15 && speed_x > -15) speed_x = 0;
+				if(speed_y < 15 && speed_y > -15) speed_y = 0;
+				if(speed_r < 15 && speed_r > -15) speed_r = 0;
+
+				signed char motor_1_speed = 0;
+				signed char motor_2_speed = 0;
+				signed char motor_3_speed = 0;
+				signed char motor_4_speed = 0;
+
+				motor_1_speed += speed_x;
+				motor_4_speed -= speed_x;
+
+				motor_2_speed += speed_y;
+				motor_3_speed -= speed_y;
+
+				motor_1_speed += speed_r;
+				motor_2_speed += speed_r;
+				motor_3_speed += speed_r;
+				motor_4_speed += speed_r;
+
+
+				motor1_set_speed(motor_1_speed);
+				motor2_set_speed(motor_2_speed);
+				motor3_set_speed(motor_3_speed);
+				motor4_set_speed(motor_4_speed);
 			}
 		}
 	}

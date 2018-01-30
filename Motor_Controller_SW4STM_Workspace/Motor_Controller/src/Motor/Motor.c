@@ -2,10 +2,10 @@
 
 #include "stm32f4xx.h"
 
-void motor_1_init(void);
-void motor_2_init(void);
-void motor_3_init(void);
-void motor_4_init(void);
+static void motor_1_init(void);
+static void motor_2_init(void);
+static void motor_3_init(void);
+static void motor_4_init(void);
 
 void motors_init()
 {
@@ -817,3 +817,15 @@ void motor4_set_speed(signed char p_speed){
 	//    GPIOD->BSRRH = 0x0000; //reset nothing
 
 }
+
+
+void go_forward(signed char p_speed){
+	motor_1_set_speed(p_speed);
+	motor_3_set_speed(p_speed);
+}
+void go_sideward(signed char p_speed){
+	motor_2_set_speed(p_speed);
+	motor_4_set_speed(p_speed);
+
+}
+void go_rotate(signed char p_speed);

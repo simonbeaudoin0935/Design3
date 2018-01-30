@@ -8,10 +8,24 @@ Le git contient les dossiers suivants :
 * Motor\_Controller\_SW4STM\_Workspace :
     Le code source du controlleur de moteur réalisé avec le board STM32F407 Discovery. Le IDE utilisé est System Workbench 4 STM32 (SW4STM32) 
 
+# Procédure pour configurer OpenCV et le faire marcher avec Qt (Linux)
+Toute la procédure d'installation de opencv sous linux est automatisée avec ce script magique. Il se charge d'installer toutes les dépendances et de configurer opencv en plus de beaucoup d'autre packages de développement utiles (git, build-essential, ...)
+* Télécharger [ce script](http://rodrigoberriel.com/download/script-install-opencv-3-0-0/)
+* Ouvrir un terminal puis aller dans Downloads : `cd ~/Downloads`
+* Dézipper l'archive : `unzip install-opencv.zip -d install-opencv`
+* Aller dans le dossier : `cd install-opencv`
+* Maintenant, rendez ce script executable en modifiant les droits : `sudo chmod 777 install-opencv.sh` ceci est important sinon vous aurez : ./install-opencv.sh : Command not found
+* Exécuter le script : `sudo ./install-opencv.sh`
 
-*Petit rappel (sous linux)*
+Vous devriez obtenir quelque chose du genre : 
+> n2018-01-29 23:58:49 OpenCV 3.0.0 foi instalado com sucesso!
+> \n2018-01-29 23:58:49 Tempo gasto: 00:07:02\n
+
+
+
+# Procédure pour configurer votre github (Linux)
 * Creer un dossier 'Design_3_git' dans Documents.
-* Downloader git : `sudo apt-get install git-all`
+* Downloader git (si ce n'est pas déjà fait via le script plus haut) : `sudo apt-get install git-all`
 * Downloader xclip pour mettre des chose dans le clipboard : `sudo apt-get install xclip`
 * Vérifier si vous avez une clé SSH générée : `ls -al ~/.ssh` 
 * Sinon générer votre clé SSH : `ssh-keygen -t rsa -b 4096 -C "votre.adresse.email@email.com"`
@@ -22,11 +36,14 @@ Le git contient les dossiers suivants :
 * Collez votre clé SSH.
 * Indiquez à git votre adresse email : `git config --global user.email "votre.adresse.email@email.com"`
 * Indiquez à git votre nom : ` git config --global user.name "Votre Nom"`
-
 * Dans le dossier 'Design_3_git' ouvrez un terminal.
 * Clonez le repository : `git clone git@github.com:simonbeaudoin0935/Design3.git`
 
-*N'oubliez pas*
+*Remarques pour Mac OS X:*
+* apt-get est utilisé pour installer des packages avec Linux. L'équivalent pour Mac est Homebrew.
+* Si `xclip -sel clip < ~/.ssh/id_rsa.pub` ne copie pas la clé, essayez d'obtenir la clé publique avec `cat ~/.ssh/id_rsa.pub` puis copiez là.
+
+# Reminder de quelques commandes git utiles 
 * Quand vous modifiez la structure, ajoutez ou supprimez des fichiers : `git add .`
 * Quand vous voulez commit les changements : `git commit -m "votre commentaire"`
 * Enfin : `git push`
@@ -35,12 +52,11 @@ Le git contient les dossiers suivants :
 
 
 
-* Si vous avez des erreurs de compilation sous Qt *
-* \*\*cannot find -GL\*\* : `sudo apt-get install libgl1-mesa-dev`
+# Si vous avez des erreurs de compilation pour la Base-Station *
+* \*\*cannot find -lGL\*\* : `sudo apt-get install libgl1-mesa-dev`
 * \*\*cannot find -lpulse : `sudo apt-get install libpulse-dev`
 
 
-*Remarques pour Mac OS X:*
-* apt-get est utilisé pour installer des packages avec Linux. L'équivalent pour Mac est Homebrew.
-* Si `xclip -sel clip < ~/.ssh/id_rsa.pub` ne copie pas la clé, essayez d'obtenir la clé publique avec `cat ~/.ssh/id_rsa.pub` puis copiez là.
+
+
 

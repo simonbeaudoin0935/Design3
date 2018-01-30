@@ -92,3 +92,9 @@ Command-line arguments:  -data /home/simon/Design_3_git/Motor_Controller_SW4STM_
 
 !ENTRY org.eclipse.cdt.core 1 0 2018-01-29 18:09:19.836
 !MESSAGE Indexed 'Motor_Controller' (50 sources, 142 headers) in 3.92 sec: 11,594 declarations; 38,197 references; 0 unresolved inclusions; 1 syntax errors; 0 unresolved names (0%)
+
+!ENTRY org.eclipse.launchbar.core 2 0 2018-01-29 20:50:40.676
+!MESSAGE Enablement expression is missing for descriptor type org.eclipse.cdt.debug.core.coreBuildDescriptorType
+
+!ENTRY org.eclipse.launchbar.core 2 0 2018-01-29 20:50:40.677
+!MESSAGE Enablement expression is missing for config provider for org.eclipse.cdt.debug.core.coreBuildDescriptorType
