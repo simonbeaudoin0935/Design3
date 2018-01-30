@@ -18,6 +18,8 @@ MainWindow::MainWindow(QWidget *parent) :
     m_gamepadState = new GamepadState;
     m_serialPort = new QSerialPort;
     m_serialMotionSenderThread = new SerialMotionSender(100);
+    m_cameraWorld = 0;
+    m_isCameraConnected = false;
 
     connect(m_serialMotionSenderThread,
             SIGNAL(timeout()),
@@ -211,72 +213,72 @@ void MainWindow::gamepad_Right_Trigger_Changed(double p_value)
 
 void MainWindow::gamepad_UP_Changed(bool p_value)
 {
-
+    Q_UNUSED(p_value)
 }
 
 void MainWindow::gamepad_DOWN_Changed(bool p_value)
 {
-
+    Q_UNUSED(p_value)
 }
 
 void MainWindow::gamepad_LEFT_Changed(bool p_value)
 {
-
+    Q_UNUSED(p_value)
 }
 
 void MainWindow::gamepad_RIGHT_Changed(bool p_value)
 {
-
+    Q_UNUSED(p_value)
 }
 
 void MainWindow::gamepad_A_Changed(bool p_value)
 {
-
+    Q_UNUSED(p_value)
 }
 
 void MainWindow::gamepad_B_Changed(bool p_value)
 {
-
+    Q_UNUSED(p_value)
 }
 
 void MainWindow::gamepad_X_Changed(bool p_value)
 {
-
+    Q_UNUSED(p_value)
 }
 
 void MainWindow::gamepad_Y_Changed(bool p_value)
 {
-
+    Q_UNUSED(p_value)
 }
 
 void MainWindow::gamepad_WHITE_Changed(bool p_value)
 {
-
+    Q_UNUSED(p_value)
 }
 
 void MainWindow::gamepad_BLACK_Changed(bool p_value)
 {
-
+    Q_UNUSED(p_value)
 }
 
 void MainWindow::gamepad_LEFT_STICK_Changed(bool p_value)
 {
-
+    Q_UNUSED(p_value)
 }
 
 void MainWindow::gamepad_RIGHT_STICK_Changed(bool p_value)
 {
-
+    Q_UNUSED(p_value)
 }
 
 void MainWindow::gamepad_START_Changed(bool p_value)
 {
-
+    Q_UNUSED(p_value)
 }
 
 void MainWindow::gamepad_BACK_Changed(bool p_value)
 {
-
+    Q_UNUSED(p_value)
 }
 
 
@@ -393,5 +395,15 @@ void MainWindow::on_comboBox_Camera_Selector_currentIndexChanged(const QString &
 
 void MainWindow::on_pushButton_Camera_Connect_clicked()
 {
+    m_cameraWorld = new QCamera(ui->comboBox_Camera_Selector->currentText().toUtf8());
+    m_isCameraConnected = true;
 
+    ui->widget_camera_viewFinder->show();
+
+    m_cameraWorld->setViewfinder(ui->widget_camera_viewFinder);
+
+//    imageCapture = new QCameraImageCapture(camera);
+
+//    camera->setCaptureMode(QCamera::CaptureStillImage);
+    m_cameraWorld->start();
 }

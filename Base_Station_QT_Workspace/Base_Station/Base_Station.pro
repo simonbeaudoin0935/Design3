@@ -4,7 +4,7 @@
 #
 #-------------------------------------------------
 
-QT       += core gui gamepad serialport multimedia
+QT       += core gui gamepad serialport multimedia multimediawidgets
 
 CONFIG   += c++11
 

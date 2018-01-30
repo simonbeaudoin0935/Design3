@@ -79,7 +79,9 @@ private:
 //serial motion sender
     SerialMotionSender *m_serialMotionSenderThread;
 
+//Camera members
     QCamera *m_cameraWorld;
+    bool m_isCameraConnected;
 
 };
 

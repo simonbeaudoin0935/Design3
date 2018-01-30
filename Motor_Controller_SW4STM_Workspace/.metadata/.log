@@ -79,3 +79,16 @@ Command-line arguments:  -os linux -ws gtk -arch x86_64 -pluginCustomization con
 
 !ENTRY fr.ac6.mcu.ide 1 1 2018-01-29 14:51:56.323
 !MESSAGE Started RMI Server, listening on port 21112
+!SESSION 2018-01-29 18:08:11.554 -----------------------------------------------
+eclipse.buildId=4.6.3.M20170301-0400
+java.version=1.8.0_151
+java.vendor=Oracle Corporation
+BootLoader constants: OS=linux, ARCH=x86_64, WS=gtk, NL=en_CA
+Framework arguments:  -pluginCustomization configuration/st_pref.ini -product org.eclipse.epp.package.cpp.product
+Command-line arguments:  -data /home/simon/Design_3_git/Motor_Controller_SW4STM_Workspace -os linux -ws gtk -arch x86_64 -pluginCustomization configuration/st_pref.ini -product org.eclipse.epp.package.cpp.product
+
+!ENTRY fr.ac6.mcu.ide 1 1 2018-01-29 18:08:17.931
+!MESSAGE Started RMI Server, listening on port 21112
+
+!ENTRY org.eclipse.cdt.core 1 0 2018-01-29 18:09:19.836
+!MESSAGE Indexed 'Motor_Controller' (50 sources, 142 headers) in 3.92 sec: 11,594 declarations; 38,197 references; 0 unresolved inclusions; 1 syntax errors; 0 unresolved names (0%)

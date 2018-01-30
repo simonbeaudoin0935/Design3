@@ -30,3 +30,10 @@ Le git contient les dossiers suivants :
 * Quand vous modifiez la structure, ajoutez ou supprimez des fichiers : `git add .`
 * Quand vous voulez commit les changements : `git commit -m "votre commentaire"`
 * Enfin : `git push`
+
+
+
+* Si vous avez des erreurs de compilation sous Qt *
+* \*\*cannot find -GL\*\* : `sudo apt-get install libgl1-mesa-dev`
+* \*\*cannot find -lpulse : `sudo apt-get install libpulse-dev`
+
