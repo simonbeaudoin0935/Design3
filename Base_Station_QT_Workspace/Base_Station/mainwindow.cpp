@@ -6,6 +6,7 @@
 #include <iostream>
 
 #include <QCameraInfo>
+#include "opencvworkerthread.h"
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -25,7 +26,9 @@ MainWindow::MainWindow(QWidget *parent) :
             SIGNAL(timeout()),
             this,
             SLOT(serial_send_on_timeout()));
-    OpencvWorkerThread t();
+
+    OpencvWorkerThread *t = new OpencvWorkerThread();
+    t->start();
 }
 
 MainWindow::~MainWindow()

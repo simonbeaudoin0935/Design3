@@ -953,6 +953,7 @@ moc_mainwindow.cpp: ../../../Qt/5.10.0/gcc_64/include/QtWidgets/QMainWindow \
 		../Base_Station/gamepadstate.h \
 		../Base_Station/serialmotionsender.h \
 		../../../Qt/5.10.0/gcc_64/include/QtCore/QThread \
+		../Base_Station/opencvworkerthread.h \
 		../Base_Station/mainwindow.h \
 		moc_predefs.h \
 		../../../Qt/5.10.0/gcc_64/bin/moc
@@ -1399,6 +1400,7 @@ main.o: ../Base_Station/main.cpp ../Base_Station/mainwindow.h \
 		../Base_Station/gamepadstate.h \
 		../Base_Station/serialmotionsender.h \
 		../../../Qt/5.10.0/gcc_64/include/QtCore/QThread \
+		../Base_Station/opencvworkerthread.h \
 		../../../Qt/5.10.0/gcc_64/include/QtWidgets/QApplication \
 		../../../Qt/5.10.0/gcc_64/include/QtWidgets/qapplication.h \
 		../../../Qt/5.10.0/gcc_64/include/QtWidgets/qdesktopwidget.h \
@@ -1658,6 +1660,7 @@ mainwindow.o: ../Base_Station/mainwindow.cpp ../Base_Station/mainwindow.h \
 		../Base_Station/gamepadstate.h \
 		../Base_Station/serialmotionsender.h \
 		../../../Qt/5.10.0/gcc_64/include/QtCore/QThread \
+		../Base_Station/opencvworkerthread.h \
 		ui_mainwindow.h \
 		../../../Qt/5.10.0/gcc_64/include/QtCore/QVariant \
 		../../../Qt/5.10.0/gcc_64/include/QtWidgets/QAction \
