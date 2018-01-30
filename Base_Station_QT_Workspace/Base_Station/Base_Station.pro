@@ -8,10 +8,6 @@ QT       += core gui gamepad serialport multimedia multimediawidgets
 
 CONFIG   += c++11
 
-macx:QT_CONFIG -= no-pkg-config
-macx:CONFIG  += link_pkgconfig
-macx:PKGCONFIG += opencv
-
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -28,6 +24,13 @@ DEFINES += QT_DEPRECATED_WARNINGS
 # In order to do so, uncomment the following line.
 # You can also select to disable deprecated APIs only up to a certain version of Qt.
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
+
+
+
+
+macx:QT_CONFIG -= no-pkg-config
+macx:CONFIG  += link_pkgconfig
+macx:PKGCONFIG += opencv
 
 unix:INCLUDEPATH += /usr/local/include
 unix:LIBS += -L/usr/local/lib -lopencv_core -lopencv_imgcodecs -lopencv_highgui

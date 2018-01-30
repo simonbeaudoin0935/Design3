@@ -47,11 +47,11 @@ void motor_1_init(void)
 	GPIO_InitStruct.GPIO_Mode = GPIO_Mode_AF;					//Alternate function (for TIM10)
 	GPIO_InitStruct.GPIO_OType = GPIO_OType_PP;					//Push-Pull
 	GPIO_InitStruct.GPIO_PuPd = GPIO_PuPd_NOPULL;				//No pull-up/down
-	GPIO_InitStruct.GPIO_Speed = GPIO_Speed_100MHz;				//Maz speed
+	GPIO_InitStruct.GPIO_Speed = GPIO_Speed_100MHz;				//Max speed
 
 	GPIO_Init(GPIOB, &GPIO_InitStruct);							//Configure PB8
 
-	GPIO_PinAFConfig(GPIOB, GPIO_PinSource8, GPIO_AF_TIM10);	//Configure PB8 as TIM10 alternate funciton
+	GPIO_PinAFConfig(GPIOB, GPIO_PinSource8, GPIO_AF_TIM10);	//Configure PB8 as TIM10 alternate function
 
 /*
 	TIM10 is connected to APB2 bus, which is 168 MHz / 2 = 84 MHz

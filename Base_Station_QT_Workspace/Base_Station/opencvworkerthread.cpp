@@ -1,6 +1,6 @@
 #include "opencvworkerthread.h"
 
-//#include <opencv2/opencv.hpp>
+#include <opencv2/opencv.hpp>
 #include <QDebug>
 
 OpencvWorkerThread::OpencvWorkerThread()
@@ -12,7 +12,7 @@ void OpencvWorkerThread::run()
 {
     qDebug() << "yooooooooooo";
     //test
-    //cv::Mat inputImage = cv::imread("/home/simon/Pictures/images.jpeg");
-    //if(!inputImage.empty()) cv::imshow("Display Image", inputImage);
+    cv::Mat inputImage = cv::imread("/home/simon/Pictures/images.jpeg");
+    if(!inputImage.empty()) cv::imshow("Display Image", inputImage);
 }
 
