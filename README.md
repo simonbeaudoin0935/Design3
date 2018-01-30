@@ -23,7 +23,7 @@ Le git contient les dossiers suivants :
 * Enfin installez le tout au bon endroit : `sudo make install`
 * Ça y est, opencv est installé convenablement. 
 
-* Dans les fichiers projet .pro dans Qt, ajouter les lignes (déjà présentes dans celui de la base-station) : 
+* Dans les fichiers projet .pro dans Qt, ajouter les lignes (déjà présentes en ce moment dans celui de la base-station) : 
     * `INCLUDEPATH += /usr/local/include` 
     * `LIBS += -L/usr/local/lib -lopencv_core -lopencv_imgcodecs -lopencv_highgui`
 
@@ -31,8 +31,15 @@ Le git contient les dossiers suivants :
 
 # Procédure pour configurer OpenCV et le faire marcher avec Qt (macOS)
 
-* Une des façons d'installer OpenCV sur Mac OS est via Homebrew, le package manager pour macOS. Si vous n'avez pas downloadé Homwebrew, cliquez [ici](https://brew.sh/index_fr.html). Avec Homebrew, il suffit d'entrer les commandes suivantes dans un terminal: `brew tap homebrew/science brew install opencv3`
-* Après avoir installé OpenCV, vous devez indiquer à Qt où trouver pkg-config. La localisation par défaut de pkg-config est /usr/local/bin (vous pouvez le vérifier en entrant `which pkg-config` dans un terminal). Dans l'IDE de Qt, allez dans Project -> Build & Run -> build on Desktop -> Build Environment. Il faut ajouter /usr/local/bin au PATH. Ne pas oubliez le ":" avant l'ajout. Ajoutez une nouvelle variable PKG_CONFIG_PATH. Entrez `find /usr/local -name “opencv.pc”` dans un terminal. Normalement, vous devriez avoir /usr/local/Cellar/opencv/3.4.0_1/lib/pkgconfig/open.cv en output. Copiez uniquement /usr/local/Cellar/opencv/3.4.0_1/lib/pkgconfig/ et apposé cette valeur à la variable PKG_CONFIG_PATH. 
+* Une des façons d'installer OpenCV sur macOS est via Homebrew, le package manager pour macOS. Si vous n'avez pas downloadé Homwebrew, cliquez [ici](https://brew.sh/index_fr.html). Avec Homebrew, il suffit d'entrer les commandes suivantes dans un terminal: `brew tap homebrew/science brew install opencv3`
+* Après avoir installé OpenCV, vous devez indiquer à Qt où trouver pkg-config. La localisation par défaut de pkg-config est /usr/local/bin (vous pouvez le vérifier en entrant `which pkg-config` dans un terminal). Dans l'IDE de Qt, allez dans Project -> Build & Run -> build on Desktop -> Build Environment. Il faut ajouter /usr/local/bin au PATH. Ne pas oubliez le ":" avant l'ajout. Ajoutez une nouvelle variable PKG_CONFIG_PATH. Entrez `find /usr/local -name “opencv.pc”` dans un terminal. Normalement, vous devriez avoir /usr/local/Cellar/opencv/3.4.0_1/lib/pkgconfig/open.cv en output. Copiez uniquement /usr/local/Cellar/opencv/3.4.0_1/lib/pkgconfig/ et apposez cette valeur à la variable PKG_CONFIG_PATH. 
+
+* Dans les fichiers projet .pro dans Qt, ajouter les lignes (déjà présentes en ce moment dans celui de la base-station):
+    * `macx:QT_CONFIG -= no-pkg-config` 
+    * `macx:CONFIG  += link_pkgconfig`
+    * `macx:PKGCONFIG += opencv`
+    
+* Ne pas oubliez d'inclure `#include <opencv2/opencv.hpp>` dans les fichier où vous utilisez opencv
 
 
 # Procédure pour configurer votre github (Linux)
