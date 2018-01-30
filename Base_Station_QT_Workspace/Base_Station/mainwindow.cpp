@@ -8,12 +8,12 @@
 #include <QImage>
 #include <QCameraInfo>
 
-#include "opencvworkerthread.h"
+//#include "opencvworkerthread.h"
 
-#include <opencv2/opencv.hpp>
+//#include <opencv2/opencv.hpp>
 
 
-using namespace cv;
+//using namespace cv;
 
 
 MainWindow::MainWindow(QWidget *parent) :

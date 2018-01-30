@@ -15,7 +15,7 @@ CXX           = g++
 DEFINES       = -DQT_DEPRECATED_WARNINGS -DQT_QML_DEBUG -DQT_GAMEPAD_LIB -DQT_MULTIMEDIAWIDGETS_LIB -DQT_MULTIMEDIA_LIB -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_SERIALPORT_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB
 CFLAGS        = -pipe -g -Wall -W -D_REENTRANT -fPIC $(DEFINES)
 CXXFLAGS      = -pipe -g -std=gnu++11 -Wall -W -D_REENTRANT -fPIC $(DEFINES)
-INCPATH       = -I../Base_Station -I. -isystem /usr/local/include -I../../../Qt/5.10.0/gcc_64/include -I../../../Qt/5.10.0/gcc_64/include/QtGamepad -I../../../Qt/5.10.0/gcc_64/include/QtMultimediaWidgets -I../../../Qt/5.10.0/gcc_64/include/QtMultimedia -I../../../Qt/5.10.0/gcc_64/include/QtWidgets -I../../../Qt/5.10.0/gcc_64/include/QtGui -I../../../Qt/5.10.0/gcc_64/include/QtSerialPort -I../../../Qt/5.10.0/gcc_64/include/QtNetwork -I../../../Qt/5.10.0/gcc_64/include/QtCore -I. -isystem /usr/include/libdrm -I. -I../../../Qt/5.10.0/gcc_64/mkspecs/linux-g++
+INCPATH       = -I../Base_Station -I. -I../../../Qt/5.10.0/gcc_64/include -I../../../Qt/5.10.0/gcc_64/include/QtGamepad -I../../../Qt/5.10.0/gcc_64/include/QtMultimediaWidgets -I../../../Qt/5.10.0/gcc_64/include/QtMultimedia -I../../../Qt/5.10.0/gcc_64/include/QtWidgets -I../../../Qt/5.10.0/gcc_64/include/QtGui -I../../../Qt/5.10.0/gcc_64/include/QtSerialPort -I../../../Qt/5.10.0/gcc_64/include/QtNetwork -I../../../Qt/5.10.0/gcc_64/include/QtCore -I. -isystem /usr/include/libdrm -I. -I../../../Qt/5.10.0/gcc_64/mkspecs/linux-g++
 QMAKE         = /home/simon/Qt/5.10.0/gcc_64/bin/qmake
 DEL_FILE      = rm -f
 CHK_DIR_EXISTS= test -d
@@ -38,7 +38,7 @@ DISTNAME      = Base_Station1.0.0
 DISTDIR = /home/simon/Design_3_git/Base_Station_QT_Workspace/build-Base_Station-Desktop_Qt_5_10_0_GCC_64bit-Debug/.tmp/Base_Station1.0.0
 LINK          = g++
 LFLAGS        = -Wl,-rpath,/home/simon/Qt/5.10.0/gcc_64/lib -Wl,-rpath-link,/home/simon/Qt/5.10.0/gcc_64/lib
-LIBS          = $(SUBLIBS) -L/usr/local/lib -lopencv_core -lopencv_imgcodecs -lopencv_highgui -L/home/simon/Qt/5.10.0/gcc_64/lib -lQt5Gamepad -lQt5MultimediaWidgets -lpulse-mainloop-glib -lpulse -lglib-2.0 -lQt5Multimedia -lQt5Widgets -lQt5Gui -lQt5SerialPort -lQt5Network -lQt5Core -lGL -lpthread 
+LIBS          = $(SUBLIBS) -L/home/simon/Qt/5.10.0/gcc_64/lib -lQt5Gamepad -lQt5MultimediaWidgets -lpulse-mainloop-glib -lpulse -lglib-2.0 -lQt5Multimedia -lQt5Widgets -lQt5Gui -lQt5SerialPort -lQt5Network -lQt5Core -lGL -lpthread 
 AR            = ar cqs
 RANLIB        = 
 SED           = sed
@@ -957,7 +957,7 @@ moc_mainwindow.cpp: ../../../Qt/5.10.0/gcc_64/include/QtWidgets/QMainWindow \
 		../Base_Station/mainwindow.h \
 		moc_predefs.h \
 		../../../Qt/5.10.0/gcc_64/bin/moc
-	/home/simon/Qt/5.10.0/gcc_64/bin/moc $(DEFINES) --include ./moc_predefs.h -I/home/simon/Qt/5.10.0/gcc_64/mkspecs/linux-g++ -I/home/simon/Design_3_git/Base_Station_QT_Workspace/Base_Station -I/usr/local/include -I/home/simon/Qt/5.10.0/gcc_64/include -I/home/simon/Qt/5.10.0/gcc_64/include/QtGamepad -I/home/simon/Qt/5.10.0/gcc_64/include/QtMultimediaWidgets -I/home/simon/Qt/5.10.0/gcc_64/include/QtMultimedia -I/home/simon/Qt/5.10.0/gcc_64/include/QtWidgets -I/home/simon/Qt/5.10.0/gcc_64/include/QtGui -I/home/simon/Qt/5.10.0/gcc_64/include/QtSerialPort -I/home/simon/Qt/5.10.0/gcc_64/include/QtNetwork -I/home/simon/Qt/5.10.0/gcc_64/include/QtCore -I. -I/usr/include/c++/5 -I/usr/include/x86_64-linux-gnu/c++/5 -I/usr/include/c++/5/backward -I/usr/lib/gcc/x86_64-linux-gnu/5/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ../Base_Station/mainwindow.h -o moc_mainwindow.cpp
+	/home/simon/Qt/5.10.0/gcc_64/bin/moc $(DEFINES) --include ./moc_predefs.h -I/home/simon/Qt/5.10.0/gcc_64/mkspecs/linux-g++ -I/home/simon/Design_3_git/Base_Station_QT_Workspace/Base_Station -I/home/simon/Qt/5.10.0/gcc_64/include -I/home/simon/Qt/5.10.0/gcc_64/include/QtGamepad -I/home/simon/Qt/5.10.0/gcc_64/include/QtMultimediaWidgets -I/home/simon/Qt/5.10.0/gcc_64/include/QtMultimedia -I/home/simon/Qt/5.10.0/gcc_64/include/QtWidgets -I/home/simon/Qt/5.10.0/gcc_64/include/QtGui -I/home/simon/Qt/5.10.0/gcc_64/include/QtSerialPort -I/home/simon/Qt/5.10.0/gcc_64/include/QtNetwork -I/home/simon/Qt/5.10.0/gcc_64/include/QtCore -I. -I/usr/include/c++/5 -I/usr/include/x86_64-linux-gnu/c++/5 -I/usr/include/c++/5/backward -I/usr/lib/gcc/x86_64-linux-gnu/5/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ../Base_Station/mainwindow.h -o moc_mainwindow.cpp
 
 moc_serialmotionsender.cpp: ../../../Qt/5.10.0/gcc_64/include/QtCore/QThread \
 		../../../Qt/5.10.0/gcc_64/include/QtCore/qthread.h \
@@ -1013,7 +1013,7 @@ moc_serialmotionsender.cpp: ../../../Qt/5.10.0/gcc_64/include/QtCore/QThread \
 		../Base_Station/serialmotionsender.h \
 		moc_predefs.h \
 		../../../Qt/5.10.0/gcc_64/bin/moc
-	/home/simon/Qt/5.10.0/gcc_64/bin/moc $(DEFINES) --include ./moc_predefs.h -I/home/simon/Qt/5.10.0/gcc_64/mkspecs/linux-g++ -I/home/simon/Design_3_git/Base_Station_QT_Workspace/Base_Station -I/usr/local/include -I/home/simon/Qt/5.10.0/gcc_64/include -I/home/simon/Qt/5.10.0/gcc_64/include/QtGamepad -I/home/simon/Qt/5.10.0/gcc_64/include/QtMultimediaWidgets -I/home/simon/Qt/5.10.0/gcc_64/include/QtMultimedia -I/home/simon/Qt/5.10.0/gcc_64/include/QtWidgets -I/home/simon/Qt/5.10.0/gcc_64/include/QtGui -I/home/simon/Qt/5.10.0/gcc_64/include/QtSerialPort -I/home/simon/Qt/5.10.0/gcc_64/include/QtNetwork -I/home/simon/Qt/5.10.0/gcc_64/include/QtCore -I. -I/usr/include/c++/5 -I/usr/include/x86_64-linux-gnu/c++/5 -I/usr/include/c++/5/backward -I/usr/lib/gcc/x86_64-linux-gnu/5/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ../Base_Station/serialmotionsender.h -o moc_serialmotionsender.cpp
+	/home/simon/Qt/5.10.0/gcc_64/bin/moc $(DEFINES) --include ./moc_predefs.h -I/home/simon/Qt/5.10.0/gcc_64/mkspecs/linux-g++ -I/home/simon/Design_3_git/Base_Station_QT_Workspace/Base_Station -I/home/simon/Qt/5.10.0/gcc_64/include -I/home/simon/Qt/5.10.0/gcc_64/include/QtGamepad -I/home/simon/Qt/5.10.0/gcc_64/include/QtMultimediaWidgets -I/home/simon/Qt/5.10.0/gcc_64/include/QtMultimedia -I/home/simon/Qt/5.10.0/gcc_64/include/QtWidgets -I/home/simon/Qt/5.10.0/gcc_64/include/QtGui -I/home/simon/Qt/5.10.0/gcc_64/include/QtSerialPort -I/home/simon/Qt/5.10.0/gcc_64/include/QtNetwork -I/home/simon/Qt/5.10.0/gcc_64/include/QtCore -I. -I/usr/include/c++/5 -I/usr/include/x86_64-linux-gnu/c++/5 -I/usr/include/c++/5/backward -I/usr/lib/gcc/x86_64-linux-gnu/5/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ../Base_Station/serialmotionsender.h -o moc_serialmotionsender.cpp
 
 compiler_moc_objc_header_make_all:
 compiler_moc_objc_header_clean:
