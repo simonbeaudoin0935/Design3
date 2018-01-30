@@ -31,6 +31,7 @@
 #include <QtWidgets/QToolBar>
 #include <QtWidgets/QVBoxLayout>
 #include <QtWidgets/QWidget>
+#include "qcameraviewfinder.h"
 
 QT_BEGIN_NAMESPACE
 
@@ -39,9 +40,14 @@ class Ui_MainWindow
 public:
     QWidget *centralWidget;
     QHBoxLayout *horizontalLayout;
+    QTabWidget *tabWidget_2;
+    QWidget *tab_5;
+    QCameraViewfinder *widget_camera_viewFinder;
+    QWidget *tab_6;
+    QVBoxLayout *verticalLayout_14;
     QTabWidget *tabWidget;
     QWidget *tab;
-    QWidget *gridLayoutWidget;
+    QVBoxLayout *verticalLayout_15;
     QGridLayout *gridLayout;
     QFrame *line;
     QVBoxLayout *verticalLayout_2;
@@ -88,7 +94,6 @@ public:
     QPushButton *pushButton_Serial_Scan;
     QPushButton *pushButton_Serial_Connect;
     QPushButton *pushButton_Serial_Disconnect;
-    QPushButton *pushButton_Serial_Send1;
     QTextBrowser *textBrowser_Serial_Description;
     QWidget *tab_3;
     QVBoxLayout *verticalLayout_9;
@@ -152,19 +157,32 @@ public:
         horizontalLayout->setSpacing(6);
         horizontalLayout->setContentsMargins(11, 11, 11, 11);
         horizontalLayout->setObjectName(QStringLiteral("horizontalLayout"));
-        tabWidget = new QTabWidget(centralWidget);
+        tabWidget_2 = new QTabWidget(centralWidget);
+        tabWidget_2->setObjectName(QStringLiteral("tabWidget_2"));
+        tab_5 = new QWidget();
+        tab_5->setObjectName(QStringLiteral("tab_5"));
+        widget_camera_viewFinder = new QCameraViewfinder(tab_5);
+        widget_camera_viewFinder->setObjectName(QStringLiteral("widget_camera_viewFinder"));
+        widget_camera_viewFinder->setGeometry(QRect(9, 9, 401, 231));
+        tabWidget_2->addTab(tab_5, QString());
+        tab_6 = new QWidget();
+        tab_6->setObjectName(QStringLiteral("tab_6"));
+        verticalLayout_14 = new QVBoxLayout(tab_6);
+        verticalLayout_14->setSpacing(6);
+        verticalLayout_14->setContentsMargins(11, 11, 11, 11);
+        verticalLayout_14->setObjectName(QStringLiteral("verticalLayout_14"));
+        tabWidget = new QTabWidget(tab_6);
         tabWidget->setObjectName(QStringLiteral("tabWidget"));
         tab = new QWidget();
         tab->setObjectName(QStringLiteral("tab"));
-        gridLayoutWidget = new QWidget(tab);
-        gridLayoutWidget->setObjectName(QStringLiteral("gridLayoutWidget"));
-        gridLayoutWidget->setGeometry(QRect(10, 0, 223, 288));
-        gridLayout = new QGridLayout(gridLayoutWidget);
+        verticalLayout_15 = new QVBoxLayout(tab);
+        verticalLayout_15->setSpacing(6);
+        verticalLayout_15->setContentsMargins(11, 11, 11, 11);
+        verticalLayout_15->setObjectName(QStringLiteral("verticalLayout_15"));
+        gridLayout = new QGridLayout();
         gridLayout->setSpacing(6);
-        gridLayout->setContentsMargins(11, 11, 11, 11);
         gridLayout->setObjectName(QStringLiteral("gridLayout"));
-        gridLayout->setContentsMargins(0, 0, 0, 0);
-        line = new QFrame(gridLayoutWidget);
+        line = new QFrame(tab);
         line->setObjectName(QStringLiteral("line"));
         line->setFrameShape(QFrame::VLine);
         line->setFrameShadow(QFrame::Sunken);
@@ -174,19 +192,19 @@ public:
         verticalLayout_2 = new QVBoxLayout();
         verticalLayout_2->setSpacing(6);
         verticalLayout_2->setObjectName(QStringLiteral("verticalLayout_2"));
-        label_2 = new QLabel(gridLayoutWidget);
+        label_2 = new QLabel(tab);
         label_2->setObjectName(QStringLiteral("label_2"));
         label_2->setAlignment(Qt::AlignCenter);
 
         verticalLayout_2->addWidget(label_2);
 
-        progressBar_2 = new QProgressBar(gridLayoutWidget);
+        progressBar_2 = new QProgressBar(tab);
         progressBar_2->setObjectName(QStringLiteral("progressBar_2"));
         progressBar_2->setValue(24);
 
         verticalLayout_2->addWidget(progressBar_2);
 
-        dial_2 = new QDial(gridLayoutWidget);
+        dial_2 = new QDial(tab);
         dial_2->setObjectName(QStringLiteral("dial_2"));
 
         verticalLayout_2->addWidget(dial_2);
@@ -194,12 +212,12 @@ public:
         horizontalLayout_5 = new QHBoxLayout();
         horizontalLayout_5->setSpacing(6);
         horizontalLayout_5->setObjectName(QStringLiteral("horizontalLayout_5"));
-        label_8 = new QLabel(gridLayoutWidget);
+        label_8 = new QLabel(tab);
         label_8->setObjectName(QStringLiteral("label_8"));
 
         horizontalLayout_5->addWidget(label_8);
 
-        lcdNumber_4 = new QLCDNumber(gridLayoutWidget);
+        lcdNumber_4 = new QLCDNumber(tab);
         lcdNumber_4->setObjectName(QStringLiteral("lcdNumber_4"));
 
         horizontalLayout_5->addWidget(lcdNumber_4);
@@ -213,19 +231,19 @@ public:
         verticalLayout = new QVBoxLayout();
         verticalLayout->setSpacing(6);
         verticalLayout->setObjectName(QStringLiteral("verticalLayout"));
-        label = new QLabel(gridLayoutWidget);
+        label = new QLabel(tab);
         label->setObjectName(QStringLiteral("label"));
         label->setAlignment(Qt::AlignCenter);
 
         verticalLayout->addWidget(label);
 
-        progressBar = new QProgressBar(gridLayoutWidget);
+        progressBar = new QProgressBar(tab);
         progressBar->setObjectName(QStringLiteral("progressBar"));
         progressBar->setValue(24);
 
         verticalLayout->addWidget(progressBar);
 
-        dial = new QDial(gridLayoutWidget);
+        dial = new QDial(tab);
         dial->setObjectName(QStringLiteral("dial"));
 
         verticalLayout->addWidget(dial);
@@ -233,12 +251,12 @@ public:
         horizontalLayout_4 = new QHBoxLayout();
         horizontalLayout_4->setSpacing(6);
         horizontalLayout_4->setObjectName(QStringLiteral("horizontalLayout_4"));
-        label_7 = new QLabel(gridLayoutWidget);
+        label_7 = new QLabel(tab);
         label_7->setObjectName(QStringLiteral("label_7"));
 
         horizontalLayout_4->addWidget(label_7);
 
-        lcdNumber_3 = new QLCDNumber(gridLayoutWidget);
+        lcdNumber_3 = new QLCDNumber(tab);
         lcdNumber_3->setObjectName(QStringLiteral("lcdNumber_3"));
 
         horizontalLayout_4->addWidget(lcdNumber_3);
@@ -252,19 +270,19 @@ public:
         verticalLayout_3 = new QVBoxLayout();
         verticalLayout_3->setSpacing(6);
         verticalLayout_3->setObjectName(QStringLiteral("verticalLayout_3"));
-        label_3 = new QLabel(gridLayoutWidget);
+        label_3 = new QLabel(tab);
         label_3->setObjectName(QStringLiteral("label_3"));
         label_3->setAlignment(Qt::AlignCenter);
 
         verticalLayout_3->addWidget(label_3);
 
-        progressBar_3 = new QProgressBar(gridLayoutWidget);
+        progressBar_3 = new QProgressBar(tab);
         progressBar_3->setObjectName(QStringLiteral("progressBar_3"));
         progressBar_3->setValue(24);
 
         verticalLayout_3->addWidget(progressBar_3);
 
-        dial_3 = new QDial(gridLayoutWidget);
+        dial_3 = new QDial(tab);
         dial_3->setObjectName(QStringLiteral("dial_3"));
 
         verticalLayout_3->addWidget(dial_3);
@@ -272,12 +290,12 @@ public:
         horizontalLayout_3 = new QHBoxLayout();
         horizontalLayout_3->setSpacing(6);
         horizontalLayout_3->setObjectName(QStringLiteral("horizontalLayout_3"));
-        label_6 = new QLabel(gridLayoutWidget);
+        label_6 = new QLabel(tab);
         label_6->setObjectName(QStringLiteral("label_6"));
 
         horizontalLayout_3->addWidget(label_6);
 
-        lcdNumber_2 = new QLCDNumber(gridLayoutWidget);
+        lcdNumber_2 = new QLCDNumber(tab);
         lcdNumber_2->setObjectName(QStringLiteral("lcdNumber_2"));
 
         horizontalLayout_3->addWidget(lcdNumber_2);
@@ -291,19 +309,19 @@ public:
         verticalLayout_4 = new QVBoxLayout();
         verticalLayout_4->setSpacing(6);
         verticalLayout_4->setObjectName(QStringLiteral("verticalLayout_4"));
-        label_4 = new QLabel(gridLayoutWidget);
+        label_4 = new QLabel(tab);
         label_4->setObjectName(QStringLiteral("label_4"));
         label_4->setAlignment(Qt::AlignCenter);
 
         verticalLayout_4->addWidget(label_4);
 
-        progressBar_4 = new QProgressBar(gridLayoutWidget);
+        progressBar_4 = new QProgressBar(tab);
         progressBar_4->setObjectName(QStringLiteral("progressBar_4"));
         progressBar_4->setValue(24);
 
         verticalLayout_4->addWidget(progressBar_4);
 
-        dial_4 = new QDial(gridLayoutWidget);
+        dial_4 = new QDial(tab);
         dial_4->setObjectName(QStringLiteral("dial_4"));
 
         verticalLayout_4->addWidget(dial_4);
@@ -311,12 +329,12 @@ public:
         horizontalLayout_2 = new QHBoxLayout();
         horizontalLayout_2->setSpacing(6);
         horizontalLayout_2->setObjectName(QStringLiteral("horizontalLayout_2"));
-        label_5 = new QLabel(gridLayoutWidget);
+        label_5 = new QLabel(tab);
         label_5->setObjectName(QStringLiteral("label_5"));
 
         horizontalLayout_2->addWidget(label_5);
 
-        lcdNumber = new QLCDNumber(gridLayoutWidget);
+        lcdNumber = new QLCDNumber(tab);
         lcdNumber->setObjectName(QStringLiteral("lcdNumber"));
 
         horizontalLayout_2->addWidget(lcdNumber);
@@ -327,12 +345,15 @@ public:
 
         gridLayout->addLayout(verticalLayout_4, 2, 2, 1, 1);
 
-        line_2 = new QFrame(gridLayoutWidget);
+        line_2 = new QFrame(tab);
         line_2->setObjectName(QStringLiteral("line_2"));
         line_2->setFrameShape(QFrame::VLine);
         line_2->setFrameShadow(QFrame::Sunken);
 
         gridLayout->addWidget(line_2, 1, 0, 1, 1);
+
+
+        verticalLayout_15->addLayout(gridLayout);
 
         tabWidget->addTab(tab, QString());
         tab_4 = new QWidget();
@@ -401,11 +422,6 @@ public:
         pushButton_Serial_Disconnect->setObjectName(QStringLiteral("pushButton_Serial_Disconnect"));
 
         verticalLayout_10->addWidget(pushButton_Serial_Disconnect);
-
-        pushButton_Serial_Send1 = new QPushButton(tab_2);
-        pushButton_Serial_Send1->setObjectName(QStringLiteral("pushButton_Serial_Send1"));
-
-        verticalLayout_10->addWidget(pushButton_Serial_Send1);
 
         textBrowser_Serial_Description = new QTextBrowser(tab_2);
         textBrowser_Serial_Description->setObjectName(QStringLiteral("textBrowser_Serial_Description"));
@@ -691,7 +707,11 @@ public:
 
         tabWidget->addTab(tab_3, QString());
 
-        horizontalLayout->addWidget(tabWidget);
+        verticalLayout_14->addWidget(tabWidget);
+
+        tabWidget_2->addTab(tab_6, QString());
+
+        horizontalLayout->addWidget(tabWidget_2);
 
         MainWindow->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(MainWindow);
@@ -707,6 +727,7 @@ public:
 
         retranslateUi(MainWindow);
 
+        tabWidget_2->setCurrentIndex(0);
         tabWidget->setCurrentIndex(1);
 
 
@@ -716,6 +737,7 @@ public:
     void retranslateUi(QMainWindow *MainWindow)
     {
         MainWindow->setWindowTitle(QApplication::translate("MainWindow", "MainWindow", nullptr));
+        tabWidget_2->setTabText(tabWidget_2->indexOf(tab_5), QApplication::translate("MainWindow", "Camera View", nullptr));
         label_2->setText(QApplication::translate("MainWindow", "Motor 2", nullptr));
         label_8->setText(QApplication::translate("MainWindow", "RPM:", nullptr));
         label->setText(QApplication::translate("MainWindow", "Motor 1", nullptr));
@@ -724,16 +746,15 @@ public:
         label_6->setText(QApplication::translate("MainWindow", "RPM:", nullptr));
         label_4->setText(QApplication::translate("MainWindow", "Motor 4", nullptr));
         label_5->setText(QApplication::translate("MainWindow", "RPM:", nullptr));
-        tabWidget->setTabText(tabWidget->indexOf(tab), QApplication::translate("MainWindow", "Motors", nullptr));
+        tabWidget->setTabText(tabWidget->indexOf(tab), QApplication::translate("MainWindow", " Motor Motion Viewer", nullptr));
         pushButton_Camera_Scan->setText(QApplication::translate("MainWindow", "Scan Cameras", nullptr));
         pushButton_Camera_Connect->setText(QApplication::translate("MainWindow", "Connect", nullptr));
         pushButton_Camera_Disconnect->setText(QApplication::translate("MainWindow", "Disconnect", nullptr));
-        tabWidget->setTabText(tabWidget->indexOf(tab_4), QApplication::translate("MainWindow", "Camera Settings", nullptr));
+        tabWidget->setTabText(tabWidget->indexOf(tab_4), QApplication::translate("MainWindow", "Camera", nullptr));
         pushButton_Serial_Scan->setText(QApplication::translate("MainWindow", "Scan", nullptr));
         pushButton_Serial_Connect->setText(QApplication::translate("MainWindow", "Connect", nullptr));
         pushButton_Serial_Disconnect->setText(QApplication::translate("MainWindow", "Disconnect", nullptr));
-        pushButton_Serial_Send1->setText(QApplication::translate("MainWindow", "Send 1", nullptr));
-        tabWidget->setTabText(tabWidget->indexOf(tab_2), QApplication::translate("MainWindow", "Motor Controller Serial Link", nullptr));
+        tabWidget->setTabText(tabWidget->indexOf(tab_2), QApplication::translate("MainWindow", "Motor Controller Serial", nullptr));
         pushButton_Gamepad_Connect->setText(QApplication::translate("MainWindow", "Connect", nullptr));
         pushButton_Gamepad_Disconnect->setText(QApplication::translate("MainWindow", "Disconnect", nullptr));
         label_9->setText(QApplication::translate("MainWindow", "Left Stick X : ", nullptr));
@@ -760,7 +781,8 @@ public:
         pushButton_Gamepad_RIGHT_STICK->setText(QApplication::translate("MainWindow", "RIGHT STICK", nullptr));
         pushButton_Gamepad_START->setText(QApplication::translate("MainWindow", "START", nullptr));
         pushButton_Gamepad_BACK->setText(QApplication::translate("MainWindow", "BACK", nullptr));
-        tabWidget->setTabText(tabWidget->indexOf(tab_3), QApplication::translate("MainWindow", "Gamepad Config", nullptr));
+        tabWidget->setTabText(tabWidget->indexOf(tab_3), QApplication::translate("MainWindow", "Gamepad", nullptr));
+        tabWidget_2->setTabText(tabWidget_2->indexOf(tab_6), QApplication::translate("MainWindow", "Settings", nullptr));
     } // retranslateUi
 
 };

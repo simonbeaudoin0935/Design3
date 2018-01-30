@@ -9,6 +9,7 @@
 
 #include "gamepadstate.h"
 #include "serialmotionsender.h"
+#include "opencvworkerthread.h"
 
 namespace Ui {
 class MainWindow;
