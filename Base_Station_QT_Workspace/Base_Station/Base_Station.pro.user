@@ -1,10 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE QtCreatorProject>
-<<<<<<< HEAD
-<!-- Written by QtCreator 4.5.0, 2018-01-30T00:53:50. -->
-=======
-<!-- Written by QtCreator 4.5.0, 2018-01-30T00:13:53. -->
->>>>>>> 870efee6539b6f5eed355ff792a2d727237c4654
+<!-- Written by QtCreator 4.5.0, 2018-01-30T17:01:13. -->
 <qtcreator>
  <data>
   <variable>EnvironmentId</variable>
@@ -72,11 +68,7 @@
    <value type="int" key="ProjectExplorer.Target.ActiveDeployConfiguration">0</value>
    <value type="int" key="ProjectExplorer.Target.ActiveRunConfiguration">0</value>
    <valuemap type="QVariantMap" key="ProjectExplorer.Target.BuildConfiguration.0">
-<<<<<<< HEAD
     <value type="QString" key="ProjectExplorer.BuildConfiguration.BuildDirectory">/Users/admin/Design3/Base_Station_QT_Workspace/build-Base_Station-Desktop_Qt_5_10_1_clang_64bit-Debug</value>
-=======
-    <value type="QString" key="ProjectExplorer.BuildConfiguration.BuildDirectory">/home/simon/Design_3_git/Base_Station_QT_Workspace/build-Base_Station-Desktop_Qt_5_10_0_GCC_64bit-Debug</value>
->>>>>>> 870efee6539b6f5eed355ff792a2d727237c4654
     <valuemap type="QVariantMap" key="ProjectExplorer.BuildConfiguration.BuildStepList.0">
      <valuemap type="QVariantMap" key="ProjectExplorer.BuildStepList.Step.0">
       <value type="bool" key="ProjectExplorer.BuildStep.Enabled">true</value>
@@ -139,11 +131,7 @@
     <value type="bool" key="Qt4ProjectManager.Qt4BuildConfiguration.UseShadowBuild">true</value>
    </valuemap>
    <valuemap type="QVariantMap" key="ProjectExplorer.Target.BuildConfiguration.1">
-<<<<<<< HEAD
     <value type="QString" key="ProjectExplorer.BuildConfiguration.BuildDirectory">/Users/admin/Design3/Base_Station_QT_Workspace/build-Base_Station-Desktop_Qt_5_10_1_clang_64bit-Release</value>
-=======
-    <value type="QString" key="ProjectExplorer.BuildConfiguration.BuildDirectory">/home/simon/Design_3_git/Base_Station_QT_Workspace/build-Base_Station-Desktop_Qt_5_10_0_GCC_64bit-Release</value>
->>>>>>> 870efee6539b6f5eed355ff792a2d727237c4654
     <valuemap type="QVariantMap" key="ProjectExplorer.BuildConfiguration.BuildStepList.0">
      <valuemap type="QVariantMap" key="ProjectExplorer.BuildStepList.Step.0">
       <value type="bool" key="ProjectExplorer.BuildStep.Enabled">true</value>
@@ -203,11 +191,7 @@
     <value type="bool" key="Qt4ProjectManager.Qt4BuildConfiguration.UseShadowBuild">true</value>
    </valuemap>
    <valuemap type="QVariantMap" key="ProjectExplorer.Target.BuildConfiguration.2">
-<<<<<<< HEAD
     <value type="QString" key="ProjectExplorer.BuildConfiguration.BuildDirectory">/Users/admin/Design3/Base_Station_QT_Workspace/build-Base_Station-Desktop_Qt_5_10_1_clang_64bit-Profile</value>
-=======
-    <value type="QString" key="ProjectExplorer.BuildConfiguration.BuildDirectory">/home/simon/Design_3_git/Base_Station_QT_Workspace/build-Base_Station-Desktop_Qt_5_10_0_GCC_64bit-Profile</value>
->>>>>>> 870efee6539b6f5eed355ff792a2d727237c4654
     <valuemap type="QVariantMap" key="ProjectExplorer.BuildConfiguration.BuildStepList.0">
      <valuemap type="QVariantMap" key="ProjectExplorer.BuildStepList.Step.0">
       <value type="bool" key="ProjectExplorer.BuildStep.Enabled">true</value>
@@ -325,17 +309,12 @@
     <valuelist type="QVariantList" key="PE.EnvironmentAspect.Changes"/>
     <value type="QString" key="ProjectExplorer.ProjectConfiguration.DefaultDisplayName">Base_Station</value>
     <value type="QString" key="ProjectExplorer.ProjectConfiguration.DisplayName"></value>
-<<<<<<< HEAD
     <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">Qt4ProjectManager.Qt4RunConfiguration:/Users/admin/Design3/Base_Station_QT_Workspace/Base_Station/Base_Station.pro</value>
-=======
-    <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">Qt4ProjectManager.Qt4RunConfiguration:/home/simon/Design_3_git/Base_Station_QT_Workspace/Base_Station/Base_Station.pro</value>
->>>>>>> 870efee6539b6f5eed355ff792a2d727237c4654
     <value type="bool" key="QmakeProjectManager.QmakeRunConfiguration.UseLibrarySearchPath">true</value>
     <value type="QString" key="Qt4ProjectManager.Qt4RunConfiguration.CommandLineArguments"></value>
     <value type="QString" key="Qt4ProjectManager.Qt4RunConfiguration.ProFile">Base_Station.pro</value>
     <value type="bool" key="Qt4ProjectManager.Qt4RunConfiguration.UseDyldImageSuffix">false</value>
     <value type="QString" key="Qt4ProjectManager.Qt4RunConfiguration.UserWorkingDirectory"></value>
-<<<<<<< HEAD
     <value type="QString" key="Qt4ProjectManager.Qt4RunConfiguration.UserWorkingDirectory.default">/Users/admin/Design3/Base_Station_QT_Workspace/build-Base_Station-Desktop_Qt_5_10_1_clang_64bit-Debug/Base_Station.app/Contents/MacOS</value>
     <value type="uint" key="RunConfiguration.QmlDebugServerPort">3768</value>
     <value type="bool" key="RunConfiguration.UseCppDebugger">false</value>
@@ -887,9 +866,6 @@
     <value type="QString" key="ProjectExplorer.ProjectConfiguration.DefaultDisplayName">Exécuter sur Simulateur iOS</value>
     <value type="QString" key="ProjectExplorer.ProjectConfiguration.DisplayName">Run Base_Station on Simulateur iOS</value>
     <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">Qt4ProjectManager.IosRunConfiguration:/Users/admin/Design3/Base_Station_QT_Workspace/Base_Station/Base_Station.pro</value>
-=======
-    <value type="QString" key="Qt4ProjectManager.Qt4RunConfiguration.UserWorkingDirectory.default"></value>
->>>>>>> 870efee6539b6f5eed355ff792a2d727237c4654
     <value type="uint" key="RunConfiguration.QmlDebugServerPort">3768</value>
     <value type="bool" key="RunConfiguration.UseCppDebugger">false</value>
     <value type="bool" key="RunConfiguration.UseCppDebuggerAuto">true</value>

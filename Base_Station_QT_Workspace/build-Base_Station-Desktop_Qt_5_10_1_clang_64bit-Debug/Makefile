@@ -15,7 +15,7 @@ CXX           = /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefau
 DEFINES       = -DQT_DEPRECATED_WARNINGS -DQT_QML_DEBUG -DQT_GAMEPAD_LIB -DQT_MULTIMEDIAWIDGETS_LIB -DQT_MULTIMEDIA_LIB -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_SERIALPORT_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB
 CFLAGS        = -pipe -g $(EXPORT_ARCH_ARGS) -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.13.sdk -mmacosx-version-min=10.10 -Wall -W -fPIC $(DEFINES)
 CXXFLAGS      = -pipe -stdlib=libc++ -g -std=gnu++11 $(EXPORT_ARCH_ARGS) -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.13.sdk -mmacosx-version-min=10.10 -Wall -W -fPIC $(DEFINES)
-INCPATH       = -I../Base_Station -I. -I/usr/local/Cellar/opencv/3.4.0_1/include/opencv -I/usr/local/Cellar/opencv/3.4.0_1/include -I../../../Qt/5.10.1/clang_64/lib/QtGamepad.framework/Headers -I../../../Qt/5.10.1/clang_64/lib/QtMultimediaWidgets.framework/Headers -I../../../Qt/5.10.1/clang_64/lib/QtMultimedia.framework/Headers -I../../../Qt/5.10.1/clang_64/lib/QtWidgets.framework/Headers -I../../../Qt/5.10.1/clang_64/lib/QtGui.framework/Headers -I../../../Qt/5.10.1/clang_64/lib/QtSerialPort.framework/Headers -I../../../Qt/5.10.1/clang_64/lib/QtNetwork.framework/Headers -I../../../Qt/5.10.1/clang_64/lib/QtCore.framework/Headers -I. -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.13.sdk/System/Library/Frameworks/OpenGL.framework/Headers -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.13.sdk/System/Library/Frameworks/AGL.framework/Headers -I. -I../../../Qt/5.10.1/clang_64/mkspecs/macx-clang -F/Users/admin/Qt/5.10.1/clang_64/lib
+INCPATH       = -I../Base_Station -I. -I/usr/local/include -I/usr/local/Cellar/opencv/3.4.0_1/include/opencv -I/usr/local/Cellar/opencv/3.4.0_1/include -I../../../Qt/5.10.1/clang_64/lib/QtGamepad.framework/Headers -I../../../Qt/5.10.1/clang_64/lib/QtMultimediaWidgets.framework/Headers -I../../../Qt/5.10.1/clang_64/lib/QtMultimedia.framework/Headers -I../../../Qt/5.10.1/clang_64/lib/QtWidgets.framework/Headers -I../../../Qt/5.10.1/clang_64/lib/QtGui.framework/Headers -I../../../Qt/5.10.1/clang_64/lib/QtSerialPort.framework/Headers -I../../../Qt/5.10.1/clang_64/lib/QtNetwork.framework/Headers -I../../../Qt/5.10.1/clang_64/lib/QtCore.framework/Headers -I. -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.13.sdk/System/Library/Frameworks/OpenGL.framework/Headers -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.13.sdk/System/Library/Frameworks/AGL.framework/Headers -I. -I../../../Qt/5.10.1/clang_64/mkspecs/macx-clang -F/Users/admin/Qt/5.10.1/clang_64/lib
 QMAKE         = /Users/admin/Qt/5.10.1/clang_64/bin/qmake
 DEL_FILE      = rm -f
 CHK_DIR_EXISTS= test -d
@@ -38,7 +38,7 @@ DISTNAME      = Base_Station1.0.0
 DISTDIR = /Users/admin/Design3/Base_Station_QT_Workspace/build-Base_Station-Desktop_Qt_5_10_1_clang_64bit-Debug/.tmp/Base_Station1.0.0
 LINK          = /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang++
 LFLAGS        = -stdlib=libc++ -headerpad_max_install_names $(EXPORT_ARCH_ARGS) -Wl,-syslibroot,/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.13.sdk -mmacosx-version-min=10.10 -Wl,-rpath,@executable_path/Frameworks -Wl,-rpath,/Users/admin/Qt/5.10.1/clang_64/lib
-LIBS          = $(SUBLIBS) -F/Users/admin/Qt/5.10.1/clang_64/lib -L/usr/local/Cellar/opencv/3.4.0_1/lib -lopencv_stitching -lopencv_superres -lopencv_videostab -lopencv_aruco -lopencv_bgsegm -lopencv_bioinspired -lopencv_ccalib -lopencv_dpm -lopencv_face -lopencv_photo -lopencv_fuzzy -lopencv_img_hash -lopencv_line_descriptor -lopencv_optflow -lopencv_reg -lopencv_rgbd -lopencv_saliency -lopencv_stereo -lopencv_structured_light -lopencv_phase_unwrapping -lopencv_surface_matching -lopencv_tracking -lopencv_datasets -lopencv_text -lopencv_dnn -lopencv_plot -lopencv_xfeatures2d -lopencv_shape -lopencv_video -lopencv_ml -lopencv_ximgproc -lopencv_calib3d -lopencv_features2d -lopencv_highgui -lopencv_videoio -lopencv_flann -lopencv_xobjdetect -lopencv_imgcodecs -lopencv_objdetect -lopencv_xphoto -lopencv_imgproc -lopencv_core -framework QtGamepad -framework QtGui -framework QtCore -framework DiskArbitration -framework IOKit -framework QtMultimediaWidgets -framework QtMultimedia -framework QtNetwork -framework QtWidgets -framework QtSerialPort -framework OpenGL -framework AGL 
+LIBS          = $(SUBLIBS) -F/Users/admin/Qt/5.10.1/clang_64/lib -L/usr/local/lib -L/usr/local/Cellar/opencv/3.4.0_1/lib -lopencv_stitching -lopencv_superres -lopencv_videostab -lopencv_aruco -lopencv_bgsegm -lopencv_bioinspired -lopencv_ccalib -lopencv_dpm -lopencv_face -lopencv_photo -lopencv_fuzzy -lopencv_img_hash -lopencv_line_descriptor -lopencv_optflow -lopencv_reg -lopencv_rgbd -lopencv_saliency -lopencv_stereo -lopencv_structured_light -lopencv_phase_unwrapping -lopencv_surface_matching -lopencv_tracking -lopencv_datasets -lopencv_text -lopencv_dnn -lopencv_plot -lopencv_xfeatures2d -lopencv_shape -lopencv_video -lopencv_ml -lopencv_ximgproc -lopencv_calib3d -lopencv_features2d -lopencv_highgui -lopencv_videoio -lopencv_flann -lopencv_xobjdetect -lopencv_imgcodecs -lopencv_objdetect -lopencv_xphoto -lopencv_imgproc -lopencv_core -framework QtGamepad -framework QtGui -framework QtCore -framework DiskArbitration -framework IOKit -framework QtMultimediaWidgets -framework QtMultimedia -framework QtNetwork -framework QtWidgets -framework QtSerialPort -framework OpenGL -framework AGL 
 AR            = /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/ar cq
 RANLIB        = /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/ranlib -s
 SED           = sed
@@ -53,12 +53,14 @@ OBJECTS_DIR   = ./
 SOURCES       = ../Base_Station/main.cpp \
 		../Base_Station/mainwindow.cpp \
 		../Base_Station/serialmotionsender.cpp \
-		../Base_Station/gamepadstate.cpp moc_mainwindow.cpp \
+		../Base_Station/gamepadstate.cpp \
+		../Base_Station/opencvworkerthread.cpp moc_mainwindow.cpp \
 		moc_serialmotionsender.cpp
 OBJECTS       = main.o \
 		mainwindow.o \
 		serialmotionsender.o \
 		gamepadstate.o \
+		opencvworkerthread.o \
 		moc_mainwindow.o \
 		moc_serialmotionsender.o
 DIST          = ../../../Qt/5.10.1/clang_64/mkspecs/features/spec_pre.prf \
@@ -250,10 +252,12 @@ DIST          = ../../../Qt/5.10.1/clang_64/mkspecs/features/spec_pre.prf \
 		../../../Qt/5.10.1/clang_64/mkspecs/features/lex.prf \
 		../Base_Station/Base_Station.pro ../Base_Station/mainwindow.h \
 		../Base_Station/serialmotionsender.h \
-		../Base_Station/gamepadstate.h ../Base_Station/main.cpp \
+		../Base_Station/gamepadstate.h \
+		../Base_Station/opencvworkerthread.h ../Base_Station/main.cpp \
 		../Base_Station/mainwindow.cpp \
 		../Base_Station/serialmotionsender.cpp \
-		../Base_Station/gamepadstate.cpp
+		../Base_Station/gamepadstate.cpp \
+		../Base_Station/opencvworkerthread.cpp
 QMAKE_TARGET  = Base_Station
 DESTDIR       = 
 TARGET        = Base_Station.app/Contents/MacOS/Base_Station
@@ -694,8 +698,8 @@ distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
 	$(COPY_FILE) --parents ../../../Qt/5.10.1/clang_64/mkspecs/features/data/dummy.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents ../Base_Station/mainwindow.h ../Base_Station/serialmotionsender.h ../Base_Station/gamepadstate.h $(DISTDIR)/
-	$(COPY_FILE) --parents ../Base_Station/main.cpp ../Base_Station/mainwindow.cpp ../Base_Station/serialmotionsender.cpp ../Base_Station/gamepadstate.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents ../Base_Station/mainwindow.h ../Base_Station/serialmotionsender.h ../Base_Station/gamepadstate.h ../Base_Station/opencvworkerthread.h $(DISTDIR)/
+	$(COPY_FILE) --parents ../Base_Station/main.cpp ../Base_Station/mainwindow.cpp ../Base_Station/serialmotionsender.cpp ../Base_Station/gamepadstate.cpp ../Base_Station/opencvworkerthread.cpp $(DISTDIR)/
 	$(COPY_FILE) --parents ../Base_Station/mainwindow.ui $(DISTDIR)/
 
 
@@ -739,17 +743,18 @@ moc_mainwindow.cpp: ../../../Qt/5.10.1/clang_64/lib/QtWidgets.framework/Headers/
 		../Base_Station/serialmotionsender.h \
 		../../../Qt/5.10.1/clang_64/lib/QtCore.framework/Headers/QThread \
 		../../../Qt/5.10.1/clang_64/lib/QtCore.framework/Headers/qthread.h \
+		../Base_Station/opencvworkerthread.h \
 		../Base_Station/mainwindow.h \
 		moc_predefs.h \
 		../../../Qt/5.10.1/clang_64/bin/moc
-	/Users/admin/Qt/5.10.1/clang_64/bin/moc $(DEFINES) --include ./moc_predefs.h -I/Users/admin/Qt/5.10.1/clang_64/mkspecs/macx-clang -I/Users/admin/Design3/Base_Station_QT_Workspace/Base_Station -I/usr/local/Cellar/opencv/3.4.0_1/include/opencv -I/usr/local/Cellar/opencv/3.4.0_1/include -I/Users/admin/Qt/5.10.1/clang_64/lib/QtGamepad.framework/Headers -I/Users/admin/Qt/5.10.1/clang_64/lib/QtMultimediaWidgets.framework/Headers -I/Users/admin/Qt/5.10.1/clang_64/lib/QtMultimedia.framework/Headers -I/Users/admin/Qt/5.10.1/clang_64/lib/QtWidgets.framework/Headers -I/Users/admin/Qt/5.10.1/clang_64/lib/QtGui.framework/Headers -I/Users/admin/Qt/5.10.1/clang_64/lib/QtSerialPort.framework/Headers -I/Users/admin/Qt/5.10.1/clang_64/lib/QtNetwork.framework/Headers -I/Users/admin/Qt/5.10.1/clang_64/lib/QtCore.framework/Headers -I. -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include/c++/v1 -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/9.0.0/include -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.13.sdk/usr/include -F/Users/admin/Qt/5.10.1/clang_64/lib ../Base_Station/mainwindow.h -o moc_mainwindow.cpp
+	/Users/admin/Qt/5.10.1/clang_64/bin/moc $(DEFINES) --include ./moc_predefs.h -I/Users/admin/Qt/5.10.1/clang_64/mkspecs/macx-clang -I/Users/admin/Design3/Base_Station_QT_Workspace/Base_Station -I/usr/local/include -I/usr/local/Cellar/opencv/3.4.0_1/include/opencv -I/usr/local/Cellar/opencv/3.4.0_1/include -I/Users/admin/Qt/5.10.1/clang_64/lib/QtGamepad.framework/Headers -I/Users/admin/Qt/5.10.1/clang_64/lib/QtMultimediaWidgets.framework/Headers -I/Users/admin/Qt/5.10.1/clang_64/lib/QtMultimedia.framework/Headers -I/Users/admin/Qt/5.10.1/clang_64/lib/QtWidgets.framework/Headers -I/Users/admin/Qt/5.10.1/clang_64/lib/QtGui.framework/Headers -I/Users/admin/Qt/5.10.1/clang_64/lib/QtSerialPort.framework/Headers -I/Users/admin/Qt/5.10.1/clang_64/lib/QtNetwork.framework/Headers -I/Users/admin/Qt/5.10.1/clang_64/lib/QtCore.framework/Headers -I. -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include/c++/v1 -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/9.0.0/include -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.13.sdk/usr/include -F/Users/admin/Qt/5.10.1/clang_64/lib ../Base_Station/mainwindow.h -o moc_mainwindow.cpp
 
 moc_serialmotionsender.cpp: ../../../Qt/5.10.1/clang_64/lib/QtCore.framework/Headers/QThread \
 		../../../Qt/5.10.1/clang_64/lib/QtCore.framework/Headers/qthread.h \
 		../Base_Station/serialmotionsender.h \
 		moc_predefs.h \
 		../../../Qt/5.10.1/clang_64/bin/moc
-	/Users/admin/Qt/5.10.1/clang_64/bin/moc $(DEFINES) --include ./moc_predefs.h -I/Users/admin/Qt/5.10.1/clang_64/mkspecs/macx-clang -I/Users/admin/Design3/Base_Station_QT_Workspace/Base_Station -I/usr/local/Cellar/opencv/3.4.0_1/include/opencv -I/usr/local/Cellar/opencv/3.4.0_1/include -I/Users/admin/Qt/5.10.1/clang_64/lib/QtGamepad.framework/Headers -I/Users/admin/Qt/5.10.1/clang_64/lib/QtMultimediaWidgets.framework/Headers -I/Users/admin/Qt/5.10.1/clang_64/lib/QtMultimedia.framework/Headers -I/Users/admin/Qt/5.10.1/clang_64/lib/QtWidgets.framework/Headers -I/Users/admin/Qt/5.10.1/clang_64/lib/QtGui.framework/Headers -I/Users/admin/Qt/5.10.1/clang_64/lib/QtSerialPort.framework/Headers -I/Users/admin/Qt/5.10.1/clang_64/lib/QtNetwork.framework/Headers -I/Users/admin/Qt/5.10.1/clang_64/lib/QtCore.framework/Headers -I. -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include/c++/v1 -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/9.0.0/include -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.13.sdk/usr/include -F/Users/admin/Qt/5.10.1/clang_64/lib ../Base_Station/serialmotionsender.h -o moc_serialmotionsender.cpp
+	/Users/admin/Qt/5.10.1/clang_64/bin/moc $(DEFINES) --include ./moc_predefs.h -I/Users/admin/Qt/5.10.1/clang_64/mkspecs/macx-clang -I/Users/admin/Design3/Base_Station_QT_Workspace/Base_Station -I/usr/local/include -I/usr/local/Cellar/opencv/3.4.0_1/include/opencv -I/usr/local/Cellar/opencv/3.4.0_1/include -I/Users/admin/Qt/5.10.1/clang_64/lib/QtGamepad.framework/Headers -I/Users/admin/Qt/5.10.1/clang_64/lib/QtMultimediaWidgets.framework/Headers -I/Users/admin/Qt/5.10.1/clang_64/lib/QtMultimedia.framework/Headers -I/Users/admin/Qt/5.10.1/clang_64/lib/QtWidgets.framework/Headers -I/Users/admin/Qt/5.10.1/clang_64/lib/QtGui.framework/Headers -I/Users/admin/Qt/5.10.1/clang_64/lib/QtSerialPort.framework/Headers -I/Users/admin/Qt/5.10.1/clang_64/lib/QtNetwork.framework/Headers -I/Users/admin/Qt/5.10.1/clang_64/lib/QtCore.framework/Headers -I. -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include/c++/v1 -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/9.0.0/include -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.13.sdk/usr/include -F/Users/admin/Qt/5.10.1/clang_64/lib ../Base_Station/serialmotionsender.h -o moc_serialmotionsender.cpp
 
 compiler_moc_objc_header_make_all:
 compiler_moc_objc_header_clean:
@@ -784,6 +789,7 @@ main.o: ../Base_Station/main.cpp ../Base_Station/mainwindow.h \
 		../Base_Station/serialmotionsender.h \
 		../../../Qt/5.10.1/clang_64/lib/QtCore.framework/Headers/QThread \
 		../../../Qt/5.10.1/clang_64/lib/QtCore.framework/Headers/qthread.h \
+		../Base_Station/opencvworkerthread.h \
 		../../../Qt/5.10.1/clang_64/lib/QtWidgets.framework/Headers/QApplication \
 		../../../Qt/5.10.1/clang_64/lib/QtWidgets.framework/Headers/qapplication.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o main.o ../Base_Station/main.cpp
@@ -797,6 +803,7 @@ mainwindow.o: ../Base_Station/mainwindow.cpp ../Base_Station/mainwindow.h \
 		../Base_Station/serialmotionsender.h \
 		../../../Qt/5.10.1/clang_64/lib/QtCore.framework/Headers/QThread \
 		../../../Qt/5.10.1/clang_64/lib/QtCore.framework/Headers/qthread.h \
+		../Base_Station/opencvworkerthread.h \
 		ui_mainwindow.h \
 		../../../Qt/5.10.1/clang_64/lib/QtMultimediaWidgets.framework/Headers/qcameraviewfinder.h \
 		../../../Qt/5.10.1/clang_64/lib/QtWidgets.framework/Headers/QMessageBox \
@@ -807,129 +814,129 @@ mainwindow.o: ../Base_Station/mainwindow.cpp ../Base_Station/mainwindow.h \
 		../../../Qt/5.10.1/clang_64/lib/QtGui.framework/Headers/qimage.h \
 		../../../Qt/5.10.1/clang_64/lib/QtMultimedia.framework/Headers/QCameraInfo \
 		../../../Qt/5.10.1/clang_64/lib/QtMultimedia.framework/Headers/qcamerainfo.h \
-		/usr/local/Cellar/opencv/3.4.0_1/include/opencv2/opencv.hpp \
-		/usr/local/Cellar/opencv/3.4.0_1/include/opencv2/opencv_modules.hpp \
-		/usr/local/Cellar/opencv/3.4.0_1/include/opencv2/core.hpp \
-		/usr/local/Cellar/opencv/3.4.0_1/include/opencv2/core/cvdef.h \
-		/usr/local/Cellar/opencv/3.4.0_1/include/opencv2/core/hal/interface.h \
-		/usr/local/Cellar/opencv/3.4.0_1/include/opencv2/core/cv_cpu_dispatch.h \
-		/usr/local/Cellar/opencv/3.4.0_1/include/opencv2/core/cv_cpu_helper.h \
-		/usr/local/Cellar/opencv/3.4.0_1/include/opencv2/core/version.hpp \
-		/usr/local/Cellar/opencv/3.4.0_1/include/opencv2/core/base.hpp \
-		/usr/local/Cellar/opencv/3.4.0_1/include/opencv2/core/cvstd.hpp \
-		/usr/local/Cellar/opencv/3.4.0_1/include/opencv2/core/ptr.inl.hpp \
-		/usr/local/Cellar/opencv/3.4.0_1/include/opencv2/core/neon_utils.hpp \
-		/usr/local/Cellar/opencv/3.4.0_1/include/opencv2/core/vsx_utils.hpp \
-		/usr/local/Cellar/opencv/3.4.0_1/include/opencv2/core/traits.hpp \
-		/usr/local/Cellar/opencv/3.4.0_1/include/opencv2/core/matx.hpp \
-		/usr/local/Cellar/opencv/3.4.0_1/include/opencv2/core/saturate.hpp \
-		/usr/local/Cellar/opencv/3.4.0_1/include/opencv2/core/fast_math.hpp \
-		/usr/local/Cellar/opencv/3.4.0_1/include/opencv2/core/types.hpp \
-		/usr/local/Cellar/opencv/3.4.0_1/include/opencv2/core/mat.hpp \
-		/usr/local/Cellar/opencv/3.4.0_1/include/opencv2/core/bufferpool.hpp \
-		/usr/local/Cellar/opencv/3.4.0_1/include/opencv2/core/mat.inl.hpp \
-		/usr/local/Cellar/opencv/3.4.0_1/include/opencv2/core/persistence.hpp \
-		/usr/local/Cellar/opencv/3.4.0_1/include/opencv2/core/operations.hpp \
-		/usr/local/Cellar/opencv/3.4.0_1/include/opencv2/core/cvstd.inl.hpp \
-		/usr/local/Cellar/opencv/3.4.0_1/include/opencv2/core/utility.hpp \
-		/usr/local/Cellar/opencv/3.4.0_1/include/opencv2/core/core_c.h \
-		/usr/local/Cellar/opencv/3.4.0_1/include/opencv2/core/types_c.h \
-		/usr/local/Cellar/opencv/3.4.0_1/include/opencv2/core/optim.hpp \
-		/usr/local/Cellar/opencv/3.4.0_1/include/opencv2/core/ovx.hpp \
-		/usr/local/Cellar/opencv/3.4.0_1/include/opencv2/calib3d.hpp \
-		/usr/local/Cellar/opencv/3.4.0_1/include/opencv2/features2d.hpp \
-		/usr/local/Cellar/opencv/3.4.0_1/include/opencv2/flann/miniflann.hpp \
-		/usr/local/Cellar/opencv/3.4.0_1/include/opencv2/flann/defines.h \
-		/usr/local/Cellar/opencv/3.4.0_1/include/opencv2/flann/config.h \
-		/usr/local/Cellar/opencv/3.4.0_1/include/opencv2/core/affine.hpp \
-		/usr/local/Cellar/opencv/3.4.0_1/include/opencv2/calib3d/calib3d_c.h \
-		/usr/local/Cellar/opencv/3.4.0_1/include/opencv2/flann.hpp \
-		/usr/local/Cellar/opencv/3.4.0_1/include/opencv2/flann/flann_base.hpp \
-		/usr/local/Cellar/opencv/3.4.0_1/include/opencv2/flann/general.h \
-		/usr/local/Cellar/opencv/3.4.0_1/include/opencv2/flann/matrix.h \
-		/usr/local/Cellar/opencv/3.4.0_1/include/opencv2/flann/params.h \
-		/usr/local/Cellar/opencv/3.4.0_1/include/opencv2/flann/any.h \
-		/usr/local/Cellar/opencv/3.4.0_1/include/opencv2/flann/saving.h \
-		/usr/local/Cellar/opencv/3.4.0_1/include/opencv2/flann/nn_index.h \
-		/usr/local/Cellar/opencv/3.4.0_1/include/opencv2/flann/result_set.h \
-		/usr/local/Cellar/opencv/3.4.0_1/include/opencv2/flann/all_indices.h \
-		/usr/local/Cellar/opencv/3.4.0_1/include/opencv2/flann/kdtree_index.h \
-		/usr/local/Cellar/opencv/3.4.0_1/include/opencv2/flann/dynamic_bitset.h \
-		/usr/local/Cellar/opencv/3.4.0_1/include/opencv2/flann/dist.h \
-		/usr/local/Cellar/opencv/3.4.0_1/include/opencv2/flann/heap.h \
-		/usr/local/Cellar/opencv/3.4.0_1/include/opencv2/flann/allocator.h \
-		/usr/local/Cellar/opencv/3.4.0_1/include/opencv2/flann/random.h \
-		/usr/local/Cellar/opencv/3.4.0_1/include/opencv2/flann/kdtree_single_index.h \
-		/usr/local/Cellar/opencv/3.4.0_1/include/opencv2/flann/kmeans_index.h \
-		/usr/local/Cellar/opencv/3.4.0_1/include/opencv2/flann/logger.h \
-		/usr/local/Cellar/opencv/3.4.0_1/include/opencv2/flann/composite_index.h \
-		/usr/local/Cellar/opencv/3.4.0_1/include/opencv2/flann/linear_index.h \
-		/usr/local/Cellar/opencv/3.4.0_1/include/opencv2/flann/hierarchical_clustering_index.h \
-		/usr/local/Cellar/opencv/3.4.0_1/include/opencv2/flann/lsh_index.h \
-		/usr/local/Cellar/opencv/3.4.0_1/include/opencv2/flann/lsh_table.h \
-		/usr/local/Cellar/opencv/3.4.0_1/include/opencv2/flann/autotuned_index.h \
-		/usr/local/Cellar/opencv/3.4.0_1/include/opencv2/flann/ground_truth.h \
-		/usr/local/Cellar/opencv/3.4.0_1/include/opencv2/flann/index_testing.h \
-		/usr/local/Cellar/opencv/3.4.0_1/include/opencv2/flann/timer.h \
-		/usr/local/Cellar/opencv/3.4.0_1/include/opencv2/flann/sampling.h \
-		/usr/local/Cellar/opencv/3.4.0_1/include/opencv2/highgui.hpp \
-		/usr/local/Cellar/opencv/3.4.0_1/include/opencv2/imgcodecs.hpp \
-		/usr/local/Cellar/opencv/3.4.0_1/include/opencv2/videoio.hpp \
-		/usr/local/Cellar/opencv/3.4.0_1/include/opencv2/highgui/highgui_c.h \
-		/usr/local/Cellar/opencv/3.4.0_1/include/opencv2/imgproc/imgproc_c.h \
-		/usr/local/Cellar/opencv/3.4.0_1/include/opencv2/imgproc/types_c.h \
-		/usr/local/Cellar/opencv/3.4.0_1/include/opencv2/imgcodecs/imgcodecs_c.h \
-		/usr/local/Cellar/opencv/3.4.0_1/include/opencv2/videoio/videoio_c.h \
-		/usr/local/Cellar/opencv/3.4.0_1/include/opencv2/imgproc.hpp \
-		/usr/local/Cellar/opencv/3.4.0_1/include/opencv2/ml.hpp \
-		/usr/local/Cellar/opencv/3.4.0_1/include/opencv2/ml/ml.inl.hpp \
-		/usr/local/Cellar/opencv/3.4.0_1/include/opencv2/objdetect.hpp \
-		/usr/local/Cellar/opencv/3.4.0_1/include/opencv2/objdetect/detection_based_tracker.hpp \
-		/usr/local/Cellar/opencv/3.4.0_1/include/opencv2/objdetect/objdetect_c.h \
-		/usr/local/Cellar/opencv/3.4.0_1/include/opencv2/photo.hpp \
-		/usr/local/Cellar/opencv/3.4.0_1/include/opencv2/photo/photo_c.h \
-		/usr/local/Cellar/opencv/3.4.0_1/include/opencv2/shape.hpp \
-		/usr/local/Cellar/opencv/3.4.0_1/include/opencv2/shape/emdL1.hpp \
-		/usr/local/Cellar/opencv/3.4.0_1/include/opencv2/shape/shape_transformer.hpp \
-		/usr/local/Cellar/opencv/3.4.0_1/include/opencv2/shape/hist_cost.hpp \
-		/usr/local/Cellar/opencv/3.4.0_1/include/opencv2/shape/shape_distance.hpp \
-		/usr/local/Cellar/opencv/3.4.0_1/include/opencv2/stitching.hpp \
-		/usr/local/Cellar/opencv/3.4.0_1/include/opencv2/stitching/warpers.hpp \
-		/usr/local/Cellar/opencv/3.4.0_1/include/opencv2/stitching/detail/warpers.hpp \
-		/usr/local/Cellar/opencv/3.4.0_1/include/opencv2/core/cuda.hpp \
-		/usr/local/Cellar/opencv/3.4.0_1/include/opencv2/core/cuda_types.hpp \
-		/usr/local/Cellar/opencv/3.4.0_1/include/opencv2/core/cuda.inl.hpp \
-		/usr/local/Cellar/opencv/3.4.0_1/include/opencv2/stitching/detail/warpers_inl.hpp \
-		/usr/local/Cellar/opencv/3.4.0_1/include/opencv2/stitching/detail/matchers.hpp \
-		/usr/local/Cellar/opencv/3.4.0_1/include/opencv2/xfeatures2d/cuda.hpp \
-		/usr/local/Cellar/opencv/3.4.0_1/include/opencv2/stitching/detail/motion_estimators.hpp \
-		/usr/local/Cellar/opencv/3.4.0_1/include/opencv2/stitching/detail/util.hpp \
-		/usr/local/Cellar/opencv/3.4.0_1/include/opencv2/stitching/detail/util_inl.hpp \
-		/usr/local/Cellar/opencv/3.4.0_1/include/opencv2/stitching/detail/camera.hpp \
-		/usr/local/Cellar/opencv/3.4.0_1/include/opencv2/stitching/detail/exposure_compensate.hpp \
-		/usr/local/Cellar/opencv/3.4.0_1/include/opencv2/stitching/detail/seam_finders.hpp \
-		/usr/local/Cellar/opencv/3.4.0_1/include/opencv2/stitching/detail/blenders.hpp \
-		/usr/local/Cellar/opencv/3.4.0_1/include/opencv2/superres.hpp \
-		/usr/local/Cellar/opencv/3.4.0_1/include/opencv2/superres/optical_flow.hpp \
-		/usr/local/Cellar/opencv/3.4.0_1/include/opencv2/video.hpp \
-		/usr/local/Cellar/opencv/3.4.0_1/include/opencv2/video/tracking.hpp \
-		/usr/local/Cellar/opencv/3.4.0_1/include/opencv2/video/background_segm.hpp \
-		/usr/local/Cellar/opencv/3.4.0_1/include/opencv2/video/tracking_c.h \
-		/usr/local/Cellar/opencv/3.4.0_1/include/opencv2/videostab.hpp \
-		/usr/local/Cellar/opencv/3.4.0_1/include/opencv2/videostab/stabilizer.hpp \
-		/usr/local/Cellar/opencv/3.4.0_1/include/opencv2/videostab/global_motion.hpp \
-		/usr/local/Cellar/opencv/3.4.0_1/include/opencv2/videostab/optical_flow.hpp \
-		/usr/local/Cellar/opencv/3.4.0_1/include/opencv2/videostab/motion_core.hpp \
-		/usr/local/Cellar/opencv/3.4.0_1/include/opencv2/videostab/outlier_rejection.hpp \
-		/usr/local/Cellar/opencv/3.4.0_1/include/opencv2/videostab/motion_stabilizing.hpp \
-		/usr/local/Cellar/opencv/3.4.0_1/include/opencv2/videostab/frame_source.hpp \
-		/usr/local/Cellar/opencv/3.4.0_1/include/opencv2/videostab/log.hpp \
-		/usr/local/Cellar/opencv/3.4.0_1/include/opencv2/videostab/inpainting.hpp \
-		/usr/local/Cellar/opencv/3.4.0_1/include/opencv2/videostab/fast_marching.hpp \
-		/usr/local/Cellar/opencv/3.4.0_1/include/opencv2/videostab/fast_marching_inl.hpp \
-		/usr/local/Cellar/opencv/3.4.0_1/include/opencv2/videostab/deblurring.hpp \
-		/usr/local/Cellar/opencv/3.4.0_1/include/opencv2/videostab/wobble_suppression.hpp \
-		/usr/local/Cellar/opencv/3.4.0_1/include/opencv2/videostab/ring_buffer.hpp
+		/usr/local/include/opencv2/opencv.hpp \
+		/usr/local/include/opencv2/opencv_modules.hpp \
+		/usr/local/include/opencv2/core.hpp \
+		/usr/local/include/opencv2/core/cvdef.h \
+		/usr/local/include/opencv2/core/hal/interface.h \
+		/usr/local/include/opencv2/core/cv_cpu_dispatch.h \
+		/usr/local/include/opencv2/core/cv_cpu_helper.h \
+		/usr/local/include/opencv2/core/version.hpp \
+		/usr/local/include/opencv2/core/base.hpp \
+		/usr/local/include/opencv2/core/cvstd.hpp \
+		/usr/local/include/opencv2/core/ptr.inl.hpp \
+		/usr/local/include/opencv2/core/neon_utils.hpp \
+		/usr/local/include/opencv2/core/vsx_utils.hpp \
+		/usr/local/include/opencv2/core/traits.hpp \
+		/usr/local/include/opencv2/core/matx.hpp \
+		/usr/local/include/opencv2/core/saturate.hpp \
+		/usr/local/include/opencv2/core/fast_math.hpp \
+		/usr/local/include/opencv2/core/types.hpp \
+		/usr/local/include/opencv2/core/mat.hpp \
+		/usr/local/include/opencv2/core/bufferpool.hpp \
+		/usr/local/include/opencv2/core/mat.inl.hpp \
+		/usr/local/include/opencv2/core/persistence.hpp \
+		/usr/local/include/opencv2/core/operations.hpp \
+		/usr/local/include/opencv2/core/cvstd.inl.hpp \
+		/usr/local/include/opencv2/core/utility.hpp \
+		/usr/local/include/opencv2/core/core_c.h \
+		/usr/local/include/opencv2/core/types_c.h \
+		/usr/local/include/opencv2/core/optim.hpp \
+		/usr/local/include/opencv2/core/ovx.hpp \
+		/usr/local/include/opencv2/calib3d.hpp \
+		/usr/local/include/opencv2/features2d.hpp \
+		/usr/local/include/opencv2/flann/miniflann.hpp \
+		/usr/local/include/opencv2/flann/defines.h \
+		/usr/local/include/opencv2/flann/config.h \
+		/usr/local/include/opencv2/core/affine.hpp \
+		/usr/local/include/opencv2/calib3d/calib3d_c.h \
+		/usr/local/include/opencv2/flann.hpp \
+		/usr/local/include/opencv2/flann/flann_base.hpp \
+		/usr/local/include/opencv2/flann/general.h \
+		/usr/local/include/opencv2/flann/matrix.h \
+		/usr/local/include/opencv2/flann/params.h \
+		/usr/local/include/opencv2/flann/any.h \
+		/usr/local/include/opencv2/flann/saving.h \
+		/usr/local/include/opencv2/flann/nn_index.h \
+		/usr/local/include/opencv2/flann/result_set.h \
+		/usr/local/include/opencv2/flann/all_indices.h \
+		/usr/local/include/opencv2/flann/kdtree_index.h \
+		/usr/local/include/opencv2/flann/dynamic_bitset.h \
+		/usr/local/include/opencv2/flann/dist.h \
+		/usr/local/include/opencv2/flann/heap.h \
+		/usr/local/include/opencv2/flann/allocator.h \
+		/usr/local/include/opencv2/flann/random.h \
+		/usr/local/include/opencv2/flann/kdtree_single_index.h \
+		/usr/local/include/opencv2/flann/kmeans_index.h \
+		/usr/local/include/opencv2/flann/logger.h \
+		/usr/local/include/opencv2/flann/composite_index.h \
+		/usr/local/include/opencv2/flann/linear_index.h \
+		/usr/local/include/opencv2/flann/hierarchical_clustering_index.h \
+		/usr/local/include/opencv2/flann/lsh_index.h \
+		/usr/local/include/opencv2/flann/lsh_table.h \
+		/usr/local/include/opencv2/flann/autotuned_index.h \
+		/usr/local/include/opencv2/flann/ground_truth.h \
+		/usr/local/include/opencv2/flann/index_testing.h \
+		/usr/local/include/opencv2/flann/timer.h \
+		/usr/local/include/opencv2/flann/sampling.h \
+		/usr/local/include/opencv2/highgui.hpp \
+		/usr/local/include/opencv2/imgcodecs.hpp \
+		/usr/local/include/opencv2/videoio.hpp \
+		/usr/local/include/opencv2/highgui/highgui_c.h \
+		/usr/local/include/opencv2/imgproc/imgproc_c.h \
+		/usr/local/include/opencv2/imgproc/types_c.h \
+		/usr/local/include/opencv2/imgcodecs/imgcodecs_c.h \
+		/usr/local/include/opencv2/videoio/videoio_c.h \
+		/usr/local/include/opencv2/imgproc.hpp \
+		/usr/local/include/opencv2/ml.hpp \
+		/usr/local/include/opencv2/ml/ml.inl.hpp \
+		/usr/local/include/opencv2/objdetect.hpp \
+		/usr/local/include/opencv2/objdetect/detection_based_tracker.hpp \
+		/usr/local/include/opencv2/objdetect/objdetect_c.h \
+		/usr/local/include/opencv2/photo.hpp \
+		/usr/local/include/opencv2/photo/photo_c.h \
+		/usr/local/include/opencv2/shape.hpp \
+		/usr/local/include/opencv2/shape/emdL1.hpp \
+		/usr/local/include/opencv2/shape/shape_transformer.hpp \
+		/usr/local/include/opencv2/shape/hist_cost.hpp \
+		/usr/local/include/opencv2/shape/shape_distance.hpp \
+		/usr/local/include/opencv2/stitching.hpp \
+		/usr/local/include/opencv2/stitching/warpers.hpp \
+		/usr/local/include/opencv2/stitching/detail/warpers.hpp \
+		/usr/local/include/opencv2/core/cuda.hpp \
+		/usr/local/include/opencv2/core/cuda_types.hpp \
+		/usr/local/include/opencv2/core/cuda.inl.hpp \
+		/usr/local/include/opencv2/stitching/detail/warpers_inl.hpp \
+		/usr/local/include/opencv2/stitching/detail/matchers.hpp \
+		/usr/local/include/opencv2/xfeatures2d/cuda.hpp \
+		/usr/local/include/opencv2/stitching/detail/motion_estimators.hpp \
+		/usr/local/include/opencv2/stitching/detail/util.hpp \
+		/usr/local/include/opencv2/stitching/detail/util_inl.hpp \
+		/usr/local/include/opencv2/stitching/detail/camera.hpp \
+		/usr/local/include/opencv2/stitching/detail/exposure_compensate.hpp \
+		/usr/local/include/opencv2/stitching/detail/seam_finders.hpp \
+		/usr/local/include/opencv2/stitching/detail/blenders.hpp \
+		/usr/local/include/opencv2/superres.hpp \
+		/usr/local/include/opencv2/superres/optical_flow.hpp \
+		/usr/local/include/opencv2/video.hpp \
+		/usr/local/include/opencv2/video/tracking.hpp \
+		/usr/local/include/opencv2/video/background_segm.hpp \
+		/usr/local/include/opencv2/video/tracking_c.h \
+		/usr/local/include/opencv2/videostab.hpp \
+		/usr/local/include/opencv2/videostab/stabilizer.hpp \
+		/usr/local/include/opencv2/videostab/global_motion.hpp \
+		/usr/local/include/opencv2/videostab/optical_flow.hpp \
+		/usr/local/include/opencv2/videostab/motion_core.hpp \
+		/usr/local/include/opencv2/videostab/outlier_rejection.hpp \
+		/usr/local/include/opencv2/videostab/motion_stabilizing.hpp \
+		/usr/local/include/opencv2/videostab/frame_source.hpp \
+		/usr/local/include/opencv2/videostab/log.hpp \
+		/usr/local/include/opencv2/videostab/inpainting.hpp \
+		/usr/local/include/opencv2/videostab/fast_marching.hpp \
+		/usr/local/include/opencv2/videostab/fast_marching_inl.hpp \
+		/usr/local/include/opencv2/videostab/deblurring.hpp \
+		/usr/local/include/opencv2/videostab/wobble_suppression.hpp \
+		/usr/local/include/opencv2/videostab/ring_buffer.hpp
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o mainwindow.o ../Base_Station/mainwindow.cpp
 
 serialmotionsender.o: ../Base_Station/serialmotionsender.cpp ../Base_Station/serialmotionsender.h \
@@ -941,6 +948,134 @@ serialmotionsender.o: ../Base_Station/serialmotionsender.cpp ../Base_Station/ser
 
 gamepadstate.o: ../Base_Station/gamepadstate.cpp ../Base_Station/gamepadstate.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o gamepadstate.o ../Base_Station/gamepadstate.cpp
+
+opencvworkerthread.o: ../Base_Station/opencvworkerthread.cpp ../Base_Station/opencvworkerthread.h \
+		../../../Qt/5.10.1/clang_64/lib/QtCore.framework/Headers/QThread \
+		../../../Qt/5.10.1/clang_64/lib/QtCore.framework/Headers/qthread.h \
+		/usr/local/include/opencv2/opencv.hpp \
+		/usr/local/include/opencv2/opencv_modules.hpp \
+		/usr/local/include/opencv2/core.hpp \
+		/usr/local/include/opencv2/core/cvdef.h \
+		/usr/local/include/opencv2/core/hal/interface.h \
+		/usr/local/include/opencv2/core/cv_cpu_dispatch.h \
+		/usr/local/include/opencv2/core/cv_cpu_helper.h \
+		/usr/local/include/opencv2/core/version.hpp \
+		/usr/local/include/opencv2/core/base.hpp \
+		/usr/local/include/opencv2/core/cvstd.hpp \
+		/usr/local/include/opencv2/core/ptr.inl.hpp \
+		/usr/local/include/opencv2/core/neon_utils.hpp \
+		/usr/local/include/opencv2/core/vsx_utils.hpp \
+		/usr/local/include/opencv2/core/traits.hpp \
+		/usr/local/include/opencv2/core/matx.hpp \
+		/usr/local/include/opencv2/core/saturate.hpp \
+		/usr/local/include/opencv2/core/fast_math.hpp \
+		/usr/local/include/opencv2/core/types.hpp \
+		/usr/local/include/opencv2/core/mat.hpp \
+		/usr/local/include/opencv2/core/bufferpool.hpp \
+		/usr/local/include/opencv2/core/mat.inl.hpp \
+		/usr/local/include/opencv2/core/persistence.hpp \
+		/usr/local/include/opencv2/core/operations.hpp \
+		/usr/local/include/opencv2/core/cvstd.inl.hpp \
+		/usr/local/include/opencv2/core/utility.hpp \
+		/usr/local/include/opencv2/core/core_c.h \
+		/usr/local/include/opencv2/core/types_c.h \
+		/usr/local/include/opencv2/core/optim.hpp \
+		/usr/local/include/opencv2/core/ovx.hpp \
+		/usr/local/include/opencv2/calib3d.hpp \
+		/usr/local/include/opencv2/features2d.hpp \
+		/usr/local/include/opencv2/flann/miniflann.hpp \
+		/usr/local/include/opencv2/flann/defines.h \
+		/usr/local/include/opencv2/flann/config.h \
+		/usr/local/include/opencv2/core/affine.hpp \
+		/usr/local/include/opencv2/calib3d/calib3d_c.h \
+		/usr/local/include/opencv2/flann.hpp \
+		/usr/local/include/opencv2/flann/flann_base.hpp \
+		/usr/local/include/opencv2/flann/general.h \
+		/usr/local/include/opencv2/flann/matrix.h \
+		/usr/local/include/opencv2/flann/params.h \
+		/usr/local/include/opencv2/flann/any.h \
+		/usr/local/include/opencv2/flann/saving.h \
+		/usr/local/include/opencv2/flann/nn_index.h \
+		/usr/local/include/opencv2/flann/result_set.h \
+		/usr/local/include/opencv2/flann/all_indices.h \
+		/usr/local/include/opencv2/flann/kdtree_index.h \
+		/usr/local/include/opencv2/flann/dynamic_bitset.h \
+		/usr/local/include/opencv2/flann/dist.h \
+		/usr/local/include/opencv2/flann/heap.h \
+		/usr/local/include/opencv2/flann/allocator.h \
+		/usr/local/include/opencv2/flann/random.h \
+		/usr/local/include/opencv2/flann/kdtree_single_index.h \
+		/usr/local/include/opencv2/flann/kmeans_index.h \
+		/usr/local/include/opencv2/flann/logger.h \
+		/usr/local/include/opencv2/flann/composite_index.h \
+		/usr/local/include/opencv2/flann/linear_index.h \
+		/usr/local/include/opencv2/flann/hierarchical_clustering_index.h \
+		/usr/local/include/opencv2/flann/lsh_index.h \
+		/usr/local/include/opencv2/flann/lsh_table.h \
+		/usr/local/include/opencv2/flann/autotuned_index.h \
+		/usr/local/include/opencv2/flann/ground_truth.h \
+		/usr/local/include/opencv2/flann/index_testing.h \
+		/usr/local/include/opencv2/flann/timer.h \
+		/usr/local/include/opencv2/flann/sampling.h \
+		/usr/local/include/opencv2/highgui.hpp \
+		/usr/local/include/opencv2/imgcodecs.hpp \
+		/usr/local/include/opencv2/videoio.hpp \
+		/usr/local/include/opencv2/highgui/highgui_c.h \
+		/usr/local/include/opencv2/imgproc/imgproc_c.h \
+		/usr/local/include/opencv2/imgproc/types_c.h \
+		/usr/local/include/opencv2/imgcodecs/imgcodecs_c.h \
+		/usr/local/include/opencv2/videoio/videoio_c.h \
+		/usr/local/include/opencv2/imgproc.hpp \
+		/usr/local/include/opencv2/ml.hpp \
+		/usr/local/include/opencv2/ml/ml.inl.hpp \
+		/usr/local/include/opencv2/objdetect.hpp \
+		/usr/local/include/opencv2/objdetect/detection_based_tracker.hpp \
+		/usr/local/include/opencv2/objdetect/objdetect_c.h \
+		/usr/local/include/opencv2/photo.hpp \
+		/usr/local/include/opencv2/photo/photo_c.h \
+		/usr/local/include/opencv2/shape.hpp \
+		/usr/local/include/opencv2/shape/emdL1.hpp \
+		/usr/local/include/opencv2/shape/shape_transformer.hpp \
+		/usr/local/include/opencv2/shape/hist_cost.hpp \
+		/usr/local/include/opencv2/shape/shape_distance.hpp \
+		/usr/local/include/opencv2/stitching.hpp \
+		/usr/local/include/opencv2/stitching/warpers.hpp \
+		/usr/local/include/opencv2/stitching/detail/warpers.hpp \
+		/usr/local/include/opencv2/core/cuda.hpp \
+		/usr/local/include/opencv2/core/cuda_types.hpp \
+		/usr/local/include/opencv2/core/cuda.inl.hpp \
+		/usr/local/include/opencv2/stitching/detail/warpers_inl.hpp \
+		/usr/local/include/opencv2/stitching/detail/matchers.hpp \
+		/usr/local/include/opencv2/xfeatures2d/cuda.hpp \
+		/usr/local/include/opencv2/stitching/detail/motion_estimators.hpp \
+		/usr/local/include/opencv2/stitching/detail/util.hpp \
+		/usr/local/include/opencv2/stitching/detail/util_inl.hpp \
+		/usr/local/include/opencv2/stitching/detail/camera.hpp \
+		/usr/local/include/opencv2/stitching/detail/exposure_compensate.hpp \
+		/usr/local/include/opencv2/stitching/detail/seam_finders.hpp \
+		/usr/local/include/opencv2/stitching/detail/blenders.hpp \
+		/usr/local/include/opencv2/superres.hpp \
+		/usr/local/include/opencv2/superres/optical_flow.hpp \
+		/usr/local/include/opencv2/video.hpp \
+		/usr/local/include/opencv2/video/tracking.hpp \
+		/usr/local/include/opencv2/video/background_segm.hpp \
+		/usr/local/include/opencv2/video/tracking_c.h \
+		/usr/local/include/opencv2/videostab.hpp \
+		/usr/local/include/opencv2/videostab/stabilizer.hpp \
+		/usr/local/include/opencv2/videostab/global_motion.hpp \
+		/usr/local/include/opencv2/videostab/optical_flow.hpp \
+		/usr/local/include/opencv2/videostab/motion_core.hpp \
+		/usr/local/include/opencv2/videostab/outlier_rejection.hpp \
+		/usr/local/include/opencv2/videostab/motion_stabilizing.hpp \
+		/usr/local/include/opencv2/videostab/frame_source.hpp \
+		/usr/local/include/opencv2/videostab/log.hpp \
+		/usr/local/include/opencv2/videostab/inpainting.hpp \
+		/usr/local/include/opencv2/videostab/fast_marching.hpp \
+		/usr/local/include/opencv2/videostab/fast_marching_inl.hpp \
+		/usr/local/include/opencv2/videostab/deblurring.hpp \
+		/usr/local/include/opencv2/videostab/wobble_suppression.hpp \
+		/usr/local/include/opencv2/videostab/ring_buffer.hpp
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o opencvworkerthread.o ../Base_Station/opencvworkerthread.cpp
 
 moc_mainwindow.o: moc_mainwindow.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_mainwindow.o moc_mainwindow.cpp

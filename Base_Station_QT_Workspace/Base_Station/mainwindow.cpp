@@ -7,6 +7,9 @@
 
 #include <QImage>
 #include <QCameraInfo>
+#include <QCameraImageCapture>
+#include <QCameraViewfinderSettingsControl>
+#include <QCameraViewfinderSettings>
 #include <opencv2/opencv.hpp>
 
 
@@ -30,7 +33,7 @@ MainWindow::MainWindow(QWidget *parent) :
             SIGNAL(timeout()),
             this,
             SLOT(serial_send_on_timeout()));
-    OpencvWorkerThread t();
+    OpencvWorkerThread t;
 }
 
 MainWindow::~MainWindow()
@@ -405,6 +408,11 @@ void MainWindow::on_pushButton_Camera_Connect_clicked()
     m_isCameraConnected = true;
 
     m_cameraWorld->setViewfinder(ui->widget_camera_viewFinder);
+    /* TODO Trouver comment setter la résolution de la caméra
+    //QCameraViewfinderSettings * cameraWorld_viewFinder_resolution = new QCameraViewfinderSettings();
+    //QSize* resolution = new QSize(800, 600);
+    //cameraWorld_viewFinder_resolution->setResolution(*resolution);
+    //m_cameraWorld->setViewfinderSettings(*cameraWorld_viewFinder_resolution);
 
     m_cameraWorld->start();
 }
