@@ -8,6 +8,11 @@ QT       += core gui gamepad serialport multimedia multimediawidgets
 
 CONFIG   += c++11
 
+macx:QT_CONFIG -= no-pkg-config
+macx:CONFIG  += link_pkgconfig
+macx:PKGCONFIG += opencv
+
+
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 TARGET = Base_Station

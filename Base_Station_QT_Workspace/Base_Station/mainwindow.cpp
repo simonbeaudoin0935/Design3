@@ -5,7 +5,12 @@
 #include <QDebug>
 #include <iostream>
 
+#include <QImage>
 #include <QCameraInfo>
+#include <opencv2/opencv.hpp>
+
+
+using namespace cv;
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -398,12 +403,7 @@ void MainWindow::on_pushButton_Camera_Connect_clicked()
     m_cameraWorld = new QCamera(ui->comboBox_Camera_Selector->currentText().toUtf8());
     m_isCameraConnected = true;
 
-    ui->widget_camera_viewFinder->show();
-
     m_cameraWorld->setViewfinder(ui->widget_camera_viewFinder);
 
-//    imageCapture = new QCameraImageCapture(camera);
-
-//    camera->setCaptureMode(QCamera::CaptureStillImage);
     m_cameraWorld->start();
 }
