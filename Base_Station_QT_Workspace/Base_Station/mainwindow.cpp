@@ -7,13 +7,21 @@
 
 #include <QImage>
 #include <QCameraInfo>
+<<<<<<< HEAD
 #include <QCameraImageCapture>
 #include <QCameraViewfinderSettingsControl>
 #include <QCameraViewfinderSettings>
 #include <opencv2/opencv.hpp>
+=======
+>>>>>>> 3c540e84b863b68470e836f17af5a32dd8095183
+
+//#include "opencvworkerthread.h"
+
+//#include <opencv2/opencv.hpp>
 
 
-using namespace cv;
+//using namespace cv;
+
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -33,7 +41,13 @@ MainWindow::MainWindow(QWidget *parent) :
             SIGNAL(timeout()),
             this,
             SLOT(serial_send_on_timeout()));
+<<<<<<< HEAD
     OpencvWorkerThread t;
+=======
+
+    OpencvWorkerThread *t = new OpencvWorkerThread();
+    t->start();
+>>>>>>> 3c540e84b863b68470e836f17af5a32dd8095183
 }
 
 MainWindow::~MainWindow()

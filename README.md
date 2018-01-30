@@ -3,32 +3,45 @@
 Le git contient les dossiers suivants :
 
 * Base\_Station\_QT\_Workspace :
-    Le code source de la station de base est développé avec [Qt](www.qt.io) que vous pouvez downloader [ici](www.qt.io/download). Selectionnez la version open-source. Lors de l'installation, n'oubliez pas lors de la sélection des components à installer de expand ne noeud 'Qt' et de cocher la case 'Qt 5.10.0' sinon vous n'installerez que l'IDE QtCreator. 
+    Le code source de la station de base est développé avec [Qt](https://www.qt.io/) que vous pouvez downloader [ici](https://www.qt.io/download). Selectionnez la version open-source. Lors de l'installation, n'oubliez pas, lors de la sélection des components à installer, de expand le noeud 'Qt' et de cocher la case 'Qt 5.10.0', sinon vous n'installerez que l'IDE QtCreator. 
 
 * Motor\_Controller\_SW4STM\_Workspace :
-    Le code source du controlleur de moteur réalisé avec le board STM32F407 Discovery. Le IDE utilisé est System Workbench 4 STM32 (SW4STM32) 
+    Le code source du controlleur de moteur est réalisé avec le board STM32F407 Discovery. Le IDE utilisé est System Workbench 4 STM32 (SW4STM32) 
 
 # Procédure pour configurer OpenCV et le faire marcher avec Qt (Linux)
 
-* Telecharger les dépendances de opencv : `sudo apt-get -y install libopencv-dev build-essential cmake git libgtk2.0-dev pkg-config python-dev python-numpy libdc1394-22 libdc1394-22-dev libjpeg-dev libpng12-dev libtiff4-dev libjasper-dev libavcodec-dev libavformat-dev libswscale-dev libxine-dev libgstreamer0.10-dev libgstreamer-plugins-base0.10-dev libv4l-dev libtbb-dev libqt4-dev libfaac-dev libmp3lame-dev libopencore-amrnb-dev libopencore-amrwb-dev libtheora-dev libvorbis-dev libxvidcore-dev x264 v4l-utils unzip`
-* Créer un dossier pour télécharger opencv : `mkdir opencv`
-* Aller dans ce dossier : `cd opencv`
-* Télécharger les sources de opencv : `wget https://github.com/Itseez/opencv/archive/3.0.0-alpha.zip -O opencv-3.0.0-alpha.zip`
-* Dézipper l'archive téléchargée : `unzip opencv-3.0.0-alpha.zip`
-* Aller dans le dossier crée : `cd opencv-3.0.0-alpha`
-* Créer un dossier pour le build qui suit : `mkdir build`
-* Aller dans ce dossier : `cd build`
-* Créer les makefiles : `cmake -D CMAKE_BUILD_TYPE=RELEASE -D CMAKE_INSTALL_PREFIX=/usr/local -D WITH_TBB=ON -D WITH_V4L=ON -D WITH_QT=ON -D WITH_OPENGL=ON ..`
-* Compiler tout le shitload : `make -j $(nproc)`
-* Enfin installer le tout au bon endroit : `sudo make install`
+* Télechargez les dépendances de opencv : `sudo apt-get -y install libopencv-dev build-essential cmake git libgtk2.0-dev pkg-config python-dev python-numpy libdc1394-22 libdc1394-22-dev libjpeg-dev libpng12-dev libtiff4-dev libjasper-dev libavcodec-dev libavformat-dev libswscale-dev libxine-dev libgstreamer0.10-dev libgstreamer-plugins-base0.10-dev libv4l-dev libtbb-dev libqt4-dev libfaac-dev libmp3lame-dev libopencore-amrnb-dev libopencore-amrwb-dev libtheora-dev libvorbis-dev libxvidcore-dev x264 v4l-utils unzip`
+* Créez un dossier pour télécharger opencv : `mkdir opencv`
+* Allez dans ce dossier : `cd opencv`
+* Téléchargez les sources de opencv : `wget https://github.com/Itseez/opencv/archive/3.0.0-alpha.zip -O opencv-3.0.0-alpha.zip`
+* Dézippez l'archive téléchargée : `unzip opencv-3.0.0-alpha.zip`
+* Allez dans le dossier créé : `cd opencv-3.0.0-alpha`
+* Créez un dossier pour le build qui suit : `mkdir build`
+* Allez dans ce dossier : `cd build`
+* Créez les makefiles : `cmake -D CMAKE_BUILD_TYPE=RELEASE -D CMAKE_INSTALL_PREFIX=/usr/local -D WITH_TBB=ON -D WITH_V4L=ON -D WITH_QT=ON -D WITH_OPENGL=ON ..`
+* Compilez tout le shitload : `make -j $(nproc)`
+* Enfin installez le tout au bon endroit : `sudo make install`
 * Ça y est, opencv est installé convenablement. 
 
-
-* Dans les fichiers projet .pro dans Qt, ajouter les lignes (Déjà présentes dans celui de la base-station) : 
+* Dans les fichiers projet .pro dans Qt, ajouter les lignes (déjà présentes en ce moment dans celui de la base-station) : 
     * `INCLUDEPATH += /usr/local/include` 
     * `LIBS += -L/usr/local/lib -lopencv_core -lopencv_imgcodecs -lopencv_highgui`
 
-* Ne pas oublier d'inclure `#include <opencv2/opencv.hpp>` dans les fichier où vous utilisez opencv
+* Ne pas oubliez d'inclure `#include <opencv2/opencv.hpp>` dans les fichier où vous utilisez opencv
+
+# Procédure pour configurer OpenCV et le faire marcher avec Qt (macOS)
+
+* Une des façons d'installer OpenCV sur macOS est via Homebrew, le package manager pour macOS. Si vous n'avez pas downloadé Homwebrew, cliquez [ici](https://brew.sh/index_fr.html). Avec Homebrew, il suffit d'entrer les commandes suivantes dans un terminal: `brew tap homebrew/science brew install opencv3`
+* Après avoir installé OpenCV, vous devez indiquer à Qt où trouver pkg-config. La localisation par défaut de pkg-config est /usr/local/bin (vous pouvez le vérifier en entrant `which pkg-config` dans un terminal). Dans l'IDE de Qt, allez dans Project -> Build & Run -> build on Desktop -> Build Environment. Il faut ajouter /usr/local/bin au PATH. Ne pas oubliez le ":" avant l'ajout. Ajoutez une nouvelle variable PKG_CONFIG_PATH. Entrez `find /usr/local -name “opencv.pc”` dans un terminal. Normalement, vous devriez avoir /usr/local/Cellar/opencv/3.4.0_1/lib/pkgconfig/open.cv en output. Copiez uniquement /usr/local/Cellar/opencv/3.4.0_1/lib/pkgconfig/ et apposez cette valeur à la variable PKG_CONFIG_PATH. 
+
+* Dans les fichiers projet .pro dans Qt, ajouter les lignes (déjà présentes en ce moment dans celui de la base-station):
+    * `macx:QT_CONFIG -= no-pkg-config` 
+    * `macx:CONFIG  += link_pkgconfig`
+    * `macx:PKGCONFIG += opencv`
+    
+* Ne pas oubliez d'inclure `#include <opencv2/opencv.hpp>` dans les fichier où vous utilisez opencv
+
+* Il se peut que l'éxécution mène à l'erreur "ROOT failure to launch: dyld: Symbol not found: \_\_cg_jpeg_resync_to_restart". Dans ce cas, suivez ces [instructions](http://diana.parno.net/thoughts/?p=192). 
 
 # Procédure pour configurer votre github (Linux)
 * Creer un dossier 'Design_3_git' dans Documents.
@@ -46,7 +59,7 @@ Le git contient les dossiers suivants :
 * Dans le dossier 'Design_3_git' ouvrez un terminal.
 * Clonez le repository : `git clone git@github.com:simonbeaudoin0935/Design3.git`
 
-*Remarques pour Mac OS X:*
+*Remarques pour macOS*
 * apt-get est utilisé pour installer des packages avec Linux. L'équivalent pour Mac est Homebrew.
 * Si `xclip -sel clip < ~/.ssh/id_rsa.pub` ne copie pas la clé, essayez d'obtenir la clé publique avec `cat ~/.ssh/id_rsa.pub` puis copiez là.
 

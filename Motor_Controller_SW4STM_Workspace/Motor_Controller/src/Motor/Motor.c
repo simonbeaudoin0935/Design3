@@ -30,96 +30,56 @@ void motor_1_init(void)
 	//CTRL1 : PD0
 	//CTRL2 : PD1
 
-	  GPIO_InitTypeDef GPIO_InitStruct;
-
-	  TIM_TimeBaseInitTypeDef TIM_BaseStruct;
-
-	  TIM_OCInitTypeDef TIM_OCStruct;
+	GPIO_InitTypeDef GPIO_InitStruct;
+	TIM_TimeBaseInitTypeDef TIM_BaseStruct;
+	TIM_OCInitTypeDef TIM_OCStruct;
 
 
-	// ******************* CONFIGURATION DE LA PIN PWM
-
-	/*  Configuration �lectrique de la pin  */
-
-	  //activer la clock du port B
-	  RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOB, ENABLE);
-
-	  //Initialiser la pin 8 avec fonction alternative
-	  GPIO_InitStruct.GPIO_Pin = GPIO_Pin_8;
-	  GPIO_InitStruct.GPIO_Mode = GPIO_Mode_AF;
-	  GPIO_InitStruct.GPIO_OType = GPIO_OType_PP;
-	  GPIO_InitStruct.GPIO_PuPd = GPIO_PuPd_NOPULL;
-	  GPIO_InitStruct.GPIO_Speed = GPIO_Speed_100MHz;
-	  GPIO_Init(GPIOB, &GPIO_InitStruct);
-
-	  //Configurer la fonction alternative avec timer 10
-	  GPIO_PinAFConfig(GPIOB, GPIO_PinSource8, GPIO_AF_TIM10);
-
-	/*  Configuration de la base du temps du timer  */
-
-	  //Activer la clock du timer 10
-	  RCC_APB2PeriphClockCmd(RCC_APB2Periph_TIM10, ENABLE);
-
-
-	  /*
-	    TIM4 is connected to APB1 bus, which has on F407 device 42MHz clock
-	    But, timer has internal PLL, which double this frequency for timer, up to 84MHz
-	    Remember: Not each timer is connected to APB1, there are also timers connected
-	    on APB2, which works at 84MHz by default, and internal PLL increase
-	    this to up to 168MHz
-
-	    Set timer prescaller
-	    Timer count frequency is set with
-
-	    timer_tick_frequency = Timer_default_frequency / (prescaller_set + 1)
-
-	    In our case, we want a max frequency for timer, so we set prescaller to 0
-	    And our timer will have tick frequency
-
-	    timer_tick_frequency = 84000000 / (0 + 1) = 84000000
-	*/
-	    TIM_BaseStruct.TIM_Prescaler = 0;
-	    /* Count up */
-	    TIM_BaseStruct.TIM_CounterMode = TIM_CounterMode_Up;
-	/*
-	    Set timer period when it have reset
-	    First you have to know max value for timer
-	    In our case it is 16bit = 65535
-	    To get your frequency for PWM, equation is simple
-
-	    PWM_frequency = timer_tick_frequency / (TIM_Period + 1)
-
-	    If you know your PWM frequency you want to have timer period set correct
-
-	    TIM_Period = timer_tick_frequency / PWM_frequency - 1
-
-	    In our case, for 10Khz PWM_frequency, set Period to
-
-	    TIM_Period = 84000000 / 10000 - 1 = 8399
-
-	    If you get TIM_Period larger than max timer value (in our case 65535),
-	    you have to choose larger prescaler and slow down timer tick frequency
-	*/
-	    TIM_BaseStruct.TIM_Period = 8399; /* 10kHz PWM */
-	    TIM_BaseStruct.TIM_ClockDivision = TIM_CKD_DIV1;
-	    TIM_BaseStruct.TIM_RepetitionCounter = 0;
-	    /* Initialize TIM4 */
-	    TIM_TimeBaseInit(TIM10, &TIM_BaseStruct);
-	    /* Start count on TIM4 */
-	    TIM_Cmd(TIM10, ENABLE);
-
-	/*  Configuration du mode PWM  */
+// ******************* CONFIGURATION DE LA PIN PWM
 
 
 
 
-	    /* Common settings */
+	RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOB, ENABLE);		//Enables PORTB clock
+	RCC_APB2PeriphClockCmd(RCC_APB2Periph_TIM10, ENABLE);		//Enables TIM10 clock
 
-	    /* PWM mode 2 = Clear on compare match */
-	    /* PWM mode 1 = Set on compare match */
-	    TIM_OCStruct.TIM_OCMode = TIM_OCMode_PWM2;
-	    TIM_OCStruct.TIM_OutputState = TIM_OutputState_Enable;
-	    TIM_OCStruct.TIM_OCPolarity = TIM_OCPolarity_Low;
+	GPIO_InitStruct.GPIO_Pin = GPIO_Pin_8;						//Setup pin 8
+	GPIO_InitStruct.GPIO_Mode = GPIO_Mode_AF;					//Alternate function (for TIM10)
+	GPIO_InitStruct.GPIO_OType = GPIO_OType_PP;					//Push-Pull
+	GPIO_InitStruct.GPIO_PuPd = GPIO_PuPd_NOPULL;				//No pull-up/down
+	GPIO_InitStruct.GPIO_Speed = GPIO_Speed_100MHz;				//Max speed
+
+	GPIO_Init(GPIOB, &GPIO_InitStruct);							//Configure PB8
+
+	GPIO_PinAFConfig(GPIOB, GPIO_PinSource8, GPIO_AF_TIM10);	//Configure PB8 as TIM10 alternate function
+
+/*
+	TIM10 is connected to APB2 bus, which is 168 MHz / 2 = 84 MHz
+	APB2 timers have internal pll that double the frequency : 84 MHz *2 - 168 MHz
+	TIM10 default frequency is then 168 MHz.
+	We want a timer tick frequency that is the same across TIM10, TIM11, TIM13 and TIM14 : 84 MHz
+	timer_tick_frequency = Timer_default_frequency / (prescaller_set + 1)
+	timer_tick_frequency = 168 000 000 / (1 + 1) = 84 MHZ
+	TIM 10 is 16 bit = 65 535
+	We want a PWM frequency of 10 kHz
+	TIM_Period = (timer_tick_frequency / PWM_frequency) - 1
+	TIM_Period = (84000000 / 10000) - 1 = 83999
+*/
+
+	TIM_BaseStruct.TIM_Prescaler = 1;						//Gives a tick frequency of 84 MHz
+	TIM_BaseStruct.TIM_CounterMode = TIM_CounterMode_Up;	//Counts up
+	TIM_BaseStruct.TIM_Period = 8399;						//Gives PWM frequency of 10 kHz
+	TIM_BaseStruct.TIM_ClockDivision = TIM_CKD_DIV1;
+	TIM_BaseStruct.TIM_RepetitionCounter = 0;
+
+	TIM_TimeBaseInit(TIM10, &TIM_BaseStruct);				//Setup TIM10
+
+	TIM_Cmd(TIM10, ENABLE);									//Starts TIM10
+
+
+	TIM_OCStruct.TIM_OCMode = TIM_OCMode_PWM2;				//PWM mode 2 = Clear on compare match */
+	TIM_OCStruct.TIM_OutputState = TIM_OutputState_Enable;
+	TIM_OCStruct.TIM_OCPolarity = TIM_OCPolarity_Low;
 
 	/*
 	    To get proper duty cycle, you have simple equation
@@ -135,57 +95,52 @@ void motor_1_init(void)
 
 	    Remember: if pulse_length is larger than TIM_Period, you will have output HIGH all the time
 	*/
-	    TIM_OCStruct.TIM_Pulse = 1; /* 0% duty cycle */
-	    TIM_OC1Init(TIM10, &TIM_OCStruct);
-	    TIM_OC1PreloadConfig(TIM10, TIM_OCPreload_Enable);
+	TIM_OCStruct.TIM_Pulse = 1; /* 0% duty cycle */
+	TIM_OC1Init(TIM10, &TIM_OCStruct);
+	TIM_OC1PreloadConfig(TIM10, TIM_OCPreload_Enable);
+
+// ******************* CONFIGURATION DES PINS DE CONTROLE 1 ET 2
+
+
+	RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOD, ENABLE);	//Enables PORTD clock
 
 
 
-	// ******************* CONFIGURATION DES PINS DE CONTROLE 1 ET 2
 
-	  //activer la clock du port D
-	  RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOD, ENABLE);
+	//Initialiser la pins de controle du moteur
+	GPIO_InitStruct.GPIO_Pin = GPIO_Pin_0 | GPIO_Pin_1;
+	GPIO_InitStruct.GPIO_Mode = GPIO_Mode_OUT;
+	GPIO_InitStruct.GPIO_OType = GPIO_OType_PP;
+	GPIO_InitStruct.GPIO_PuPd = GPIO_PuPd_NOPULL;
+	GPIO_InitStruct.GPIO_Speed = GPIO_Speed_100MHz;
+	GPIO_Init(GPIOD, &GPIO_InitStruct);
 
-	  //Aucune configuration alternative pour les pins de controle du moteur, juste deux gpio
+// ******************* CONFIGURATION DES PINS DE L'ENCODEUR QUADRATURE
 
 
-	  //Initialiser la pins de controle du moteur
-	  GPIO_InitStruct.GPIO_Pin = GPIO_Pin_0 | GPIO_Pin_1;
-	  GPIO_InitStruct.GPIO_Mode = GPIO_Mode_OUT;
-	  GPIO_InitStruct.GPIO_OType = GPIO_OType_PP;
-	  GPIO_InitStruct.GPIO_PuPd = GPIO_PuPd_NOPULL;
-	  GPIO_InitStruct.GPIO_Speed = GPIO_Speed_100MHz;
-	  GPIO_Init(GPIOD, &GPIO_InitStruct);
-
-	// ******************* CONFIGURATION DES PINS DE L'ENCODEUR QUADRATURE
-
-	  //activer la clock du port E
-	  RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOE, ENABLE);
+	RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOE, ENABLE);	//Enable PORTE clock
 
 	  //Configurer la fonction alternative avec timer 1
-	  GPIO_PinAFConfig(GPIOE, GPIO_PinSource9,  GPIO_AF_TIM1);
-	  GPIO_PinAFConfig(GPIOE, GPIO_PinSource11, GPIO_AF_TIM1);
+	GPIO_PinAFConfig(GPIOE, GPIO_PinSource9,  GPIO_AF_TIM1);
+	GPIO_PinAFConfig(GPIOE, GPIO_PinSource11, GPIO_AF_TIM1);
 
 	  //Initialiser la pins de controle du moteur
-	  GPIO_InitStruct.GPIO_Pin = GPIO_Pin_9 | GPIO_Pin_11;
-	  GPIO_InitStruct.GPIO_Mode = GPIO_Mode_IN;
-	  GPIO_InitStruct.GPIO_OType = GPIO_OType_PP;
-	  GPIO_InitStruct.GPIO_PuPd = GPIO_PuPd_UP;
-	  GPIO_InitStruct.GPIO_Speed = GPIO_Speed_100MHz;
-	  GPIO_Init(GPIOE, &GPIO_InitStruct);
+	GPIO_InitStruct.GPIO_Pin   = GPIO_Pin_9 | GPIO_Pin_11;
+	GPIO_InitStruct.GPIO_Mode  = GPIO_Mode_IN;
+	GPIO_InitStruct.GPIO_OType = GPIO_OType_PP;
+	GPIO_InitStruct.GPIO_PuPd  = GPIO_PuPd_UP;
+	GPIO_InitStruct.GPIO_Speed = GPIO_Speed_100MHz;
+	GPIO_Init(GPIOE, &GPIO_InitStruct);
 
 
-	  TIM_EncoderInterfaceConfig(TIM1,
-	                             TIM_EncoderMode_TI12,
-	                             TIM_ICPolarity_Rising,
-	                             TIM_ICPolarity_Rising);
-	  TIM_SetAutoreload(TIM1, 0xffff);
+	TIM_EncoderInterfaceConfig(TIM1,
+	                           TIM_EncoderMode_TI12,
+	                           TIM_ICPolarity_Rising,
+	                           TIM_ICPolarity_Rising);
+	TIM_SetAutoreload(TIM1, 0xffff);
 
-	  TIM_Cmd(TIM1, ENABLE);
+	TIM_Cmd(TIM1, ENABLE);
 
-
-	  //encodersReset();
-  
 }
 
 void motor_2_init(void){
