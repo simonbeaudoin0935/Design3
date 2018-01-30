@@ -41,6 +41,7 @@ Le git contient les dossiers suivants :
     
 * Ne pas oubliez d'inclure `#include <opencv2/opencv.hpp>` dans les fichier où vous utilisez opencv
 
+* Il se peut que l'éxécution mène à l'erreur "ROOT failure to launch: dyld: Symbol not found: \_\_cg_jpeg_resync_to_restart". Dans ce cas, suivez [instructions](http://diana.parno.net/thoughts/?p=192) 
 
 # Procédure pour configurer votre github (Linux)
 * Creer un dossier 'Design_3_git' dans Documents.
