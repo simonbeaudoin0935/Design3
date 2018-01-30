@@ -25,6 +25,7 @@ MainWindow::MainWindow(QWidget *parent) :
             SIGNAL(timeout()),
             this,
             SLOT(serial_send_on_timeout()));
+    OpencvWorkerThread t();
 }
 
 MainWindow::~MainWindow()

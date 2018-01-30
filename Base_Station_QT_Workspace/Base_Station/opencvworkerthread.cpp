@@ -4,7 +4,8 @@
 
 OpencvWorkerThread::OpencvWorkerThread()
 {
-    cv::Mat inputImage = cv::imread(“/home/simon/Pictures/images.jpeg”);
+    //test
+    cv::Mat inputImage = cv::imread("/home/simon/Pictures/images.jpeg");
     if(!inputImage.empty()) cv::imshow("Display Image", inputImage);
 }
 

@@ -25,7 +25,7 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 
-INCLUDEPATH += /usr/local/include/opencv
+INCLUDEPATH += /usr/local/include
 
 LIBS += -L/usr/local/lib -lopencv_core -lopencv_imgcodecs -lopencv_highgui
 

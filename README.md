@@ -25,10 +25,10 @@ Le git contient les dossiers suivants :
 
 
 * Dans les fichiers projet .pro dans Qt, ajouter les lignes (Déjà présentes dans celui de la base-station) : 
-`INCLUDEPATH += /usr/local/include/opencv` \n
-`LIBS += -L/usr/local/lib -lopencv_core -lopencv_imgcodecs -lopencv_highgui`
+    * `INCLUDEPATH += /usr/local/include` 
+    * `LIBS += -L/usr/local/lib -lopencv_core -lopencv_imgcodecs -lopencv_highgui`
 
-
+* Ne pas oublier d'inclure `#include <opencv2/opencv.hpp>` dans les fichier où vous utilisez opencv
 
 # Procédure pour configurer votre github (Linux)
 * Creer un dossier 'Design_3_git' dans Documents.
