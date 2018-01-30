@@ -1733,6 +1733,7 @@ mainwindow.o: ../Base_Station/mainwindow.cpp ../Base_Station/mainwindow.h \
 		../../../Qt/5.10.0/gcc_64/include/QtWidgets/qmessagebox.h \
 		../../../Qt/5.10.0/gcc_64/include/QtWidgets/qdialog.h \
 		../../../Qt/5.10.0/gcc_64/include/QtCore/QDebug \
+		../../../Qt/5.10.0/gcc_64/include/QtGui/QImage \
 		../../../Qt/5.10.0/gcc_64/include/QtMultimedia/QCameraInfo \
 		../../../Qt/5.10.0/gcc_64/include/QtMultimedia/qcamerainfo.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o mainwindow.o ../Base_Station/mainwindow.cpp
@@ -1860,7 +1861,22 @@ opencvworkerthread.o: ../Base_Station/opencvworkerthread.cpp ../Base_Station/ope
 		../../../Qt/5.10.0/gcc_64/include/QtCore/qmetatype.h \
 		../../../Qt/5.10.0/gcc_64/include/QtCore/qvarlengtharray.h \
 		../../../Qt/5.10.0/gcc_64/include/QtCore/qcontainerfwd.h \
-		../../../Qt/5.10.0/gcc_64/include/QtCore/qobject_impl.h
+		../../../Qt/5.10.0/gcc_64/include/QtCore/qobject_impl.h \
+		../../../Qt/5.10.0/gcc_64/include/QtCore/QDebug \
+		../../../Qt/5.10.0/gcc_64/include/QtCore/qdebug.h \
+		../../../Qt/5.10.0/gcc_64/include/QtCore/qhash.h \
+		../../../Qt/5.10.0/gcc_64/include/QtCore/qmap.h \
+		../../../Qt/5.10.0/gcc_64/include/QtCore/qtextstream.h \
+		../../../Qt/5.10.0/gcc_64/include/QtCore/qiodevice.h \
+		../../../Qt/5.10.0/gcc_64/include/QtCore/qlocale.h \
+		../../../Qt/5.10.0/gcc_64/include/QtCore/qvariant.h \
+		../../../Qt/5.10.0/gcc_64/include/QtCore/qshareddata.h \
+		../../../Qt/5.10.0/gcc_64/include/QtCore/qvector.h \
+		../../../Qt/5.10.0/gcc_64/include/QtCore/qpoint.h \
+		../../../Qt/5.10.0/gcc_64/include/QtCore/qset.h \
+		../../../Qt/5.10.0/gcc_64/include/QtCore/qcontiguouscache.h \
+		../../../Qt/5.10.0/gcc_64/include/QtCore/qsharedpointer.h \
+		../../../Qt/5.10.0/gcc_64/include/QtCore/qsharedpointer_impl.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o opencvworkerthread.o ../Base_Station/opencvworkerthread.cpp
 
 moc_mainwindow.o: moc_mainwindow.cpp 
