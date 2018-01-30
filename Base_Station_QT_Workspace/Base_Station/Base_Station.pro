@@ -34,12 +34,14 @@ SOURCES += \
         main.cpp \
         mainwindow.cpp \
     serialmotionsender.cpp \
-    gamepadstate.cpp
+    gamepadstate.cpp \
+    opencvworkerthread.cpp
 
 HEADERS += \
         mainwindow.h \
     serialmotionsender.h \
-    gamepadstate.h
+    gamepadstate.h \
+    opencvworkerthread.h
 
 FORMS += \
         mainwindow.ui

@@ -9,20 +9,23 @@ Le git contient les dossiers suivants :
     Le code source du controlleur de moteur réalisé avec le board STM32F407 Discovery. Le IDE utilisé est System Workbench 4 STM32 (SW4STM32) 
 
 # Procédure pour configurer OpenCV et le faire marcher avec Qt (Linux)
-Toute la procédure d'installation de opencv sous linux est automatisée avec ce script magique. Il se charge d'installer toutes les dépendances et de configurer opencv en plus de beaucoup d'autre packages de développement utiles (git, build-essential, ...)
-* Télécharger [ce script](http://rodrigoberriel.com/download/script-install-opencv-3-0-0/)
-* Ouvrir un terminal puis aller dans Downloads : `cd ~/Downloads`
-* Dézipper l'archive : `unzip install-opencv.zip -d install-opencv`
-* Aller dans le dossier : `cd install-opencv`
-* Maintenant, rendez ce script executable en modifiant les droits : `sudo chmod 777 install-opencv.sh` ceci est important sinon vous aurez : ./install-opencv.sh : Command not found
-* Exécuter le script : `sudo ./install-opencv.sh`
 
-Vous devriez obtenir quelque chose du genre : 
-> n2018-01-29 23:58:49 OpenCV 3.0.0 foi instalado com sucesso!
-> \n2018-01-29 23:58:49 Tempo gasto: 00:07:02\n
+* Telecharger les dépendances de opencv : `sudo apt-get -y install libopencv-dev build-essential cmake git libgtk2.0-dev pkg-config python-dev python-numpy libdc1394-22 libdc1394-22-dev libjpeg-dev libpng12-dev libtiff4-dev libjasper-dev libavcodec-dev libavformat-dev libswscale-dev libxine-dev libgstreamer0.10-dev libgstreamer-plugins-base0.10-dev libv4l-dev libtbb-dev libqt4-dev libfaac-dev libmp3lame-dev libopencore-amrnb-dev libopencore-amrwb-dev libtheora-dev libvorbis-dev libxvidcore-dev x264 v4l-utils unzip`
+* Créer un dossier pour télécharger opencv : `mkdir opencv`
+* Aller dans ce dossier : `cd opencv`
+* Télécharger les sources de opencv : `wget https://github.com/Itseez/opencv/archive/3.0.0-alpha.zip -O opencv-3.0.0-alpha.zip`
+* Dézipper l'archive téléchargée : `unzip opencv-3.0.0-alpha.zip`
+* Aller dans le dossier crée : `cd opencv-3.0.0-alpha`
+* Créer un dossier pour le build qui suit : `mkdir build`
+* Aller dans ce dossier : `cd build`
+* Créer les makefiles : `cmake -D CMAKE_BUILD_TYPE=RELEASE -D CMAKE_INSTALL_PREFIX=/usr/local -D WITH_TBB=ON -D WITH_V4L=ON -D WITH_QT=ON -D WITH_OPENGL=ON ..`
+* Compiler tout le shitload : `make -j $(nproc)`
+* Enfin installer le tout au bon endroit : `sudo make install`
+* Ça y est, opencv est installé convenablement. 
 
-* Dans le fichier projet .pro, ajouter les lignes (Déjà présentes dans celui de la base-station) : 
-`INCLUDEPATH += /usr/local/include/opencv`
+
+* Dans les fichiers projet .pro dans Qt, ajouter les lignes (Déjà présentes dans celui de la base-station) : 
+`INCLUDEPATH += /usr/local/include/opencv` \n
 `LIBS += -L/usr/local/lib -lopencv_core -lopencv_imgcodecs -lopencv_highgui`
 
 

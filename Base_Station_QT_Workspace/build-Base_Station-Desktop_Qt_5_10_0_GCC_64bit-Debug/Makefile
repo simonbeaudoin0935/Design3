@@ -53,12 +53,14 @@ OBJECTS_DIR   = ./
 SOURCES       = ../Base_Station/main.cpp \
 		../Base_Station/mainwindow.cpp \
 		../Base_Station/serialmotionsender.cpp \
-		../Base_Station/gamepadstate.cpp moc_mainwindow.cpp \
+		../Base_Station/gamepadstate.cpp \
+		../Base_Station/opencvworkerthread.cpp moc_mainwindow.cpp \
 		moc_serialmotionsender.cpp
 OBJECTS       = main.o \
 		mainwindow.o \
 		serialmotionsender.o \
 		gamepadstate.o \
+		opencvworkerthread.o \
 		moc_mainwindow.o \
 		moc_serialmotionsender.o
 DIST          = ../../../Qt/5.10.0/gcc_64/mkspecs/features/spec_pre.prf \
@@ -246,10 +248,12 @@ DIST          = ../../../Qt/5.10.0/gcc_64/mkspecs/features/spec_pre.prf \
 		../../../Qt/5.10.0/gcc_64/mkspecs/features/lex.prf \
 		../Base_Station/Base_Station.pro ../Base_Station/mainwindow.h \
 		../Base_Station/serialmotionsender.h \
-		../Base_Station/gamepadstate.h ../Base_Station/main.cpp \
+		../Base_Station/gamepadstate.h \
+		../Base_Station/opencvworkerthread.h ../Base_Station/main.cpp \
 		../Base_Station/mainwindow.cpp \
 		../Base_Station/serialmotionsender.cpp \
-		../Base_Station/gamepadstate.cpp
+		../Base_Station/gamepadstate.cpp \
+		../Base_Station/opencvworkerthread.cpp
 QMAKE_TARGET  = Base_Station
 DESTDIR       = 
 TARGET        = Base_Station
@@ -661,8 +665,8 @@ distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
 	$(COPY_FILE) --parents ../../../Qt/5.10.0/gcc_64/mkspecs/features/data/dummy.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents ../Base_Station/mainwindow.h ../Base_Station/serialmotionsender.h ../Base_Station/gamepadstate.h $(DISTDIR)/
-	$(COPY_FILE) --parents ../Base_Station/main.cpp ../Base_Station/mainwindow.cpp ../Base_Station/serialmotionsender.cpp ../Base_Station/gamepadstate.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents ../Base_Station/mainwindow.h ../Base_Station/serialmotionsender.h ../Base_Station/gamepadstate.h ../Base_Station/opencvworkerthread.h $(DISTDIR)/
+	$(COPY_FILE) --parents ../Base_Station/main.cpp ../Base_Station/mainwindow.cpp ../Base_Station/serialmotionsender.cpp ../Base_Station/gamepadstate.cpp ../Base_Station/opencvworkerthread.cpp $(DISTDIR)/
 	$(COPY_FILE) --parents ../Base_Station/mainwindow.ui $(DISTDIR)/
 
 
@@ -1801,6 +1805,60 @@ serialmotionsender.o: ../Base_Station/serialmotionsender.cpp ../Base_Station/ser
 
 gamepadstate.o: ../Base_Station/gamepadstate.cpp ../Base_Station/gamepadstate.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o gamepadstate.o ../Base_Station/gamepadstate.cpp
+
+opencvworkerthread.o: ../Base_Station/opencvworkerthread.cpp ../Base_Station/opencvworkerthread.h \
+		../../../Qt/5.10.0/gcc_64/include/QtCore/QThread \
+		../../../Qt/5.10.0/gcc_64/include/QtCore/qthread.h \
+		../../../Qt/5.10.0/gcc_64/include/QtCore/qobject.h \
+		../../../Qt/5.10.0/gcc_64/include/QtCore/qobjectdefs.h \
+		../../../Qt/5.10.0/gcc_64/include/QtCore/qnamespace.h \
+		../../../Qt/5.10.0/gcc_64/include/QtCore/qglobal.h \
+		../../../Qt/5.10.0/gcc_64/include/QtCore/qconfig-bootstrapped.h \
+		../../../Qt/5.10.0/gcc_64/include/QtCore/qconfig.h \
+		../../../Qt/5.10.0/gcc_64/include/QtCore/qtcore-config.h \
+		../../../Qt/5.10.0/gcc_64/include/QtCore/qsystemdetection.h \
+		../../../Qt/5.10.0/gcc_64/include/QtCore/qprocessordetection.h \
+		../../../Qt/5.10.0/gcc_64/include/QtCore/qcompilerdetection.h \
+		../../../Qt/5.10.0/gcc_64/include/QtCore/qtypeinfo.h \
+		../../../Qt/5.10.0/gcc_64/include/QtCore/qsysinfo.h \
+		../../../Qt/5.10.0/gcc_64/include/QtCore/qlogging.h \
+		../../../Qt/5.10.0/gcc_64/include/QtCore/qflags.h \
+		../../../Qt/5.10.0/gcc_64/include/QtCore/qatomic.h \
+		../../../Qt/5.10.0/gcc_64/include/QtCore/qbasicatomic.h \
+		../../../Qt/5.10.0/gcc_64/include/QtCore/qatomic_bootstrap.h \
+		../../../Qt/5.10.0/gcc_64/include/QtCore/qgenericatomic.h \
+		../../../Qt/5.10.0/gcc_64/include/QtCore/qatomic_cxx11.h \
+		../../../Qt/5.10.0/gcc_64/include/QtCore/qatomic_msvc.h \
+		../../../Qt/5.10.0/gcc_64/include/QtCore/qglobalstatic.h \
+		../../../Qt/5.10.0/gcc_64/include/QtCore/qmutex.h \
+		../../../Qt/5.10.0/gcc_64/include/QtCore/qnumeric.h \
+		../../../Qt/5.10.0/gcc_64/include/QtCore/qversiontagging.h \
+		../../../Qt/5.10.0/gcc_64/include/QtCore/qobjectdefs_impl.h \
+		../../../Qt/5.10.0/gcc_64/include/QtCore/qstring.h \
+		../../../Qt/5.10.0/gcc_64/include/QtCore/qchar.h \
+		../../../Qt/5.10.0/gcc_64/include/QtCore/qbytearray.h \
+		../../../Qt/5.10.0/gcc_64/include/QtCore/qrefcount.h \
+		../../../Qt/5.10.0/gcc_64/include/QtCore/qarraydata.h \
+		../../../Qt/5.10.0/gcc_64/include/QtCore/qstringliteral.h \
+		../../../Qt/5.10.0/gcc_64/include/QtCore/qstringalgorithms.h \
+		../../../Qt/5.10.0/gcc_64/include/QtCore/qstringview.h \
+		../../../Qt/5.10.0/gcc_64/include/QtCore/qstringbuilder.h \
+		../../../Qt/5.10.0/gcc_64/include/QtCore/qlist.h \
+		../../../Qt/5.10.0/gcc_64/include/QtCore/qalgorithms.h \
+		../../../Qt/5.10.0/gcc_64/include/QtCore/qiterator.h \
+		../../../Qt/5.10.0/gcc_64/include/QtCore/qhashfunctions.h \
+		../../../Qt/5.10.0/gcc_64/include/QtCore/qpair.h \
+		../../../Qt/5.10.0/gcc_64/include/QtCore/qbytearraylist.h \
+		../../../Qt/5.10.0/gcc_64/include/QtCore/qstringlist.h \
+		../../../Qt/5.10.0/gcc_64/include/QtCore/qregexp.h \
+		../../../Qt/5.10.0/gcc_64/include/QtCore/qstringmatcher.h \
+		../../../Qt/5.10.0/gcc_64/include/QtCore/qcoreevent.h \
+		../../../Qt/5.10.0/gcc_64/include/QtCore/qscopedpointer.h \
+		../../../Qt/5.10.0/gcc_64/include/QtCore/qmetatype.h \
+		../../../Qt/5.10.0/gcc_64/include/QtCore/qvarlengtharray.h \
+		../../../Qt/5.10.0/gcc_64/include/QtCore/qcontainerfwd.h \
+		../../../Qt/5.10.0/gcc_64/include/QtCore/qobject_impl.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o opencvworkerthread.o ../Base_Station/opencvworkerthread.cpp
 
 moc_mainwindow.o: moc_mainwindow.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_mainwindow.o moc_mainwindow.cpp
