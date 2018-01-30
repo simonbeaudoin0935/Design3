@@ -3,7 +3,7 @@
 Le git contient les dossiers suivants :
 
 * Base\_Station\_QT\_Workspace :
-    Le code source de la station de base développé avec [Qt](www.qt.io) que vous pouvez downloader [ici](www.qt.io/download). Selectionnez la version open-source.
+    Le code source de la station de base est développé avec [Qt](www.qt.io) que vous pouvez downloader [ici](www.qt.io/download). Selectionnez la version open-source.
 
 * Motor\_Controller\_SW4STM\_Workspace :
     Le code source du controlleur de moteur réalisé avec le board STM32F407 Discovery. Le IDE utilisé est System Workbench 4 STM32 (SW4STM32) 
@@ -33,7 +33,13 @@ Le git contient les dossiers suivants :
 
 
 
+
 * Si vous avez des erreurs de compilation sous Qt *
 * \*\*cannot find -GL\*\* : `sudo apt-get install libgl1-mesa-dev`
 * \*\*cannot find -lpulse : `sudo apt-get install libpulse-dev`
+
+
+*Remarques pour Mac OS X:*
+* apt-get est utilisé pour installer des packages avec Linux. L'équivalent pour Mac est Homebrew.
+* Si `xclip -sel clip < ~/.ssh/id_rsa.pub` ne copie pas la clé, essayez d'obtenir la clé publique avec `cat ~/.ssh/id_rsa.pub` puis copiez là.
 
