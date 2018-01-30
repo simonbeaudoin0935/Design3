@@ -30,6 +30,7 @@ Le git contient les dossiers suivants :
 * Quand vous modifiez la structure, ajoutez ou supprimez des fichiers : `git add .`
 * Quand vous voulez commit les changements : `git commit -m "votre commentaire"`
 * Enfin : `git push`
+* Si tout est chié : `git reset --hard origin/master` ou n'importe quelle autre branche
 
 
 
