@@ -3,7 +3,7 @@
 Le git contient les dossiers suivants :
 
 * Base\_Station\_QT\_Workspace :
-    Le code source de la station de base est développé avec [Qt](www.qt.io) que vous pouvez downloader [ici](www.qt.io/download). Selectionnez la version open-source. Ne pas oublier de cocher la case Qt 5.10 lors de l'installation, sinon vous n'installerez que l'ide QtCreator sans la bibliothèque. 
+    Le code source de la station de base est développé avec [Qt](www.qt.io) que vous pouvez downloader [ici](www.qt.io/download). Selectionnez la version open-source. Lors de l'installation, n'oubliez pas lors de la sélection des components à installer de expand ne noeud 'Qt' et de cocher la case 'Qt 5.10.0' sinon vous n'installerez que l'IDE QtCreator. 
 
 * Motor\_Controller\_SW4STM\_Workspace :
     Le code source du controlleur de moteur réalisé avec le board STM32F407 Discovery. Le IDE utilisé est System Workbench 4 STM32 (SW4STM32) 
@@ -20,6 +20,10 @@ Toute la procédure d'installation de opencv sous linux est automatisée avec ce
 Vous devriez obtenir quelque chose du genre : 
 > n2018-01-29 23:58:49 OpenCV 3.0.0 foi instalado com sucesso!
 > \n2018-01-29 23:58:49 Tempo gasto: 00:07:02\n
+
+* Dans le fichier projet .pro, ajouter les lignes (Déjà présentes dans celui de la base-station) : 
+`INCLUDEPATH += /usr/local/include/opencv`
+`LIBS += -L/usr/local/lib -lopencv_core -lopencv_imgcodecs -lopencv_highgui`
 
 
 
