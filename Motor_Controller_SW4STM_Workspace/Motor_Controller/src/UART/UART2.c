@@ -4,6 +4,7 @@
 #include "stm32f4xx_usart.h"
 
 
+
 static volatile char uart2_rx_buf[UART2_RX_BUFF_SIZE];
 static volatile char uart2_tx_buf[UART2_TX_BUFF_SIZE];
 
@@ -13,7 +14,8 @@ static volatile uint32_t uart2_tx_head;
 static volatile uint32_t uart2_tx_tail;
 
 
-  
+
+
 void uart2_init(uint32_t p_baud_rate){
   
   uart2_rx_head = 0;
@@ -66,6 +68,7 @@ void uart2_init(uint32_t p_baud_rate){
   NVIC_InitStruct.NVIC_IRQChannelSubPriority = 0;
   NVIC_Init(&NVIC_InitStruct);
   
+
 }
 
 char uart2_read(void){

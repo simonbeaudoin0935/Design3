@@ -1,14 +1,28 @@
-21:35:54 **** Incremental Build of configuration Debug for project Motor_Controller ****
+23:00:41 **** Incremental Build of configuration Debug for project Motor_Controller ****
 make -j8 all 
+Building file: ../src/Motor/PID.c
 Building file: ../src/main.c
 Invoking: MCU GCC Compiler
+Invoking: MCU GCC Compiler
+/home/simon/Design_3_git/Motor_Controller_SW4STM_Workspace/Motor_Controller/Debug
+arm-none-eabi-gcc -mcpu=cortex-m4 -mthumb -mfloat-abi=hard -mfpu=fpv4-sp-d16 -DSTM32 -DSTM32F4 -DSTM32F407VGTx -DSTM32F407G_DISC1 -DDEBUG -DSTM32F40XX -DSTM32F40_41xxx -DUSE_STDPERIPH_DRIVER -I"/home/simon/Design_3_git/Motor_Controller_SW4STM_Workspace/Motor_Controller/StdPeriph_Driver/inc" -I"/home/simon/Design_3_git/Motor_Controller_SW4STM_Workspace/Motor_Controller/inc" -I"/home/simon/Design_3_git/Motor_Controller_SW4STM_Workspace/Motor_Controller/CMSIS/device" -I"/home/simon/Design_3_git/Motor_Controller_SW4STM_Workspace/Motor_Controller/CMSIS/core" -O0 -g3 -Wall -fmessage-length=0 -ffunction-sections -c -MMD -MP -MF"src/Motor/PID.d" -MT"src/Motor/PID.o" -o "src/Motor/PID.o" "../src/Motor/PID.c"
 /home/simon/Design_3_git/Motor_Controller_SW4STM_Workspace/Motor_Controller/Debug
 arm-none-eabi-gcc -mcpu=cortex-m4 -mthumb -mfloat-abi=hard -mfpu=fpv4-sp-d16 -DSTM32 -DSTM32F4 -DSTM32F407VGTx -DSTM32F407G_DISC1 -DDEBUG -DSTM32F40XX -DSTM32F40_41xxx -DUSE_STDPERIPH_DRIVER -I"/home/simon/Design_3_git/Motor_Controller_SW4STM_Workspace/Motor_Controller/StdPeriph_Driver/inc" -I"/home/simon/Design_3_git/Motor_Controller_SW4STM_Workspace/Motor_Controller/inc" -I"/home/simon/Design_3_git/Motor_Controller_SW4STM_Workspace/Motor_Controller/CMSIS/device" -I"/home/simon/Design_3_git/Motor_Controller_SW4STM_Workspace/Motor_Controller/CMSIS/core" -O0 -g3 -Wall -fmessage-length=0 -ffunction-sections -c -MMD -MP -MF"src/main.d" -MT"src/main.o" -o "src/main.o" "../src/main.c"
+In file included from ../src/Motor/PID.c:2:0:
+../src/Motor/../../inc/Motor/Motor.h:9:1: warning: parameter names (without types) in function declaration
+ void motor1_set_speed( p_speed);
+ ^~~~
+In file included from ../src/main.c:17:0:
+../src/../inc/Motor/Motor.h:9:1: warning: parameter names (without types) in function declaration
+ void motor1_set_speed( p_speed);
+ ^~~~
+Finished building: ../src/Motor/PID.c
+ 
 Finished building: ../src/main.c
  
 Building target: Motor_Controller.elf
 Invoking: MCU G++ Linker
-arm-none-eabi-g++ -mcpu=cortex-m4 -mthumb -mfloat-abi=hard -mfpu=fpv4-sp-d16 -T"/home/simon/Design_3_git/Motor_Controller_SW4STM_Workspace/Motor_Controller/LinkerScript.ld" -Wl,-Map=output.map -Wl,--gc-sections -fno-exceptions -fno-rtti -o "Motor_Controller.elf" @"objects.list"   -lm
+arm-none-eabi-g++ -mcpu=cortex-m4 -mthumb -mfloat-abi=hard -mfpu=fpv4-sp-d16 -u _printf_float -T"/home/simon/Design_3_git/Motor_Controller_SW4STM_Workspace/Motor_Controller/LinkerScript.ld" -Wl,-Map=output.map -Wl,--gc-sections -fno-exceptions -fno-rtti -o "Motor_Controller.elf" @"objects.list"   -lm
 Finished building target: Motor_Controller.elf
  
 make --no-print-directory post-build
@@ -16,8 +30,8 @@ Generating binary and Printing size information:
 arm-none-eabi-objcopy -O binary "Motor_Controller.elf" "Motor_Controller.bin"
 arm-none-eabi-size "Motor_Controller.elf"
    text	   data	    bss	    dec	    hex	filename
-  10032	   1120	   1468	  12620	   314c	Motor_Controller.elf
+  10528	   1120	   1524	  13172	   3374	Motor_Controller.elf
  
 
-21:35:55 Build Finished (took 514ms)
+23:00:42 Build Finished (took 511ms)
 

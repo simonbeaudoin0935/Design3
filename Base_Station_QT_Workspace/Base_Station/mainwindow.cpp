@@ -8,8 +8,15 @@
 #include <QImage>
 #include <QCameraInfo>
 
+<<<<<<< Updated upstream
 //#include <QCameraViewfinderSettingsControl>
 //#include <QCameraViewfinderSettings>
+=======
+#include <QtCharts/QChartView>
+
+#include "opencvworkerthread.h"
+
+>>>>>>> Stashed changes
 
 //#include "opencvworkerthread.h"
 //#include <opencv2/opencv.hpp>
@@ -18,9 +25,18 @@
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
-    ui(new Ui::MainWindow)
+    ui(new Ui::MainWindow),
+    m_isSerialPortConnected(false),
+    m_isGamepadConnected(false),
+    m_isCameraConnected(false)
 {
     ui->setupUi(this);
+
+    m_pid_chart = new PID_Chart();
+    QChartView *chartView = new QChartView(m_pid_chart);
+    chartView->setRenderHint(QPainter::Antialiasing);
+    ui->graphicsView_PID->setViewport(chartView);
+    ui->graphicsView_PID->adjustSize();
 
     m_gamepadManager = QGamepadManager::instance();
     m_gamepad = 0;
@@ -28,14 +44,22 @@ MainWindow::MainWindow(QWidget *parent) :
     m_serialPort = new QSerialPort;
     m_serialMotionSenderThread = new SerialMotionSender(100);
     m_cameraWorld = 0;
-    m_isCameraConnected = false;
+
 
     connect(m_serialMotionSenderThread,
             SIGNAL(timeout()),
             this,
             SLOT(serial_send_on_timeout()));
 
+
+
+
     OpencvWorkerThread *t = new OpencvWorkerThread();
+<<<<<<< Updated upstream
+=======
+
+    t->start();
+>>>>>>> Stashed changes
 }
 
 MainWindow::~MainWindow()
@@ -54,6 +78,7 @@ void MainWindow::on_pushButton_Gamepad_Connect_clicked()
     }
 
     m_gamepad = new QGamepad(*gamepads.begin(), this);
+    m_isGamepadConnected = true;
 
 //left stick
     connect(m_gamepad,
@@ -177,6 +202,10 @@ void MainWindow::on_pushButton_Gamepad_Connect_clicked()
 
     ui->pushButton_Gamepad_START->setEnabled(true);
     ui->pushButton_Gamepad_BACK->setEnabled(true);
+
+    if(m_isSerialPortConnected){
+        m_serialMotionSenderThread->startSending();
+    }
 }
 
     //GAMEPAD INPUT CHANGES SLOTS
@@ -319,9 +348,15 @@ void MainWindow::on_pushButton_Serial_Connect_clicked()
         ui->pushButton_Serial_Connect->setEnabled(false);
         ui->pushButton_Serial_Disconnect->setEnabled(true);
 
+        connect(m_serialPort,
+                SIGNAL(readyRead()),
+                this,
+                SLOT(serial_data_received()));
 
+        if(m_isGamepadConnected){
+            m_serialMotionSenderThread->startSending();
+        }
 
-        m_serialMotionSenderThread->startSending();
     }
 }
 
@@ -419,3 +454,125 @@ void MainWindow::on_pushButton_Camera_Connect_clicked()
     m_cameraWorld->start();
 }
 
+<<<<<<< Updated upstream
+=======
+void MainWindow::serial_data_received()
+{
+
+    QByteArray v_bytes = m_serialPort->readAll();
+    for(int i = 0; i < v_bytes.count(); i++){
+        if(m_serialReceiveStateMachine.parseMessage(v_bytes.at(i))){
+
+            QByteArray v_data = m_serialReceiveStateMachine.getMessageContent();
+
+            typedef union{
+                int   integer;
+                float floating;
+                char  bytes[sizeof(int)]; //[4]
+            }type_u;
+
+            type_u motor_1;
+            type_u motor_2;
+            type_u motor_3;
+            type_u motor_4;
+
+
+
+            switch(m_serialReceiveStateMachine.getMessageId()){
+
+            case 0x01:
+
+                motor_1.bytes[0] = v_data.at(0);
+                motor_1.bytes[1] = v_data.at(1);
+                motor_1.bytes[2] = v_data.at(2);
+                motor_1.bytes[3] = v_data.at(3);
+
+                motor_2.bytes[0] = v_data.at(4);
+                motor_2.bytes[1] = v_data.at(5);
+                motor_2.bytes[2] = v_data.at(6);
+                motor_2.bytes[3] = v_data.at(7);
+
+                motor_3.bytes[0] = v_data.at(8);
+                motor_3.bytes[1] = v_data.at(9);
+                motor_3.bytes[2] = v_data.at(10);
+                motor_3.bytes[3] = v_data.at(11);
+
+                motor_4.bytes[0] = v_data.at(12);
+                motor_4.bytes[1] = v_data.at(13);
+                motor_4.bytes[2] = v_data.at(14);
+                motor_4.bytes[3] = v_data.at(15);
+
+
+                ui->dial_motor_1->setValue(motor_1.integer % 6400);
+                ui->dial_motor_2->setValue(motor_2.integer % 6400);
+                ui->dial_motor_3->setValue(motor_3.integer % 6400);
+                ui->dial_motor_4->setValue(motor_4.integer % 6400);
+
+
+                break;
+
+            case 0x02:
+
+
+
+                motor_1.bytes[0] = v_data.at(0);
+                motor_1.bytes[1] = v_data.at(1);
+                motor_1.bytes[2] = v_data.at(2);
+                motor_1.bytes[3] = v_data.at(3);
+
+                motor_2.bytes[0] = v_data.at(4);
+                motor_2.bytes[1] = v_data.at(5);
+                motor_2.bytes[2] = v_data.at(6);
+                motor_2.bytes[3] = v_data.at(7);
+
+                motor_3.bytes[0] = v_data.at(8);
+                motor_3.bytes[1] = v_data.at(9);
+                motor_3.bytes[2] = v_data.at(10);
+                motor_3.bytes[3] = v_data.at(11);
+
+                motor_4.bytes[0] = v_data.at(12);
+                motor_4.bytes[1] = v_data.at(13);
+                motor_4.bytes[2] = v_data.at(14);
+                motor_4.bytes[3] = v_data.at(15);
+
+                ui->label_motor_1_rps->setText(QString::number((double)motor_1.floating,'f', 6));
+                ui->label_motor_2_rps->setText(QString::number((double)motor_2.floating,'f', 6));
+                ui->label_motor_3_rps->setText(QString::number((double)motor_3.floating,'f', 6));
+                ui->label_motor_4_rps->setText(QString::number((double)motor_4.floating,'f', 6));
+
+                break;
+
+             case 0x03:
+
+                m_pid_chart->addPIDOutputPoint(v_data);
+
+            default:
+                break;
+            }
+
+
+
+
+
+
+        }
+    }
+}
+
+void MainWindow::on_pushButton_Serial_Disconnect_clicked()
+{
+    this->m_serialMotionSenderThread->stopSending();
+
+    ui->pushButton_Serial_Connect->setEnabled(true);
+    ui->pushButton_Serial_Disconnect->setEnabled(false);
+
+    disconnect(m_serialPort,
+                SIGNAL(readyRead()),
+                this,
+                SLOT(serial_data_received()));
+
+
+
+    this->m_serialPort->disconnect();
+}
+>>>>>>> Stashed changes

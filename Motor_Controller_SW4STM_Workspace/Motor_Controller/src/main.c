@@ -15,74 +15,177 @@
 #include "../inc/UART/UART3.h"
 #include "../inc/UART/Parser.h"
 #include "../inc/Motor/Motor.h"
+#include "../inc/Motor/PID.h"
+
+#include "../inc/define.h"
+
+#include "stdio.h"
+
+void init_components(void);
 
 
 
+volatile unsigned int systick_happened;
 
-void init_blue_led();
+typedef struct{
+
+	float position;
+	float position_old;
+
+	float vitesse;
+	float vitesse_old;
+
+
+	float consigne_position;
+
+	float consigne_vitesse;
+	float consigne_vitesse_old;
+
+	float erreur_position;
+	float erreur_position_old;
+
+	float erreur_vitesse;
+	float erreur_vitesse_old;
+
+	float integral_position;
+	float integral_vitesse;
+
+	float acceleration;
+
+	float pid;
+}PID_t;
+
+extern PID_t PID_1;
+extern PID_t PID_2;
+extern PID_t PID_3;
+extern PID_t PID_4;
+
+
+
 
 int main(void)
 {
-	uart2_init(115200);
-	uart3_init(115200);
+	init_components();
 
-	SysTick_Config((SystemCoreClock  * 0.001));
+	char s[1000];
 
-	motors_init();
-	init_blue_led();
 
+	PID_reset();
 
 
 
 
+	while(1){
+
+		if(systick_happened == 1){
+
+			systick_happened = 0;
 
 
+			typedef union{
+				float floating;
+				char  bytes[4];
+			}float_t;
 
-	for(;;){
+			float_t v_float;
 
-		if(uart3_available() != 0){
-			char v_byte = uart3_read();
-			uart2_write(v_byte);
-
-			if(parseMessage(v_byte) == 1){
-				GPIOD->ODR ^= 0x4000;
-
-				signed char speed_x = g_messageContent[0];
-				signed char speed_y = g_messageContent[1];
-				signed char speed_r = g_messageContent[2];
-
-				if(speed_x < 15 && speed_x > -15) speed_x = 0;
-				if(speed_y < 15 && speed_y > -15) speed_y = 0;
-				if(speed_r < 15 && speed_r > -15) speed_r = 0;
-
-				signed char motor_1_speed = 0;
-				signed char motor_2_speed = 0;
-				signed char motor_3_speed = 0;
-				signed char motor_4_speed = 0;
-
-				motor_1_speed += speed_x;
-				motor_4_speed -= speed_x;
-
-				motor_2_speed += speed_y;
-				motor_3_speed -= speed_y;
-
-				motor_1_speed += speed_r;
-				motor_2_speed += speed_r;
-				motor_3_speed += speed_r;
-				motor_4_speed += speed_r;
+			PID_compute();
 
 
-				motor1_set_speed(motor_1_speed);
-				motor2_set_speed(motor_2_speed);
-				motor3_set_speed(motor_3_speed);
-				motor4_set_speed(motor_4_speed);
+			s[0] = '#';
+			s[1] = 0x03;
+			s[2] = 0x10; //to update
+
+
+			v_float.floating = PID_1.position;
+
+			s[3]  = v_float.bytes[0];
+			s[4]  = v_float.bytes[1];
+			s[5]  = v_float.bytes[2];
+			s[6]  = v_float.bytes[3];
+
+
+			v_float.floating = PID_1.vitesse;
+
+			s[7]  = v_float.bytes[0];
+			s[8]  = v_float.bytes[1];
+			s[9]  = v_float.bytes[2];
+			s[10] = v_float.bytes[3];
+
+			v_float.floating = PID_1.acceleration;
+
+			s[11] = v_float.bytes[0];
+			s[12] = v_float.bytes[1];
+			s[13] = v_float.bytes[2];
+			s[14] = v_float.bytes[3];
+
+
+			v_float.floating = PID_1.pid / 8399 *10;
+
+			s[15] = v_float.bytes[0];
+			s[16] = v_float.bytes[1];
+			s[17] = v_float.bytes[2];
+			s[18] = v_float.bytes[3];
+
+			s[19] = '.';
+
+
+			for(int i = 0; i < 20; i++){
+				uart2_write(s[i]);
 			}
+
 		}
+
+//		if(uart3_available() != 0){
+//			char v_byte = uart3_read();
+//			uart2_write(v_byte);
+//
+//			if(parseMessage(v_byte) == 1){
+//
+//				if(g_messageId == 1){
+//					signed char speed_x = g_messageContent[0];
+//					signed char speed_y = g_messageContent[1];
+//					signed char speed_r = g_messageContent[2];
+//
+//					if(speed_x < 15 && speed_x > -15) speed_x = 0;
+//					if(speed_y < 15 && speed_y > -15) speed_y = 0;
+//					if(speed_r < 15 && speed_r > -15) speed_r = 0;
+//
+//					signed char motor_1_speed = 0;
+//					signed char motor_2_speed = 0;
+//					signed char motor_3_speed = 0;
+//					signed char motor_4_speed = 0;
+//
+//					motor_1_speed += speed_x;
+//					motor_4_speed -= speed_x;
+//
+//					motor_2_speed += speed_y;
+//					motor_3_speed -= speed_y;
+//
+//					motor_1_speed += speed_r;
+//					motor_2_speed += speed_r;
+//					motor_3_speed += speed_r;
+//					motor_4_speed += speed_r;
+//
+//
+//					motor1_set_speed(motor_1_speed);
+//					motor2_set_speed(motor_2_speed);
+//					motor3_set_speed(motor_3_speed);
+//					motor4_set_speed(motor_4_speed);
+//				}
+//
+//			}
+//		}
 	}
-	while(1);
+
 }
 
-void init_blue_led(){
+
+
+void init_components(){
+
+	//init blue and red leds
+
 	RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOD, ENABLE);
 
 	GPIO_InitTypeDef GPIO_InitStruct;
@@ -94,12 +197,27 @@ void init_blue_led(){
 	GPIO_Init(GPIOD, &GPIO_InitStruct);
 
 	GPIOD->ODR = 0;
-	//GPIOD->BSRRL = 0x8000; //set   PD1
+
+
+	SCB->CPACR |= (0x3 << 10 * 2 | 0x3 << 11 * 2);	//Enables the FPU
+
+
+
+	systick_happened = 0;
+
+	uart2_init(115200);
+	uart3_init(115200);
+
+
+	SysTick_Config((SystemCoreClock  * CONTROL_LOOP_INTERVAL));
+
+	motors_init();
+
 }
+
 
 
 void SysTick_Handler(void)
 {
-	GPIOD->ODR ^= 0x8000;
-
+	systick_happened += 1;
 }

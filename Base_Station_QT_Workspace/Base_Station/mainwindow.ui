@@ -6,8 +6,13 @@
    <rect>
     <x>0</x>
     <y>0</y>
+<<<<<<< Updated upstream
     <width>1000</width>
     <height>800</height>
+=======
+    <width>589</width>
+    <height>569</height>
+>>>>>>> Stashed changes
    </rect>
   </property>
   <property name="minimumSize">
@@ -50,6 +55,133 @@
         </property>
        </widget>
       </widget>
+      <widget class="QWidget" name="tab_7">
+       <attribute name="title">
+        <string>PID_Viewer</string>
+       </attribute>
+       <layout class="QVBoxLayout" name="verticalLayout_18">
+        <item>
+         <widget class="QGraphicsView" name="graphicsView_PID"/>
+        </item>
+        <item>
+         <layout class="QHBoxLayout" name="horizontalLayout_20">
+          <item>
+           <layout class="QVBoxLayout" name="verticalLayout_16">
+            <item>
+             <layout class="QHBoxLayout" name="horizontalLayout_14">
+              <item>
+               <widget class="QLabel" name="label_19">
+                <property name="text">
+                 <string>PKp</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QDoubleSpinBox" name="doubleSpinBox_2"/>
+              </item>
+             </layout>
+            </item>
+            <item>
+             <layout class="QHBoxLayout" name="horizontalLayout_15">
+              <item>
+               <widget class="QLabel" name="label_20">
+                <property name="text">
+                 <string>PKi</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QDoubleSpinBox" name="doubleSpinBox"/>
+              </item>
+             </layout>
+            </item>
+            <item>
+             <layout class="QHBoxLayout" name="horizontalLayout_16">
+              <item>
+               <widget class="QLabel" name="label_21">
+                <property name="text">
+                 <string>PKd</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QDoubleSpinBox" name="doubleSpinBox_3"/>
+              </item>
+             </layout>
+            </item>
+           </layout>
+          </item>
+          <item>
+           <layout class="QVBoxLayout" name="verticalLayout_17">
+            <item>
+             <layout class="QHBoxLayout" name="horizontalLayout_17">
+              <item>
+               <widget class="QLabel" name="label_22">
+                <property name="text">
+                 <string>PKp</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QDoubleSpinBox" name="doubleSpinBox_4"/>
+              </item>
+             </layout>
+            </item>
+            <item>
+             <layout class="QHBoxLayout" name="horizontalLayout_18">
+              <item>
+               <widget class="QLabel" name="label_23">
+                <property name="text">
+                 <string>PKi</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QDoubleSpinBox" name="doubleSpinBox_5"/>
+              </item>
+             </layout>
+            </item>
+            <item>
+             <layout class="QHBoxLayout" name="horizontalLayout_19">
+              <item>
+               <widget class="QLabel" name="label_24">
+                <property name="text">
+                 <string>PKd</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QDoubleSpinBox" name="doubleSpinBox_6"/>
+              </item>
+             </layout>
+            </item>
+           </layout>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <widget class="QPushButton" name="pushButton_Read_PID">
+          <property name="text">
+           <string>Read</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="pushButton_Flash_PID">
+          <property name="text">
+           <string>Flash</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="pushButton_Reset_PID">
+          <property name="text">
+           <string>Reset</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
       <widget class="QWidget" name="tab_6">
        <attribute name="title">
         <string>Settings</string>
@@ -58,7 +190,7 @@
         <item>
          <widget class="QTabWidget" name="tabWidget">
           <property name="currentIndex">
-           <number>1</number>
+           <number>0</number>
           </property>
           <widget class="QWidget" name="tab">
            <attribute name="title">
@@ -94,19 +226,27 @@
                  </widget>
                 </item>
                 <item>
-                 <widget class="QDial" name="dial_2"/>
+                 <widget class="QDial" name="dial_motor_2">
+                  <property name="maximum">
+                   <number>6399</number>
+                  </property>
+                 </widget>
                 </item>
                 <item>
                  <layout class="QHBoxLayout" name="horizontalLayout_5">
                   <item>
                    <widget class="QLabel" name="label_8">
                     <property name="text">
-                     <string>RPM:</string>
+                     <string>RPS:</string>
                     </property>
                    </widget>
                   </item>
                   <item>
-                   <widget class="QLCDNumber" name="lcdNumber_4"/>
+                   <widget class="QLabel" name="label_motor_2_rps">
+                    <property name="text">
+                     <string>0</string>
+                    </property>
+                   </widget>
                   </item>
                  </layout>
                 </item>
@@ -132,19 +272,27 @@
                  </widget>
                 </item>
                 <item>
-                 <widget class="QDial" name="dial"/>
+                 <widget class="QDial" name="dial_motor_1">
+                  <property name="maximum">
+                   <number>6399</number>
+                  </property>
+                 </widget>
                 </item>
                 <item>
                  <layout class="QHBoxLayout" name="horizontalLayout_4">
                   <item>
                    <widget class="QLabel" name="label_7">
                     <property name="text">
-                     <string>RPM:</string>
+                     <string>RPS:</string>
                     </property>
                    </widget>
                   </item>
                   <item>
-                   <widget class="QLCDNumber" name="lcdNumber_3"/>
+                   <widget class="QLabel" name="label_motor_1_rps">
+                    <property name="text">
+                     <string>0</string>
+                    </property>
+                   </widget>
                   </item>
                  </layout>
                 </item>
@@ -177,19 +325,35 @@
                  </widget>
                 </item>
                 <item>
+<<<<<<< Updated upstream
                  <widget class="QDial" name="dial_4"/>
+=======
+                 <widget class="QDial" name="dial_motor_3">
+                  <property name="maximum">
+                   <number>6399</number>
+                  </property>
+                 </widget>
+>>>>>>> Stashed changes
                 </item>
                 <item>
                  <layout class="QHBoxLayout" name="horizontalLayout_2">
                   <item>
                    <widget class="QLabel" name="label_5">
                     <property name="text">
-                     <string>RPM:</string>
+                     <string>RPS:</string>
                     </property>
                    </widget>
                   </item>
                   <item>
+<<<<<<< Updated upstream
                    <widget class="QLCDNumber" name="lcdNumber"/>
+=======
+                   <widget class="QLabel" name="label_motor_3_rps">
+                    <property name="text">
+                     <string>0</string>
+                    </property>
+                   </widget>
+>>>>>>> Stashed changes
                   </item>
                  </layout>
                 </item>
@@ -215,19 +379,35 @@
                  </widget>
                 </item>
                 <item>
+<<<<<<< Updated upstream
                  <widget class="QDial" name="dial_3"/>
+=======
+                 <widget class="QDial" name="dial_motor_4">
+                  <property name="maximum">
+                   <number>6399</number>
+                  </property>
+                 </widget>
+>>>>>>> Stashed changes
                 </item>
                 <item>
                  <layout class="QHBoxLayout" name="horizontalLayout_3">
                   <item>
                    <widget class="QLabel" name="label_6">
                     <property name="text">
-                     <string>RPM:</string>
+                     <string>RPS:</string>
                     </property>
                    </widget>
                   </item>
                   <item>
+<<<<<<< Updated upstream
                    <widget class="QLCDNumber" name="lcdNumber_2"/>
+=======
+                   <widget class="QLabel" name="label_motor_4_rps">
+                    <property name="text">
+                     <string>0</string>
+                    </property>
+                   </widget>
+>>>>>>> Stashed changes
                   </item>
                  </layout>
                 </item>

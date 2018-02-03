@@ -10,6 +10,8 @@
 #include "gamepadstate.h"
 #include "serialmotionsender.h"
 #include "opencvworkerthread.h"
+#include "serialreceivestatemachine.h"
+#include "pid_chart.h"
 
 namespace Ui {
 class MainWindow;
@@ -60,29 +62,37 @@ private slots:
 
     void serial_send_on_timeout();
 
+//Camera tab widget slots
     void on_pushButton_Camera_Scan_clicked();
 
     void on_comboBox_Camera_Selector_currentIndexChanged(const QString &arg1);
 
     void on_pushButton_Camera_Connect_clicked();
 
+//Motor tab slots
+
+    void serial_data_received();
+
+
+    void on_pushButton_Serial_Disconnect_clicked();
+
 private:
     Ui::MainWindow *ui;
 
-//gamepad members
-    QGamepadManager *m_gamepadManager;
-    QGamepad        *m_gamepad;
-    GamepadState    *m_gamepadState;
+    bool                m_isSerialPortConnected;
+    QSerialPort*        m_serialPort;
+    SerialMotionSender* m_serialMotionSenderThread;
+    SerialReceiveStateMachine m_serialReceiveStateMachine;
 
-//serial port members
-    QSerialPort     *m_serialPort;
+    bool                m_isGamepadConnected;
+    QGamepad*           m_gamepad;
+    QGamepadManager*    m_gamepadManager;
+    GamepadState*       m_gamepadState;
 
-//serial motion sender
-    SerialMotionSender *m_serialMotionSenderThread;
+    bool             m_isCameraConnected;
+    QCamera*         m_cameraWorld;
 
-//Camera members
-    QCamera *m_cameraWorld;
-    bool m_isCameraConnected;
+    PID_Chart       *m_pid_chart;
 
 };
 

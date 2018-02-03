@@ -19,7 +19,7 @@ char parseMessage(char p_byteToParse)
 
             resetMessageParserStateMachine();
             if(p_byteToParse == '#'){
-            	GPIOD->ODR ^= 0x4000;
+
             	g_messageParserState = WAIT_COMMAND_CHARACTER;
             }
 
