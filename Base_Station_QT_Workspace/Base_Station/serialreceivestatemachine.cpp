@@ -33,7 +33,8 @@ bool SerialReceiveStateMachine::parseMessage(char p_byteToParse)
         case WAIT_DATA_SIZE_CHARACTER:
 
             m_messageLength = p_byteToParse;
-            m_state = WAIT_DATA_CONTENT;
+            if(m_messageLength == 0x00) m_state = WAIT_CHECKSUM;
+            else m_state = WAIT_DATA_CONTENT;
             break;
 
         case WAIT_DATA_CONTENT:

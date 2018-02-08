@@ -1,0 +1,40 @@
+/*
+ * ParameterManager.cpp
+ *
+ *  Created on: Feb 8, 2018
+ *      Author: simon
+ */
+
+#include "../../inc/ParameterManager/ParameterManager.h"
+#include "../../inc/ParameterManager/25LC128.h"
+#include "../../inc/union_utils.h"
+
+ParameterManager::ParameterManager()
+{
+	eeprom_init();
+
+	this->loadParametersFromEEPROM();
+
+	m_parameterManagerPtr = this;
+
+}
+
+ParameterManager::~ParameterManager() {
+
+}
+
+ParameterManager* ParameterManager::getManager(){
+	return m_parameterManagerPtr;
+}
+
+void ParameterManager::loadParametersFromEEPROM(){
+
+	LireMemoireEEPROM(0, sizeof(this->m_parameters), (unsigned char*)&this->m_parameters);
+
+}
+
+void ParameterManager::storeParametersInEEPROM(){
+
+	EcrireMemoireEEPROM(0,sizeof(this->m_parameters), (unsigned char*)&this->m_parameters);
+
+}

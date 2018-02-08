@@ -76,6 +76,14 @@ private slots:
 
     void on_pushButton_Serial_Disconnect_clicked();
 
+    void on_pushButton_Reset_PID_clicked();
+
+    void on_pushButton_PID_Pause_Play_clicked();
+
+    void on_pushButton_Read_PID_clicked();
+
+    void on_pushButton_Store_PID_clicked();
+
 private:
     Ui::MainWindow *ui;
 
@@ -93,6 +101,8 @@ private:
     QCamera*         m_cameraWorld;
 
     PID_Chart       *m_pid_chart;
+
+
 
 };
 

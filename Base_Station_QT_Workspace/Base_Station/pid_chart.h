@@ -20,26 +20,21 @@ public:
 public slots:
     void addPIDOutputPoint(QByteArray p_data);
 
+    void play_pause(bool p_play_pause);
+
 private:
 
-    QLineSeries *m_serieDisplacement;
-
-
-    QLineSeries *m_serieSpeed;
-
-
-    QLineSeries *m_serieAcceleration;
-
-
+    QLineSeries *m_serieVmax;
+    QLineSeries *m_serieConsignePosition;
+    QLineSeries *m_serieConsigneVitesse;
+    QLineSeries *m_serieVitesse;
+    QLineSeries *m_seriePosition;
     QLineSeries *m_seriePIDOutput;
 
 
-    float m_displacement_index;
-    float m_speed_index;
-    float m_acceleration_index;
-    float m_PIDOutput_index;
+    bool m_play;
+    float m_x_index;
 
-    int x;
 
 };
 
@@ -50,12 +45,4 @@ private:
 
 
 
-//private:
-//    QTimer m_timer;
-//    QSplineSeries *m_series;
-//    QStringList m_titles;
-//    QValueAxis *m_axis;
-//    qreal m_step;
-//    qreal m_x;
-//    qreal m_y;
 

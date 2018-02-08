@@ -1,0 +1,18 @@
+/*
+ * ParameterManager.cpp
+ *
+ *  Created on: Feb 8, 2018
+ *      Author: simon
+ */
+
+#include "../../inc/ParameterManager/ParameterManager.h"
+
+ParameterManager::ParameterManager() {
+	// TODO Auto-generated constructor stub
+
+}
+
+ParameterManager::~ParameterManager() {
+	// TODO Auto-generated destructor stub
+}
+

@@ -1,0 +1,9 @@
+#ifndef FLOAT_CONVERSION_H
+#define FLOAT_CONVERSION_H
+
+typedef union{
+	float floating;
+	char  bytes[sizeof(float)];
+}float_t;
+
+#endif //FLOAT_CONVERSION_H

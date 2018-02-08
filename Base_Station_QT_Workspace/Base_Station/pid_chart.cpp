@@ -8,52 +8,64 @@
 PID_Chart::PID_Chart(QGraphicsItem *parent, Qt::WindowFlags wFlags):
     QChart(QChart::ChartTypeCartesian, parent, wFlags),
 
-    m_serieDisplacement(new QLineSeries(this)),
-    m_serieSpeed(new QLineSeries(this)),
-    m_serieAcceleration(new QLineSeries(this)),
+    m_serieVmax(new QLineSeries(this)),
+    m_serieConsignePosition(new QLineSeries(this)),
+    m_serieConsigneVitesse(new QLineSeries(this)),
+    m_serieVitesse(new QLineSeries(this)),
+    m_seriePosition(new QLineSeries(this)),
     m_seriePIDOutput(new QLineSeries(this)),
 
+    m_x_index(0.0),
 
-    m_displacement_index(0.0),
-    m_speed_index(0.0),
-    m_acceleration_index(0.0),
-    m_PIDOutput_index(0.0),
-    x(0)
+    m_play(true)
 
 
 
 {
 
-    QPen pen1(Qt::red);
+    QPen pen1(Qt::black);
     pen1.setWidth(1);
-    m_serieDisplacement->setPen(pen1);
-    m_serieDisplacement->setName("Displacement");
+    m_serieVmax->setPen(pen1);
+    m_serieVmax->setName("Vmax (cm/s)");
 
-    QPen pen2(Qt::blue);
+    QPen pen2(Qt::magenta);
     pen2.setWidth(1);
-    m_serieSpeed->setPen(pen2);
-    m_serieSpeed->setName("Speed");
+    m_serieConsignePosition->setPen(pen2);
+    m_serieConsignePosition->setName("Consigne position (cm)");
 
-    QPen pen3(Qt::green);
+    QPen pen3(Qt::red);
     pen3.setWidth(1);
-    m_serieAcceleration->setPen(pen3);
-    m_serieAcceleration->setName("Acceleration");
+    m_serieConsigneVitesse->setPen(pen3);
+    m_serieConsigneVitesse->setName("Consigne vitesse (cm/s)");
 
-    QPen pen4(Qt::black);
+    QPen pen4(Qt::green);
     pen4.setWidth(1);
-    m_seriePIDOutput->setPen(pen4);
-    m_seriePIDOutput->setName("PID output");
+    m_serieVitesse->setPen(pen4);
+    m_serieVitesse->setName("Vitesse mesurée (cm/s)");
 
+    QPen pen5(Qt::blue);
+    pen5.setWidth(1);
+    m_seriePosition->setPen(pen5);
+    m_seriePosition->setName("Position mesurée (cm)");
 
+    QPen pen6(Qt::gray);
+    pen6.setWidth(1);
+    m_seriePIDOutput->setPen(pen6);
+    m_seriePIDOutput->setName("PID Output (% /10)");
 
-    this->addSeries(m_serieDisplacement);
-    this->addSeries(m_serieSpeed);
-    this->addSeries(m_serieAcceleration);
+    this->addSeries(m_serieVmax);
+    this->addSeries(m_serieConsignePosition);
+    this->addSeries(m_serieConsigneVitesse);
+    this->addSeries(m_serieVitesse);
+    this->addSeries(m_seriePosition);
     this->addSeries(m_seriePIDOutput);
+
+    m_serieVmax->hide();
+
     this->createDefaultAxes();
 
-    axisX()->setRange(0,1);
-    axisY()->setRange(-5, 5);
+    axisX()->setRange(0,10.0);
+    axisY()->setRange(-25.0, 25.0);
 
 }
 
@@ -62,63 +74,60 @@ PID_Chart::~PID_Chart()
 
 }
 
+
+typedef union{
+    int   integer;
+    float floating;
+    char  bytes[sizeof(int)]; //[4]
+}type_u;
+
+type_u decode_number(QByteArray::Iterator& it){
+    type_u type;
+    type.bytes[0] = *it; it++;
+    type.bytes[1] = *it; it++;
+    type.bytes[2] = *it; it++;
+    type.bytes[3] = *it; it++;
+
+    return type;
+}
+
 void PID_Chart::addPIDOutputPoint(QByteArray p_data)
 {
+    if(m_play == true){
+        QByteArray::iterator byte_array_it = p_data.begin();
 
-    x++;
+        type_u type;
 
-    typedef union{
-        int   integer;
-        float floating;
-        char  bytes[sizeof(int)]; //[4]
-    }type_u;
+        type = decode_number(byte_array_it);
+        m_serieVmax->append(m_x_index, type.floating);
 
-    type_u t1;
-    type_u t2;
-    type_u t3;
-    type_u t4;
+        type = decode_number(byte_array_it);
+        m_serieConsignePosition->append(m_x_index, type.floating);
 
-    t1.bytes[0] = p_data.at(0);
-    t1.bytes[1] = p_data.at(1);
-    t1.bytes[2] = p_data.at(2);
-    t1.bytes[3] = p_data.at(3);
+        type = decode_number(byte_array_it);
+        m_serieConsigneVitesse->append(m_x_index, type.floating);
 
-    m_serieDisplacement->append(m_displacement_index,t1.floating);
-    m_displacement_index += 0.05;
+        type = decode_number(byte_array_it);
+        m_serieVitesse->append(m_x_index, type.floating);
 
-    t2.bytes[0] = p_data.at(4);
-    t2.bytes[1] = p_data.at(5);
-    t2.bytes[2] = p_data.at(6);
-    t2.bytes[3] = p_data.at(7);
+        type = decode_number(byte_array_it);
+        m_seriePosition->append(m_x_index, type.floating);
 
-    m_serieSpeed->append(m_speed_index, t2.floating);
-    m_speed_index += 0.05;
+        type = decode_number(byte_array_it);
+        m_seriePIDOutput->append(m_x_index, type.floating);
 
-    t3.bytes[0] = p_data.at(8);
-    t3.bytes[1] = p_data.at(9);
-    t3.bytes[2] = p_data.at(10);
-    t3.bytes[3] = p_data.at(11);
-
-    m_serieAcceleration->append(m_acceleration_index, t3.floating);
-    m_acceleration_index += 0.05;
-
-    t4.bytes[0] = p_data.at(12);
-    t4.bytes[1] = p_data.at(13);
-    t4.bytes[2] = p_data.at(14);
-    t4.bytes[3] = p_data.at(15);
-
-    m_seriePIDOutput->append(m_PIDOutput_index, t4.floating);
-    m_PIDOutput_index += 0.05;
-
-    //m_x += 0.01;
-
-    //qreal x = plotArea().width() / m_axis->tickCount();
-
-    if(x > 10)scroll(17.35,0);
+        m_x_index += 0.05;
 
 
+        qreal x = plotArea().width() / (10.0 / 0.05);
+        if(m_x_index > 9.5) scroll(x,0);
 
+    }
+}
 
+void PID_Chart::play_pause(bool p_play_pause)
+{
+    m_play = p_play_pause;
 }
 
 

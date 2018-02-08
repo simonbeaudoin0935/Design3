@@ -8,19 +8,39 @@
 #include <QImage>
 #include <QCameraInfo>
 
-<<<<<<< Updated upstream
+
 //#include <QCameraViewfinderSettingsControl>
 //#include <QCameraViewfinderSettings>
-=======
+
 #include <QtCharts/QChartView>
 
 #include "opencvworkerthread.h"
 
->>>>>>> Stashed changes
+
 
 //#include "opencvworkerthread.h"
 //#include <opencv2/opencv.hpp>
 //using namespace cv;
+
+
+
+
+void send_float_value(QByteArray &array, float p_value){
+    typedef union{
+        float floating;
+        char  bytes[4];
+    }float_t;
+
+    float_t v_float;
+
+    v_float.floating = p_value;
+
+    array.append(v_float.bytes[0]);
+    array.append(v_float.bytes[1]);
+    array.append(v_float.bytes[2]);
+    array.append(v_float.bytes[3]);
+}
+
 
 
 MainWindow::MainWindow(QWidget *parent) :
@@ -33,10 +53,16 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->setupUi(this);
 
     m_pid_chart = new PID_Chart();
+    m_pid_chart->setSizePolicy(QSizePolicy(QSizePolicy::Expanding,QSizePolicy::Expanding));
     QChartView *chartView = new QChartView(m_pid_chart);
+    chartView->setSizePolicy(QSizePolicy(QSizePolicy::Expanding,QSizePolicy::Expanding));
     chartView->setRenderHint(QPainter::Antialiasing);
-    ui->graphicsView_PID->setViewport(chartView);
-    ui->graphicsView_PID->adjustSize();
+
+    ui->tab_7->layout()->addWidget(chartView);
+
+
+    //ui->graphicsView_PID->setViewport(chartView);
+    //ui->graphicsView_PID->setSizePolicy(QSizePolicy(QSizePolicy::Expanding,QSizePolicy::Expanding));
 
     m_gamepadManager = QGamepadManager::instance();
     m_gamepad = 0;
@@ -55,11 +81,9 @@ MainWindow::MainWindow(QWidget *parent) :
 
 
     OpencvWorkerThread *t = new OpencvWorkerThread();
-<<<<<<< Updated upstream
-=======
 
     t->start();
->>>>>>> Stashed changes
+
 }
 
 MainWindow::~MainWindow()
@@ -353,6 +377,8 @@ void MainWindow::on_pushButton_Serial_Connect_clicked()
                 this,
                 SLOT(serial_data_received()));
 
+        m_isSerialPortConnected = true;
+
         if(m_isGamepadConnected){
             m_serialMotionSenderThread->startSending();
         }
@@ -454,8 +480,23 @@ void MainWindow::on_pushButton_Camera_Connect_clicked()
     m_cameraWorld->start();
 }
 
-<<<<<<< Updated upstream
-=======
+
+float receive_float_value(QByteArray::Iterator &it){
+    typedef union{
+        float floating;
+        char  bytes[4];
+    }float_t;
+
+    float_t v_float;
+
+    v_float.bytes[0] = *it; it++;
+    v_float.bytes[1] = *it; it++;
+    v_float.bytes[2] = *it; it++;
+    v_float.bytes[3] = *it; it++;
+
+    return v_float.floating;
+}
+
 void MainWindow::serial_data_received()
 {
 
@@ -545,6 +586,21 @@ void MainWindow::serial_data_received()
              case 0x03:
 
                 m_pid_chart->addPIDOutputPoint(v_data);
+                break;
+
+             case 0x04:
+                {
+                    qDebug()<<"qqqq";
+                    QByteArray::iterator byte_array_it = v_data.begin();
+                    ui->doubleSpinBox_PKp->setValue((double)(receive_float_value(byte_array_it)));
+                    ui->doubleSpinBox_PKi->setValue((double)(receive_float_value(byte_array_it)));
+                    ui->doubleSpinBox_PKd->setValue((double)(receive_float_value(byte_array_it)));
+                    ui->doubleSpinBox_VKp->setValue((double)(receive_float_value(byte_array_it)));
+                    ui->doubleSpinBox_VKi->setValue((double)(receive_float_value(byte_array_it)));
+                    ui->doubleSpinBox_VKd->setValue((double)(receive_float_value(byte_array_it)));
+                }
+                break;
+
 
             default:
                 break;
@@ -574,5 +630,69 @@ void MainWindow::on_pushButton_Serial_Disconnect_clicked()
 
 
     this->m_serialPort->disconnect();
+    this->m_isSerialPortConnected = false;
 }
->>>>>>> Stashed changes
+
+
+
+
+void MainWindow::on_pushButton_PID_Pause_Play_clicked()
+{
+    if(ui->pushButton_PID_Pause_Play->text() == "Pause"){
+        ui->pushButton_PID_Pause_Play->setText("Play");
+        m_pid_chart->play_pause(false);
+    }
+    else{
+         ui->pushButton_PID_Pause_Play->setText("Pause");
+         m_pid_chart->play_pause(true);
+    }
+}
+
+void MainWindow::on_pushButton_Reset_PID_clicked()
+{
+    if(!m_isSerialPortConnected){
+        return;
+    }
+
+    QByteArray data;
+
+    data.append('#');
+    data.append((char)0x03);
+    data.append((char)0x00);
+    data.append('.');
+
+    m_serialPort->write(data);
+}
+
+void MainWindow::on_pushButton_Read_PID_clicked()
+{
+    QByteArray data;
+    data.append('#');
+    data.append(0x01);
+    data.append((char)0x00);
+    data.append('.');
+
+    m_serialPort->write(data);
+}
+
+void MainWindow::on_pushButton_Store_PID_clicked()
+{
+    QByteArray data;
+
+    data.append('#');
+    data.append(0x02);
+    data.append(0x18); //size
+
+    send_float_value(data, (float)(ui->doubleSpinBox_PKp->value()));
+    send_float_value(data, (float)(ui->doubleSpinBox_PKi->value()));
+    send_float_value(data, (float)(ui->doubleSpinBox_PKd->value()));
+    send_float_value(data, (float)(ui->doubleSpinBox_VKp->value()));
+    send_float_value(data, (float)(ui->doubleSpinBox_VKi->value()));
+    send_float_value(data, (float)(ui->doubleSpinBox_VKd->value()));
+
+
+    data.append('.');
+
+    m_serialPort->write(data);
+
+}
