@@ -30,12 +30,12 @@
 
 
 
-void eeprom_init(void);
+void initEEPROM(void);
 
 
-char LireMemoireEEPROM(unsigned int AdresseEEPROM, unsigned int NbreOctets, unsigned char* Destination);
+char lireMemoireEEPROM(unsigned int AdresseEEPROM, unsigned int NbreOctets, unsigned char* Destination);
 
-char EcrireMemoireEEPROM(unsigned int AdresseEEPROM, unsigned int NbreOctets, unsigned char* Source);
+char ecrireMemoireEEPROM(unsigned int AdresseEEPROM, unsigned int NbreOctets, unsigned char* Source);
 
 
 

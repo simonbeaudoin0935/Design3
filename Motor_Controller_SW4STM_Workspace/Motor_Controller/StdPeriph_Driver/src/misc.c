@@ -141,9 +141,10 @@ void NVIC_Init(NVIC_InitTypeDef* NVIC_InitStruct)
   assert_param(IS_FUNCTIONAL_STATE(NVIC_InitStruct->NVIC_IRQChannelCmd));
   assert_param(IS_NVIC_PREEMPTION_PRIORITY(NVIC_InitStruct->NVIC_IRQChannelPreemptionPriority));  
   assert_param(IS_NVIC_SUB_PRIORITY(NVIC_InitStruct->NVIC_IRQChannelSubPriority));
-    
+
   if (NVIC_InitStruct->NVIC_IRQChannelCmd != DISABLE)
   {
+
     /* Compute the Corresponding IRQ Priority --------------------------------*/    
     tmppriority = (0x700 - ((SCB->AIRCR) & (uint32_t)0x700))>> 0x08;
     tmppre = (0x4 - tmppriority);
@@ -153,12 +154,14 @@ void NVIC_Init(NVIC_InitTypeDef* NVIC_InitStruct)
     tmppriority |=  (uint8_t)(NVIC_InitStruct->NVIC_IRQChannelSubPriority & tmpsub);
         
     tmppriority = tmppriority << 0x04;
-        
+
+
     NVIC->IP[NVIC_InitStruct->NVIC_IRQChannel] = tmppriority;
-    
+
     /* Enable the Selected IRQ Channels --------------------------------------*/
     NVIC->ISER[NVIC_InitStruct->NVIC_IRQChannel >> 0x05] =
       (uint32_t)0x01 << (NVIC_InitStruct->NVIC_IRQChannel & (uint8_t)0x1F);
+
   }
   else
   {

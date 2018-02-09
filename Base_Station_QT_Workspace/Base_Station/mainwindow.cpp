@@ -598,6 +598,8 @@ void MainWindow::serial_data_received()
                     ui->doubleSpinBox_VKp->setValue((double)(receive_float_value(byte_array_it)));
                     ui->doubleSpinBox_VKi->setValue((double)(receive_float_value(byte_array_it)));
                     ui->doubleSpinBox_VKd->setValue((double)(receive_float_value(byte_array_it)));
+                    ui->doubleSpinBox_Amax->setValue((double)(receive_float_value(byte_array_it)));
+                    ui->doubleSpinBox_Vmax->setValue((double)(receive_float_value(byte_array_it)));
                 }
                 break;
 
@@ -681,7 +683,7 @@ void MainWindow::on_pushButton_Store_PID_clicked()
 
     data.append('#');
     data.append(0x02);
-    data.append(0x18); //size
+    data.append(0x20); //size
 
     send_float_value(data, (float)(ui->doubleSpinBox_PKp->value()));
     send_float_value(data, (float)(ui->doubleSpinBox_PKi->value()));
@@ -689,6 +691,8 @@ void MainWindow::on_pushButton_Store_PID_clicked()
     send_float_value(data, (float)(ui->doubleSpinBox_VKp->value()));
     send_float_value(data, (float)(ui->doubleSpinBox_VKi->value()));
     send_float_value(data, (float)(ui->doubleSpinBox_VKd->value()));
+    send_float_value(data, (float)(ui->doubleSpinBox_Amax->value()));
+    send_float_value(data, (float)(ui->doubleSpinBox_Vmax->value()));
 
 
     data.append('.');

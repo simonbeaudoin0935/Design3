@@ -2,63 +2,54 @@
 #define PARAMETERMANAGER_H_
 
 
+#include "../../inc/ParameterManager/25LC128.h"
 
 
-class ParameterManager {
-public:
-	ParameterManager();
-	virtual ~ParameterManager();
 
-	static ParameterManager* getManager();
+void loadParametersFromEEPROM();
+void storeParametersInEEPROM();
 
-	void initEeprom();
-	void loadParametersFromEEPROM();
-	void storeParametersInEEPROM();
-	struct{
-		float m_motor_1_PKp;
-		float m_motor_1_PKi;
-		float m_motor_1_PKd;
-		float m_motor_1_VKp;
-		float m_motor_1_VKi;
-		float m_motor_1_VKd;
-		float m_motor_1_Amax;
-		float m_motor_1_Vmax;
+typedef	struct{
+	float motor_1_PKp;
+	float motor_1_PKi;
+	float motor_1_PKd;
+	float motor_1_VKp;
+	float motor_1_VKi;
+	float motor_1_VKd;
+	float motor_1_Amax;
+	float motor_1_Vmax;
 
-		float m_motor_2_PKp;
-		float m_motor_2_PKi;
-		float m_motor_2_PKd;
-		float m_motor_2_VKp;
-		float m_motor_2_VKi;
-		float m_motor_2_VKd;
-		float m_motor_2_Amax;
-		float m_motor_2_Vmax;
+	float motor_2_PKp;
+	float motor_2_PKi;
+	float motor_2_PKd;
+	float motor_2_VKp;
+	float motor_2_VKi;
+	float motor_2_VKd;
+	float motor_2_Amax;
+	float motor_2_Vmax;
 
-		float m_motor_3_PKp;
-		float m_motor_3_PKi;
-		float m_motor_3_PKd;
-		float m_motor_3_VKp;
-		float m_motor_3_VKi;
-		float m_motor_3_VKd;
-		float m_motor_3_Amax;
-		float m_motor_3_Vmax;
+	float motor_3_PKp;
+	float motor_3_PKi;
+	float motor_3_PKd;
+	float motor_3_VKp;
+	float motor_3_VKi;
+	float motor_3_VKd;
+	float motor_3_Amax;
+	float motor_3_Vmax;
 
-		float m_motor_4_PKp;
-		float m_motor_4_PKi;
-		float m_motor_4_PKd;
-		float m_motor_4_VKp;
-		float m_motor_4_VKi;
-		float m_motor_4_VKd;
-		float m_motor_4_Amax;
-		float m_motor_4_Vmax;
+	float motor_4_PKp;
+	float motor_4_PKi;
+	float motor_4_PKd;
+	float motor_4_VKp;
+	float motor_4_VKi;
+	float motor_4_VKd;
+	float motor_4_Amax;
+	float motor_4_Vmax;
 
-		float m_wheel_diameter;
-		float m_dt;
+	float wheel_diameter;
+	float dt;
+}parameters_t;
 
-	}m_parameters;
-
-private:
-
-	static ParameterManager* m_parameterManagerPtr;
-};
+extern parameters_t g_parameters;
 
 #endif /* PARAMETERMANAGER_H_ */

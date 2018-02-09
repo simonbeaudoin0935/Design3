@@ -26,32 +26,32 @@ PID_Chart::PID_Chart(QGraphicsItem *parent, Qt::WindowFlags wFlags):
     QPen pen1(Qt::black);
     pen1.setWidth(1);
     m_serieVmax->setPen(pen1);
-    m_serieVmax->setName("Vmax (cm/s)");
+    m_serieVmax->setName("PID_1 consigne vitesse");
 
     QPen pen2(Qt::magenta);
     pen2.setWidth(1);
     m_serieConsignePosition->setPen(pen2);
-    m_serieConsignePosition->setName("Consigne position (cm)");
+    m_serieConsignePosition->setName("PID_4 consigne vitesse");
 
     QPen pen3(Qt::red);
     pen3.setWidth(1);
     m_serieConsigneVitesse->setPen(pen3);
-    m_serieConsigneVitesse->setName("Consigne vitesse (cm/s)");
+    m_serieConsigneVitesse->setName("PID_1 position");
 
     QPen pen4(Qt::green);
     pen4.setWidth(1);
     m_serieVitesse->setPen(pen4);
-    m_serieVitesse->setName("Vitesse mesurée (cm/s)");
+    m_serieVitesse->setName("PID_4 position");
 
     QPen pen5(Qt::blue);
     pen5.setWidth(1);
     m_seriePosition->setPen(pen5);
-    m_seriePosition->setName("Position mesurée (cm)");
+    m_seriePosition->setName("PID_1 vitesse");
 
     QPen pen6(Qt::gray);
     pen6.setWidth(1);
     m_seriePIDOutput->setPen(pen6);
-    m_seriePIDOutput->setName("PID Output (% /10)");
+    m_seriePIDOutput->setName("PID_4 vitesse");
 
     this->addSeries(m_serieVmax);
     this->addSeries(m_serieConsignePosition);
@@ -60,12 +60,12 @@ PID_Chart::PID_Chart(QGraphicsItem *parent, Qt::WindowFlags wFlags):
     this->addSeries(m_seriePosition);
     this->addSeries(m_seriePIDOutput);
 
-    m_serieVmax->hide();
+    //m_serieVmax->hide();
 
     this->createDefaultAxes();
 
-    axisX()->setRange(0,10.0);
-    axisY()->setRange(-25.0, 25.0);
+    axisX()->setRange(0,20.0);
+    axisY()->setRange(-30.0, 30.0);
 
 }
 
@@ -119,8 +119,8 @@ void PID_Chart::addPIDOutputPoint(QByteArray p_data)
         m_x_index += 0.05;
 
 
-        qreal x = plotArea().width() / (10.0 / 0.05);
-        if(m_x_index > 9.5) scroll(x,0);
+        qreal x = plotArea().width() / (20.0 / 0.05);
+        if(m_x_index > 19.5) scroll(x,0);
 
     }
 }
