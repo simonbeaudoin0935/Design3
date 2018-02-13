@@ -1,0 +1,14 @@
+#ifndef UART_UART_H_
+#define UART_UART_H_
+
+#include "UART/UART2.h"
+#include "UART/UART3.h"
+
+typedef enum{
+	UART1,
+	UART2,
+	UART3,
+	UART4
+}UART;
+
+#endif /* UART_UART_H_ */

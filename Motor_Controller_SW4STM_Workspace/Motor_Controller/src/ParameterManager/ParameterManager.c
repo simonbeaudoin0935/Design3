@@ -1,12 +1,6 @@
-/*
- * ParameterManager.cpp
- *
- *  Created on: Feb 8, 2018
- *      Author: simon
- */
+#include "ParameterManager/ParameterManager.h"
 
-#include "../../inc/ParameterManager/ParameterManager.h"
-
+#include "ParameterManager/25LC128.h"
 
 parameters_t g_parameters;
 

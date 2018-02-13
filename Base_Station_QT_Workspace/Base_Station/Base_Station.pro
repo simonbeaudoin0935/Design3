@@ -6,7 +6,7 @@
 
 QT       += core gui gamepad serialport multimedia multimediawidgets charts
 
-CONFIG   += c++11
+ CONFIG   += c++11
 
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
@@ -30,7 +30,7 @@ macx:CONFIG  += link_pkgconfig
 macx:PKGCONFIG += opencv
 
 unix:INCLUDEPATH += /usr/local/include
-unix:LIBS += -L/usr/local/lib -lopencv_core -lopencv_imgcodecs -lopencv_highgui
+unix:LIBS += -L/usr/local/lib -lopencv_core -lopencv_imgcodecs -lopencv_highgui -lopencv_imgproc
 
 SOURCES += \
         main.cpp \

@@ -1,8 +1,11 @@
 #ifndef PID_H
 #define PID_H
 
-#include "../define.h"
-#include "../ParameterManager/ParameterManager.h"
+typedef enum{
+	X = 0x01,
+	Y = 0x02,
+	R = 0x03
+}type_deplacement;
 
 typedef struct{
 
@@ -24,7 +27,11 @@ typedef struct{
 	float pid_output;
 }PID_t;
 
-void PID_reset_all(void);
+extern PID_t PID_1, PID_2, PID_3, PID_4;
+extern type_deplacement g_typeDeplacement;
+
+void PID_resetAll(void);
+void PID_computeAll(void);
 
 void PID_1_reset(void);
 void PID_2_reset(void);

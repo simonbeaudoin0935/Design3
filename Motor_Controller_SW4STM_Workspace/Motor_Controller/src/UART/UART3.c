@@ -1,25 +1,25 @@
-#include "../../inc/UART/UART3.h"
+#include "UART/UART3.h"
 
-#include "stm32f4xx_gpio.h"
-#include "stm32f4xx_usart.h"
+#include "stm32f4xx.h"
+
 
  
-static volatile char uart3_rx_buf[UART3_RX_BUFF_SIZE];
-static volatile char uart3_tx_buf[UART3_TX_BUFF_SIZE];
+static volatile char UART3_rx_buf[UART3_RX_BUFF_SIZE];
+static volatile char UART3_tx_buf[UART3_TX_BUFF_SIZE];
 
-static volatile uint32_t uart3_rx_head;
-static volatile uint32_t uart3_rx_tail;
-static volatile uint32_t uart3_tx_head;
-static volatile uint32_t uart3_tx_tail;
+static volatile uint32_t UART3_rx_head;
+static volatile uint32_t UART3_rx_tail;
+static volatile uint32_t UART3_tx_head;
+static volatile uint32_t UART3_tx_tail;
 
 
   
-void uart3_init(uint32_t p_baud_rate){
+void UART3_init(unsigned int p_baud_rate){
   
-  uart3_rx_head = 0;
-  uart3_rx_tail = 0;
-  uart3_tx_head = 0;
-  uart3_tx_tail = 0;
+  UART3_rx_head = 0;
+  UART3_rx_tail = 0;
+  UART3_tx_head = 0;
+  UART3_tx_tail = 0;
 
   
 
@@ -68,59 +68,59 @@ void uart3_init(uint32_t p_baud_rate){
   
 }
 
-char uart3_read(void){
+char UART3_read(void){
   
   //Si aucune données dans le rx buf, normalement ne devrait pas arriver car on appelle available()
   //pour connaitre le nombre de byte disponibles
-  if(uart3_rx_head == uart3_rx_tail){
+  if(UART3_rx_head == UART3_rx_tail){
     return 0;
   }
   
   else{
-    char c = uart3_rx_buf[uart3_rx_tail];                   //le prochain byte dans le buffer
-    uart3_rx_tail = (uart3_rx_tail + 1) % UART3_RX_BUFF_SIZE;     //on incrémente la queue du buffer et on fait un wrap around
+    char c = UART3_rx_buf[UART3_rx_tail];                   //le prochain byte dans le buffer
+    UART3_rx_tail = (UART3_rx_tail + 1) % UART3_RX_BUFF_SIZE;     //on incrémente la queue du buffer et on fait un wrap around
     return c;
   }
 }
 
-int uart3_available(){
-  return (int) ((UART3_RX_BUFF_SIZE + uart3_rx_head - uart3_rx_tail) % UART3_RX_BUFF_SIZE); //retourne le nombre de byte dans le buffer
+int UART3_available(){
+  return (int) ((UART3_RX_BUFF_SIZE + UART3_rx_head - UART3_rx_tail) % UART3_RX_BUFF_SIZE); //retourne le nombre de byte dans le buffer
 }
 
-void uart3_write(char p_data){
+void UART3_write(char p_data){
 
   //Si le buffer est vide et que le TX_data_register aussi, on skip
   //le processus et on envoit directement le byte.
-  if((uart3_tx_tail == uart3_tx_head) && (USART3->SR & USART_FLAG_TXE))
+  if((UART3_tx_tail == UART3_tx_head) && (USART3->SR & USART_FLAG_TXE))
   {
     USART3->DR = p_data;
     return;
   }
   
-  //sinon il y a des donnes dans le buffer ou le uart est en train de transferer le byte
+  //sinon il y a des donnes dans le buffer ou le UART est en train de transferer le byte
   //mit dans le registre de transfert  mit lors de l'appel précédend en #1
-  uint32_t v_index = (uart3_tx_head + 1) % UART3_TX_BUFF_SIZE;
+  uint32_t v_index = (UART3_tx_head + 1) % UART3_TX_BUFF_SIZE;
   
   //on boucle tant que le buffer est plein.
-  while(v_index == uart3_tx_tail)
+  while(v_index == UART3_tx_tail)
   {
     //si on est en train de boucler ici, l'interruption de transfert finira pas arriver
     //et liberera un byte dans le buffer
   }
   
-  uart3_tx_buf[uart3_tx_head] = p_data;                   //On place le byte dans le buffer
+  UART3_tx_buf[UART3_tx_head] = p_data;                   //On place le byte dans le buffer
   
-  uart3_tx_head = v_index;                                //On incrémente la tail
+  UART3_tx_head = v_index;                                //On incrémente la tail
     
   USART3->CR1 |= USART_FLAG_TXE;                          //Active Transmit Empty interrupt, s'il ne l'est pas déjà
 }
 
 
-void uart3_write_string(char* p_string)
+void UART3_print(char* p_string)
 {  
   while(*p_string != 0)                                   //Tant qu'on a pas atteind la fin de la string
   {
-    uart3_write(*p_string);                               //On écrit le char dans le buffer.
+    UART3_write(*p_string);                               //On écrit le char dans le buffer.
     
     p_string++;                                           //On incrémente
   }
@@ -134,23 +134,23 @@ void USART3_IRQHandler(void)
   {
     USART3->SR &= ~USART_FLAG_RXNE;                       //clear la source de linterrupt
     
-    uart3_rx_buf[uart3_rx_head] = USART3->DR;             //On place le byte recu dans le buffer
+    UART3_rx_buf[UART3_rx_head] = USART3->DR;             //On place le byte recu dans le buffer
     
-    uart3_rx_head = (uart3_rx_head + 1) % UART3_RX_BUFF_SIZE;   //On incrémente l'indice de tête, et fait un wrap around;
+    UART3_rx_head = (UART3_rx_head + 1) % UART3_RX_BUFF_SIZE;   //On incrémente l'indice de tête, et fait un wrap around;
   }
   
   if(USART3->SR & USART_FLAG_TXE)                         //if tx empty
   {            
     USART3->SR &= ~USART_FLAG_TXE;                        //On clear le flag
     
-    if(uart3_tx_head != uart3_tx_tail)                    //Si il y a des bytes à envoyer dans le tx_buf
+    if(UART3_tx_head != UART3_tx_tail)                    //Si il y a des bytes à envoyer dans le tx_buf
     { 
-      USART3->DR = uart3_tx_buf[uart3_tx_tail];           //On envoit le prochain byte
+      USART3->DR = UART3_tx_buf[UART3_tx_tail];           //On envoit le prochain byte
       
-      uart3_tx_tail = (uart3_tx_tail + 1) % UART3_TX_BUFF_SIZE; //On incrémente l'indice de queue, et fait un wrap around;
+      UART3_tx_tail = (UART3_tx_tail + 1) % UART3_TX_BUFF_SIZE; //On incrémente l'indice de queue, et fait un wrap around;
     }
     
-    if(uart3_tx_head == uart3_tx_tail)                    //Si il n'y a plus de données dans le tx_buf
+    if(UART3_tx_head == UART3_tx_tail)                    //Si il n'y a plus de données dans le tx_buf
     {                   
       USART3->CR1 &= ~USART_FLAG_TXE;                     //on désactive les interruption du tx empty.
     }

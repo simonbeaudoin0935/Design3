@@ -6,6 +6,7 @@
 #include <QtGamepad/QGamepad>
 #include <QtSerialPort/QtSerialPort>
 #include <QCamera>
+#include <QCameraImageCapture>
 
 #include "gamepadstate.h"
 #include "serialmotionsender.h"
@@ -84,6 +85,13 @@ private slots:
 
     void on_pushButton_Store_PID_clicked();
 
+    void on_pushButton_Take_Image_clicked();
+
+
+//Camera capture slot
+
+    void image_saved(int p_int, QString p_string);
+
 private:
     Ui::MainWindow *ui;
 
@@ -99,9 +107,11 @@ private:
 
     bool             m_isCameraConnected;
     QCamera*         m_cameraWorld;
+    QCameraImageCapture * m_cameraImageCapture;
 
     PID_Chart       *m_pid_chart;
 
+    OpencvWorkerThread *m_openCVWorkerThread;
 
 
 };

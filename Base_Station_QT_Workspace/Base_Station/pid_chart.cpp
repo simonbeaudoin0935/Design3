@@ -65,7 +65,7 @@ PID_Chart::PID_Chart(QGraphicsItem *parent, Qt::WindowFlags wFlags):
     this->createDefaultAxes();
 
     axisX()->setRange(0,20.0);
-    axisY()->setRange(-30.0, 30.0);
+    axisY()->setRange(-30.0, 50.0);
 
 }
 

@@ -1,4 +1,4 @@
-#include "../../inc/ParameterManager/25LC128.h"
+#include "ParameterManager/25LC128.h"
 #include "stm32f4xx_spi.h"
 
 //Prototypes

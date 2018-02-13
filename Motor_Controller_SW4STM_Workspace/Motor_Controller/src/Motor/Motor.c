@@ -1,5 +1,6 @@
-#include "../../inc/Motor/Motor.h"
-#include "../../inc/define.h"
+//#include "Motor/Motor.h"
+
+#include "define.h"
 #include "stm32f4xx.h"
 
 static void motor_1_init(void);
@@ -446,7 +447,7 @@ void motor2_set_speed_percent(float p_speed_percent){
 	if(p_speed_percent == 0.0){
 		//brake to ground
 	    GPIOD->BSRRL = 0x0000; //set nothing
-	    GPIOD->BSRRH = 0x0003; //reset PD0 and PD1
+	    GPIOD->BSRRH = 0x000C; //reset PD0 and PD1
 	    TIM10->CCR1 = 1;
 	}
 	else if(p_speed_percent > 0){

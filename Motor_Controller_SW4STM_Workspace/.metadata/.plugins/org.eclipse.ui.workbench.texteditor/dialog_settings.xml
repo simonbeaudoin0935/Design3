@@ -2,17 +2,23 @@
 <section name="Workbench">
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
 		<item value="false" key="isRegEx"/>
-		<item value="HSE_VALUE" key="selection"/>
+		<item value="g_selectedUART" key="selection"/>
 		<item value="false" key="casesensitive"/>
 		<item value="false" key="incremental"/>
 		<item value="true" key="wrap"/>
 		<item value="false" key="wholeword"/>
 		<list key="findhistory">
+			<item value="SELECTED_UART"/>
+			<item value="uart"/>
+			<item value="UART2"/>
+			<item value="uart2"/>
 			<item value="HSE_VALUE"/>
 			<item value="HSE_CLOCK"/>
 			<item value="AHBPrescTable"/>
 		</list>
 		<list key="replacehistory">
+			<item value="g_selectedUART"/>
+			<item value="UART"/>
 		</list>
 	</section>
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog_dialogBounds">

@@ -1,10 +1,7 @@
 #ifndef PARAMETERMANAGER_H_
 #define PARAMETERMANAGER_H_
 
-
-#include "../../inc/ParameterManager/25LC128.h"
-
-
+#include "ParameterManager/25LC128.h"
 
 void loadParametersFromEEPROM();
 void storeParametersInEEPROM();

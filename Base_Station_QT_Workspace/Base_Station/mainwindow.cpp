@@ -8,10 +8,6 @@
 #include <QImage>
 #include <QCameraInfo>
 
-
-//#include <QCameraViewfinderSettingsControl>
-//#include <QCameraViewfinderSettings>
-
 #include <QtCharts/QChartView>
 
 #include "opencvworkerthread.h"
@@ -58,7 +54,7 @@ MainWindow::MainWindow(QWidget *parent) :
     chartView->setSizePolicy(QSizePolicy(QSizePolicy::Expanding,QSizePolicy::Expanding));
     chartView->setRenderHint(QPainter::Antialiasing);
 
-    ui->tab_7->layout()->addWidget(chartView);
+    ui->tab_8->layout()->addWidget(chartView);
 
 
     //ui->graphicsView_PID->setViewport(chartView);
@@ -80,9 +76,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
 
 
-    OpencvWorkerThread *t = new OpencvWorkerThread();
-
-    t->start();
+    m_openCVWorkerThread = new OpencvWorkerThread();
 
 }
 
@@ -179,8 +173,6 @@ void MainWindow::on_pushButton_Gamepad_Connect_clicked()
             SIGNAL(buttonYChanged(bool)),
             this,
             SLOT(gamepad_Y_Changed(bool)));
-
-
 
     connect(m_gamepad,
             SIGNAL(buttonStartChanged(bool)),
@@ -458,9 +450,7 @@ void MainWindow::on_pushButton_Camera_Scan_clicked()
 
 void MainWindow::on_comboBox_Camera_Selector_currentIndexChanged(const QString &arg1)
 {
-    Q_UNUSED(arg1)
-
-    QCameraInfo v_cameraInfo(ui->comboBox_Camera_Selector->currentText().toUtf8());
+    QCameraInfo v_cameraInfo(arg1.toUtf8());
     ui->textBrowser_Camera_Descriptor->clear();
     ui->textBrowser_Camera_Descriptor->append(v_cameraInfo.description());
 }
@@ -471,11 +461,12 @@ void MainWindow::on_pushButton_Camera_Connect_clicked()
     m_isCameraConnected = true;
 
     m_cameraWorld->setViewfinder(ui->widget_camera_viewFinder);
-    //* TODO Trouver comment setter la résolution de la caméra
-    //QCameraViewfinderSettings * cameraWorld_viewFinder_resolution = new QCameraViewfinderSettings();
-    //QSize* resolution = new QSize(800, 600);
-    //cameraWorld_viewFinder_resolution->setResolution(*resolution);
-    //m_cameraWorld->setViewfinderSettings(*cameraWorld_viewFinder_resolution);
+
+    m_cameraImageCapture = new QCameraImageCapture(m_cameraWorld);
+
+    m_cameraWorld->setCaptureMode(QCamera::CaptureStillImage);
+
+    connect(m_cameraImageCapture, SIGNAL(imageSaved(int,QString)),this,SLOT(image_saved(int,QString)));
 
     m_cameraWorld->start();
 }
@@ -512,10 +503,6 @@ void MainWindow::serial_data_received()
                 char  bytes[sizeof(int)]; //[4]
             }type_u;
 
-            type_u motor_1;
-            type_u motor_2;
-            type_u motor_3;
-            type_u motor_4;
 
 
 
@@ -523,64 +510,13 @@ void MainWindow::serial_data_received()
 
             case 0x01:
 
-                motor_1.bytes[0] = v_data.at(0);
-                motor_1.bytes[1] = v_data.at(1);
-                motor_1.bytes[2] = v_data.at(2);
-                motor_1.bytes[3] = v_data.at(3);
-
-                motor_2.bytes[0] = v_data.at(4);
-                motor_2.bytes[1] = v_data.at(5);
-                motor_2.bytes[2] = v_data.at(6);
-                motor_2.bytes[3] = v_data.at(7);
-
-                motor_3.bytes[0] = v_data.at(8);
-                motor_3.bytes[1] = v_data.at(9);
-                motor_3.bytes[2] = v_data.at(10);
-                motor_3.bytes[3] = v_data.at(11);
-
-                motor_4.bytes[0] = v_data.at(12);
-                motor_4.bytes[1] = v_data.at(13);
-                motor_4.bytes[2] = v_data.at(14);
-                motor_4.bytes[3] = v_data.at(15);
 
 
-                ui->dial_motor_1->setValue(motor_1.integer % 6400);
-                ui->dial_motor_2->setValue(motor_2.integer % 6400);
-                ui->dial_motor_3->setValue(motor_3.integer % 6400);
-                ui->dial_motor_4->setValue(motor_4.integer % 6400);
 
 
                 break;
 
             case 0x02:
-
-
-
-                motor_1.bytes[0] = v_data.at(0);
-                motor_1.bytes[1] = v_data.at(1);
-                motor_1.bytes[2] = v_data.at(2);
-                motor_1.bytes[3] = v_data.at(3);
-
-                motor_2.bytes[0] = v_data.at(4);
-                motor_2.bytes[1] = v_data.at(5);
-                motor_2.bytes[2] = v_data.at(6);
-                motor_2.bytes[3] = v_data.at(7);
-
-                motor_3.bytes[0] = v_data.at(8);
-                motor_3.bytes[1] = v_data.at(9);
-                motor_3.bytes[2] = v_data.at(10);
-                motor_3.bytes[3] = v_data.at(11);
-
-                motor_4.bytes[0] = v_data.at(12);
-                motor_4.bytes[1] = v_data.at(13);
-                motor_4.bytes[2] = v_data.at(14);
-                motor_4.bytes[3] = v_data.at(15);
-
-                ui->label_motor_1_rps->setText(QString::number((double)motor_1.floating,'f', 6));
-                ui->label_motor_2_rps->setText(QString::number((double)motor_2.floating,'f', 6));
-                ui->label_motor_3_rps->setText(QString::number((double)motor_3.floating,'f', 6));
-                ui->label_motor_4_rps->setText(QString::number((double)motor_4.floating,'f', 6));
-
                 break;
 
              case 0x03:
@@ -590,16 +526,47 @@ void MainWindow::serial_data_received()
 
              case 0x04:
                 {
-                    qDebug()<<"qqqq";
+
                     QByteArray::iterator byte_array_it = v_data.begin();
-                    ui->doubleSpinBox_PKp->setValue((double)(receive_float_value(byte_array_it)));
-                    ui->doubleSpinBox_PKi->setValue((double)(receive_float_value(byte_array_it)));
-                    ui->doubleSpinBox_PKd->setValue((double)(receive_float_value(byte_array_it)));
-                    ui->doubleSpinBox_VKp->setValue((double)(receive_float_value(byte_array_it)));
-                    ui->doubleSpinBox_VKi->setValue((double)(receive_float_value(byte_array_it)));
-                    ui->doubleSpinBox_VKd->setValue((double)(receive_float_value(byte_array_it)));
-                    ui->doubleSpinBox_Amax->setValue((double)(receive_float_value(byte_array_it)));
-                    ui->doubleSpinBox_Vmax->setValue((double)(receive_float_value(byte_array_it)));
+                    ui->doubleSpinBox_Motor_1_PKp->setValue(  (double)(receive_float_value(byte_array_it)));
+                    ui->doubleSpinBox_Motor_1_PKi->setValue(  (double)(receive_float_value(byte_array_it)));
+                    ui->doubleSpinBox_Motor_1_PKd->setValue(  (double)(receive_float_value(byte_array_it)));
+                    ui->doubleSpinBox_Motor_1_VKp->setValue(  (double)(receive_float_value(byte_array_it)));
+                    ui->doubleSpinBox_Motor_1_VKi->setValue(  (double)(receive_float_value(byte_array_it)));
+                    ui->doubleSpinBox_Motor_1_VKd->setValue(  (double)(receive_float_value(byte_array_it)));
+                    ui->doubleSpinBox_Motor_1_Amax->setValue( (double)(receive_float_value(byte_array_it)));
+                    ui->doubleSpinBox_Motor_1_Vmax->setValue( (double)(receive_float_value(byte_array_it)));
+
+                    ui->doubleSpinBox_Motor_2_PKp->setValue(  (double)(receive_float_value(byte_array_it)));
+                    ui->doubleSpinBox_Motor_2_PKi->setValue(  (double)(receive_float_value(byte_array_it)));
+                    ui->doubleSpinBox_Motor_2_PKd->setValue(  (double)(receive_float_value(byte_array_it)));
+                    ui->doubleSpinBox_Motor_2_VKp->setValue(  (double)(receive_float_value(byte_array_it)));
+                    ui->doubleSpinBox_Motor_2_VKi->setValue(  (double)(receive_float_value(byte_array_it)));
+                    ui->doubleSpinBox_Motor_2_VKd->setValue(  (double)(receive_float_value(byte_array_it)));
+                    ui->doubleSpinBox_Motor_2_Amax->setValue( (double)(receive_float_value(byte_array_it)));
+                    ui->doubleSpinBox_Motor_2_Vmax->setValue( (double)(receive_float_value(byte_array_it)));
+
+                    ui->doubleSpinBox_Motor_3_PKp->setValue(  (double)(receive_float_value(byte_array_it)));
+                    ui->doubleSpinBox_Motor_3_PKi->setValue(  (double)(receive_float_value(byte_array_it)));
+                    ui->doubleSpinBox_Motor_3_PKd->setValue(  (double)(receive_float_value(byte_array_it)));
+                    ui->doubleSpinBox_Motor_3_VKp->setValue(  (double)(receive_float_value(byte_array_it)));
+                    ui->doubleSpinBox_Motor_3_VKi->setValue(  (double)(receive_float_value(byte_array_it)));
+                    ui->doubleSpinBox_Motor_3_VKd->setValue(  (double)(receive_float_value(byte_array_it)));
+                    ui->doubleSpinBox_Motor_3_Amax->setValue( (double)(receive_float_value(byte_array_it)));
+                    ui->doubleSpinBox_Motor_3_Vmax->setValue( (double)(receive_float_value(byte_array_it)));
+
+                    ui->doubleSpinBox_Motor_4_PKp->setValue(  (double)(receive_float_value(byte_array_it)));
+                    ui->doubleSpinBox_Motor_4_PKi->setValue(  (double)(receive_float_value(byte_array_it)));
+                    ui->doubleSpinBox_Motor_4_PKd->setValue(  (double)(receive_float_value(byte_array_it)));
+                    ui->doubleSpinBox_Motor_4_VKp->setValue(  (double)(receive_float_value(byte_array_it)));
+                    ui->doubleSpinBox_Motor_4_VKi->setValue(  (double)(receive_float_value(byte_array_it)));
+                    ui->doubleSpinBox_Motor_4_VKd->setValue(  (double)(receive_float_value(byte_array_it)));
+                    ui->doubleSpinBox_Motor_4_Amax->setValue( (double)(receive_float_value(byte_array_it)));
+                    ui->doubleSpinBox_Motor_4_Vmax->setValue( (double)(receive_float_value(byte_array_it)));
+
+                    ui->doubleSpinBox_dT->setValue((double)(receive_float_value(byte_array_it)));
+                    ui->doubleSpinBox_wheelDiameter->setValue((double)(receive_float_value(byte_array_it)));
+
                 }
                 break;
 
@@ -607,12 +574,6 @@ void MainWindow::serial_data_received()
             default:
                 break;
             }
-
-
-
-
-
-
         }
     }
 }
@@ -634,9 +595,6 @@ void MainWindow::on_pushButton_Serial_Disconnect_clicked()
     this->m_serialPort->disconnect();
     this->m_isSerialPortConnected = false;
 }
-
-
-
 
 void MainWindow::on_pushButton_PID_Pause_Play_clicked()
 {
@@ -660,7 +618,24 @@ void MainWindow::on_pushButton_Reset_PID_clicked()
 
     data.append('#');
     data.append((char)0x03);
-    data.append((char)0x00);
+    data.append((char)0x05);
+
+    if(ui->radioButton_Deplacement_X->isChecked()){
+        data.append((char)0x01);
+         send_float_value(data, (float)(ui->doubleSpinBox_Deplacement_X->value()));
+    }
+    else if(ui->radioButton_Deplacement_Y->isChecked()){
+        data.append((char)0x02);
+        send_float_value(data, (float)(ui->doubleSpinBox_Deplacement_Y->value()));
+    }
+    else if(ui->radioButton_Deplacement_R->isChecked()){
+        data.append((char)0x03);
+        send_float_value(data, (float)(ui->doubleSpinBox_Deplacement_R->value()));
+    }
+    else{
+        return;
+    }
+
     data.append('.');
 
     m_serialPort->write(data);
@@ -683,20 +658,78 @@ void MainWindow::on_pushButton_Store_PID_clicked()
 
     data.append('#');
     data.append(0x02);
-    data.append(0x20); //size
+    data.append(0x88); //size
 
-    send_float_value(data, (float)(ui->doubleSpinBox_PKp->value()));
-    send_float_value(data, (float)(ui->doubleSpinBox_PKi->value()));
-    send_float_value(data, (float)(ui->doubleSpinBox_PKd->value()));
-    send_float_value(data, (float)(ui->doubleSpinBox_VKp->value()));
-    send_float_value(data, (float)(ui->doubleSpinBox_VKi->value()));
-    send_float_value(data, (float)(ui->doubleSpinBox_VKd->value()));
-    send_float_value(data, (float)(ui->doubleSpinBox_Amax->value()));
-    send_float_value(data, (float)(ui->doubleSpinBox_Vmax->value()));
+    send_float_value(data, (float)(ui->doubleSpinBox_Motor_1_PKp->value()));
+    send_float_value(data, (float)(ui->doubleSpinBox_Motor_1_PKi->value()));
+    send_float_value(data, (float)(ui->doubleSpinBox_Motor_1_PKd->value()));
+    send_float_value(data, (float)(ui->doubleSpinBox_Motor_1_VKp->value()));
+    send_float_value(data, (float)(ui->doubleSpinBox_Motor_1_VKi->value()));
+    send_float_value(data, (float)(ui->doubleSpinBox_Motor_1_VKd->value()));
+    send_float_value(data, (float)(ui->doubleSpinBox_Motor_1_Amax->value()));
+    send_float_value(data, (float)(ui->doubleSpinBox_Motor_1_Vmax->value()));
 
+    send_float_value(data, (float)(ui->doubleSpinBox_Motor_2_PKp->value()));
+    send_float_value(data, (float)(ui->doubleSpinBox_Motor_2_PKi->value()));
+    send_float_value(data, (float)(ui->doubleSpinBox_Motor_2_PKd->value()));
+    send_float_value(data, (float)(ui->doubleSpinBox_Motor_2_VKp->value()));
+    send_float_value(data, (float)(ui->doubleSpinBox_Motor_2_VKi->value()));
+    send_float_value(data, (float)(ui->doubleSpinBox_Motor_2_VKd->value()));
+    send_float_value(data, (float)(ui->doubleSpinBox_Motor_2_Amax->value()));
+    send_float_value(data, (float)(ui->doubleSpinBox_Motor_2_Vmax->value()));
+
+    send_float_value(data, (float)(ui->doubleSpinBox_Motor_3_PKp->value()));
+    send_float_value(data, (float)(ui->doubleSpinBox_Motor_3_PKi->value()));
+    send_float_value(data, (float)(ui->doubleSpinBox_Motor_3_PKd->value()));
+    send_float_value(data, (float)(ui->doubleSpinBox_Motor_3_VKp->value()));
+    send_float_value(data, (float)(ui->doubleSpinBox_Motor_3_VKi->value()));
+    send_float_value(data, (float)(ui->doubleSpinBox_Motor_3_VKd->value()));
+    send_float_value(data, (float)(ui->doubleSpinBox_Motor_3_Amax->value()));
+    send_float_value(data, (float)(ui->doubleSpinBox_Motor_3_Vmax->value()));
+
+    send_float_value(data, (float)(ui->doubleSpinBox_Motor_4_PKp->value()));
+    send_float_value(data, (float)(ui->doubleSpinBox_Motor_4_PKi->value()));
+    send_float_value(data, (float)(ui->doubleSpinBox_Motor_4_PKd->value()));
+    send_float_value(data, (float)(ui->doubleSpinBox_Motor_4_VKp->value()));
+    send_float_value(data, (float)(ui->doubleSpinBox_Motor_4_VKi->value()));
+    send_float_value(data, (float)(ui->doubleSpinBox_Motor_4_VKd->value()));
+    send_float_value(data, (float)(ui->doubleSpinBox_Motor_4_Amax->value()));
+    send_float_value(data, (float)(ui->doubleSpinBox_Motor_4_Vmax->value()));
+
+    send_float_value(data, (float)(ui->doubleSpinBox_dT->value()));
+    send_float_value(data, (float)(ui->doubleSpinBox_wheelDiameter->value()));
 
     data.append('.');
 
     m_serialPort->write(data);
 
 }
+
+void MainWindow::on_pushButton_Take_Image_clicked()
+{
+    if(m_isCameraConnected){
+        if(m_cameraImageCapture->isReadyForCapture()){
+            m_cameraImageCapture->capture(ui->lineEdit_Camera_Image_Name->text());
+
+        }
+        else{
+            QMessageBox::warning(this,"camera", "camera not ready for image capture");
+        }
+    }
+    else{
+        QMessageBox::warning(this,"camera","camera non connectée");
+    }
+
+}
+
+void MainWindow::image_saved(int p_int, QString p_string)
+{
+    Q_UNUSED(p_int);
+
+    QMessageBox::information(this,"Image","Image saved as : " + p_string);
+
+    m_openCVWorkerThread->setImageToCompute(p_string);
+    m_openCVWorkerThread->start();
+}
+
+

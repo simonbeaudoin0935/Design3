@@ -1,13 +1,28 @@
-#include "../../inc/Motor/PID.h"
-#include "../../inc/Motor/Motor.h"
-#include "../../inc/define.h"
+#include "Motor/PID.h"
 
-
+#include "ParameterManager/ParameterManager.h"
+#include "Motor/Motor.h"
+#include "define.h"
 #include "stm32f4xx.h"
 
 
 PID_t PID_1, PID_2, PID_3, PID_4;
+type_deplacement g_typeDeplacement;
 
+
+void PID_resetAll(void){
+	PID_1_reset();
+	PID_2_reset();
+	PID_3_reset();
+	PID_4_reset();
+}
+
+void PID_computeAll(void){
+	PID_1_compute();
+	PID_2_compute();
+	PID_3_compute();
+	PID_4_compute();
+}
 
 void PID_1_compute(void){
 
@@ -112,6 +127,11 @@ void PID_2_compute(void){
 
 	if(acceleration < - g_parameters.motor_2_Amax)
 		PID_2.consigne_vitesse = PID_2.consigne_vitesse_old - (g_parameters.motor_2_Amax * g_parameters.dt);
+
+//	//A MODIFIER
+//	if(g_typeDeplacement == X){
+//		PID_2.consigne_vitesse = - PID_1.consigne_vitesse;
+//	}
 
 //Asservissement en vitesse
 
@@ -265,14 +285,9 @@ void PID_4_compute(void){
 	motor4_set_speed_percent(PID_4.pid_output);
 }
 
-void PID_reset_all(void){
-	PID_1_reset();
-	PID_2_reset();
-	PID_3_reset();
-	PID_4_reset();
-}
-
 void PID_1_reset(void){
+
+	motor1_set_speed_percent(0.0);
 
 	PID_1.position				= 0.0;
 	PID_1.position_old			= 0.0;
@@ -296,6 +311,8 @@ void PID_1_reset(void){
 
 void PID_2_reset(void){
 
+	motor2_set_speed_percent(0.0);
+
 	PID_2.position				= 0.0;
 	PID_2.position_old			= 0.0;
 	PID_2.consigne_position		= 0.0;
@@ -318,6 +335,8 @@ void PID_2_reset(void){
 
 void PID_3_reset(void){
 
+	motor3_set_speed_percent(0.0);
+
 	PID_3.position				= 0.0;
 	PID_3.position_old			= 0.0;
 	PID_3.consigne_position		= 0.0;
@@ -339,6 +358,8 @@ void PID_3_reset(void){
 }
 
 void PID_4_reset(void){
+
+	motor4_set_speed_percent(0.0);
 
 	PID_4.position				= 0.0;
 	PID_4.position_old			= 0.0;

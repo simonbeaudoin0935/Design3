@@ -1,5 +1,4 @@
-#include "../../inc/UART/Parser.h"
-
+#include "UART/Parser.h"
 #include "stm32f4xx.h"
 
 static MessageParserState g_messageParserState = WAIT_START_CHARACTER;
