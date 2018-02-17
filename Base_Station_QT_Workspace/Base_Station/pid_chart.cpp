@@ -26,32 +26,32 @@ PID_Chart::PID_Chart(QGraphicsItem *parent, Qt::WindowFlags wFlags):
     QPen pen1(Qt::black);
     pen1.setWidth(1);
     m_serieVmax->setPen(pen1);
-    m_serieVmax->setName("PID_1 consigne vitesse");
+    m_serieVmax->setName("Encoder_1.vitesse");
 
     QPen pen2(Qt::magenta);
     pen2.setWidth(1);
     m_serieConsignePosition->setPen(pen2);
-    m_serieConsignePosition->setName("PID_4 consigne vitesse");
+    m_serieConsignePosition->setName("-Encoder_4.vitesse");
 
     QPen pen3(Qt::red);
     pen3.setWidth(1);
     m_serieConsigneVitesse->setPen(pen3);
-    m_serieConsigneVitesse->setName("PID_1 position");
+    m_serieConsigneVitesse->setName("Encoder_1.position");
 
     QPen pen4(Qt::green);
     pen4.setWidth(1);
     m_serieVitesse->setPen(pen4);
-    m_serieVitesse->setName("PID_4 position");
+    m_serieVitesse->setName(" -Encoder_4.position");
 
     QPen pen5(Qt::blue);
     pen5.setWidth(1);
     m_seriePosition->setPen(pen5);
-    m_seriePosition->setName("PID_1 vitesse");
+    m_seriePosition->setName("consigne_position");
 
     QPen pen6(Qt::gray);
     pen6.setWidth(1);
     m_seriePIDOutput->setPen(pen6);
-    m_seriePIDOutput->setName("PID_4 vitesse");
+    m_seriePIDOutput->setName("consigne_vitesse");
 
     this->addSeries(m_serieVmax);
     this->addSeries(m_serieConsignePosition);

@@ -97,6 +97,8 @@ private:
 
     bool                m_isSerialPortConnected;
     QSerialPort*        m_serialPort;
+
+
     SerialMotionSender* m_serialMotionSenderThread;
     SerialReceiveStateMachine m_serialReceiveStateMachine;
 

@@ -1,4 +1,243 @@
-00:49:05 **** Incremental Build of configuration Debug for project Motor_Controller ****
+12:29:33 **** Incremental Build of configuration Debug for project Motor_Controller ****
+make -j8 all 
+Building file: ../src/misc/system.c
+Invoking: MCU GCC Compiler
+Building file: ../src/Motor/PID.c
+Building file: ../src/main.c
+/home/simon/Design_3_git/Motor_Controller_SW4STM_Workspace/Motor_Controller/Debug
+Invoking: MCU GCC Compiler
+arm-none-eabi-gcc -mcpu=cortex-m4 -mthumb -mfloat-abi=hard -mfpu=fpv4-sp-d16 -DSTM32 -DSTM32F4 -DSTM32F407VGTx -DSTM32F407G_DISC1 -DDEBUG -DSTM32F40XX -DSTM32F40_41xxx -DUSE_STDPERIPH_DRIVER -I"/home/simon/Design_3_git/Motor_Controller_SW4STM_Workspace/Motor_Controller/StdPeriph_Driver/inc" -I"/home/simon/Design_3_git/Motor_Controller_SW4STM_Workspace/Motor_Controller/inc" -I"/home/simon/Design_3_git/Motor_Controller_SW4STM_Workspace/Motor_Controller/CMSIS/device" -I"/home/simon/Design_3_git/Motor_Controller_SW4STM_Workspace/Motor_Controller/CMSIS/core" -O0 -g3 -Wall -fmessage-length=0 -ffunction-sections -c -MMD -MP -MF"src/misc/system.d" -MT"src/misc/system.o" -o "src/misc/system.o" "../src/misc/system.c"
+Invoking: MCU GCC Compiler
+/home/simon/Design_3_git/Motor_Controller_SW4STM_Workspace/Motor_Controller/Debug
+arm-none-eabi-gcc -mcpu=cortex-m4 -mthumb -mfloat-abi=hard -mfpu=fpv4-sp-d16 -DSTM32 -DSTM32F4 -DSTM32F407VGTx -DSTM32F407G_DISC1 -DDEBUG -DSTM32F40XX -DSTM32F40_41xxx -DUSE_STDPERIPH_DRIVER -I"/home/simon/Design_3_git/Motor_Controller_SW4STM_Workspace/Motor_Controller/StdPeriph_Driver/inc" -I"/home/simon/Design_3_git/Motor_Controller_SW4STM_Workspace/Motor_Controller/inc" -I"/home/simon/Design_3_git/Motor_Controller_SW4STM_Workspace/Motor_Controller/CMSIS/device" -I"/home/simon/Design_3_git/Motor_Controller_SW4STM_Workspace/Motor_Controller/CMSIS/core" -O0 -g3 -Wall -fmessage-length=0 -ffunction-sections -c -MMD -MP -MF"src/main.d" -MT"src/main.o" -o "src/main.o" "../src/main.c"
+/home/simon/Design_3_git/Motor_Controller_SW4STM_Workspace/Motor_Controller/Debug
+arm-none-eabi-gcc -mcpu=cortex-m4 -mthumb -mfloat-abi=hard -mfpu=fpv4-sp-d16 -DSTM32 -DSTM32F4 -DSTM32F407VGTx -DSTM32F407G_DISC1 -DDEBUG -DSTM32F40XX -DSTM32F40_41xxx -DUSE_STDPERIPH_DRIVER -I"/home/simon/Design_3_git/Motor_Controller_SW4STM_Workspace/Motor_Controller/StdPeriph_Driver/inc" -I"/home/simon/Design_3_git/Motor_Controller_SW4STM_Workspace/Motor_Controller/inc" -I"/home/simon/Design_3_git/Motor_Controller_SW4STM_Workspace/Motor_Controller/CMSIS/device" -I"/home/simon/Design_3_git/Motor_Controller_SW4STM_Workspace/Motor_Controller/CMSIS/core" -O0 -g3 -Wall -fmessage-length=0 -ffunction-sections -c -MMD -MP -MF"src/Motor/PID.d" -MT"src/Motor/PID.o" -o "src/Motor/PID.o" "../src/Motor/PID.c"
+../src/Motor/PID.c: In function 'PID_Position_X_reset':
+../src/Motor/PID.c:359:11: error: 'Encoder_t {aka struct <anonymous>}' has no member named 'vitesse_old'; did you mean 'vitesse'?
+  Encoder_1.vitesse_old = 0.0;
+           ^
+../src/Motor/PID.c:364:11: error: 'Encoder_t {aka struct <anonymous>}' has no member named 'vitesse_old'; did you mean 'vitesse'?
+  Encoder_4.vitesse_old = 0.0;
+           ^
+make: *** [src/Motor/PID.o] Error 1
+src/Motor/subdir.mk:21: recipe for target 'src/Motor/PID.o' failed
+make: *** Waiting for unfinished jobs....
+Finished building: ../src/misc/system.c
+Finished building: ../src/main.c
+ 
+ 
+12:30:09 **** Incremental Build of configuration Debug for project Motor_Controller ****
+make -j8 all 
+Building file: ../src/Motor/PID.c
+Invoking: MCU GCC Compiler
+/home/simon/Design_3_git/Motor_Controller_SW4STM_Workspace/Motor_Controller/Debug
+arm-none-eabi-gcc -mcpu=cortex-m4 -mthumb -mfloat-abi=hard -mfpu=fpv4-sp-d16 -DSTM32 -DSTM32F4 -DSTM32F407VGTx -DSTM32F407G_DISC1 -DDEBUG -DSTM32F40XX -DSTM32F40_41xxx -DUSE_STDPERIPH_DRIVER -I"/home/simon/Design_3_git/Motor_Controller_SW4STM_Workspace/Motor_Controller/StdPeriph_Driver/inc" -I"/home/simon/Design_3_git/Motor_Controller_SW4STM_Workspace/Motor_Controller/inc" -I"/home/simon/Design_3_git/Motor_Controller_SW4STM_Workspace/Motor_Controller/CMSIS/device" -I"/home/simon/Design_3_git/Motor_Controller_SW4STM_Workspace/Motor_Controller/CMSIS/core" -O0 -g3 -Wall -fmessage-length=0 -ffunction-sections -c -MMD -MP -MF"src/Motor/PID.d" -MT"src/Motor/PID.o" -o "src/Motor/PID.o" "../src/Motor/PID.c"
+../src/Motor/PID.c: In function 'PID_Position_X_reset':
+../src/Motor/PID.c:359:11: error: 'Encoder_t {aka struct <anonymous>}' has no member named 'vitesse_old'; did you mean 'vitesse'?
+  Encoder_1.vitesse_old = 0.0;
+           ^
+../src/Motor/PID.c:364:11: error: 'Encoder_t {aka struct <anonymous>}' has no member named 'vitesse_old'; did you mean 'vitesse'?
+  Encoder_4.vitesse_old = 0.0;
+           ^
+src/Motor/subdir.mk:21: recipe for target 'src/Motor/PID.o' failed
+make: *** [src/Motor/PID.o] Error 1
+12:31:27 **** Incremental Build of configuration Debug for project Motor_Controller ****
+make -j8 all 
+Building file: ../src/Motor/PID.c
+Invoking: MCU GCC Compiler
+/home/simon/Design_3_git/Motor_Controller_SW4STM_Workspace/Motor_Controller/Debug
+arm-none-eabi-gcc -mcpu=cortex-m4 -mthumb -mfloat-abi=hard -mfpu=fpv4-sp-d16 -DSTM32 -DSTM32F4 -DSTM32F407VGTx -DSTM32F407G_DISC1 -DDEBUG -DSTM32F40XX -DSTM32F40_41xxx -DUSE_STDPERIPH_DRIVER -I"/home/simon/Design_3_git/Motor_Controller_SW4STM_Workspace/Motor_Controller/StdPeriph_Driver/inc" -I"/home/simon/Design_3_git/Motor_Controller_SW4STM_Workspace/Motor_Controller/inc" -I"/home/simon/Design_3_git/Motor_Controller_SW4STM_Workspace/Motor_Controller/CMSIS/device" -I"/home/simon/Design_3_git/Motor_Controller_SW4STM_Workspace/Motor_Controller/CMSIS/core" -O0 -g3 -Wall -fmessage-length=0 -ffunction-sections -c -MMD -MP -MF"src/Motor/PID.d" -MT"src/Motor/PID.o" -o "src/Motor/PID.o" "../src/Motor/PID.c"
+Finished building: ../src/Motor/PID.c
+ 
+Building target: Motor_Controller.elf
+Invoking: MCU GCC Linker
+arm-none-eabi-gcc -mcpu=cortex-m4 -mthumb -mfloat-abi=hard -mfpu=fpv4-sp-d16 -u _printf_float -T"/home/simon/Design_3_git/Motor_Controller_SW4STM_Workspace/Motor_Controller/LinkerScript.ld" -Wl,-Map=output.map -Wl,--gc-sections -o "Motor_Controller.elf" @"objects.list"   -lm
+Finished building target: Motor_Controller.elf
+ 
+make --no-print-directory post-build
+Generating binary and Printing size information:
+arm-none-eabi-objcopy -O binary "Motor_Controller.elf" "Motor_Controller.bin"
+arm-none-eabi-size "Motor_Controller.elf"
+   text	   data	    bss	    dec	    hex	filename
+  15904	   1120	   2140	  19164	   4adc	Motor_Controller.elf
+ 
+12:31:31 **** Incremental Build of configuration Debug for project Motor_Controller ****
+make -j8 all 
+make: Nothing to be done for 'all'.
+12:33:11 **** Incremental Build of configuration Debug for project Motor_Controller ****
+make -j8 all 
+Building file: ../src/Motor/PID.c
+Invoking: MCU GCC Compiler
+/home/simon/Design_3_git/Motor_Controller_SW4STM_Workspace/Motor_Controller/Debug
+arm-none-eabi-gcc -mcpu=cortex-m4 -mthumb -mfloat-abi=hard -mfpu=fpv4-sp-d16 -DSTM32 -DSTM32F4 -DSTM32F407VGTx -DSTM32F407G_DISC1 -DDEBUG -DSTM32F40XX -DSTM32F40_41xxx -DUSE_STDPERIPH_DRIVER -I"/home/simon/Design_3_git/Motor_Controller_SW4STM_Workspace/Motor_Controller/StdPeriph_Driver/inc" -I"/home/simon/Design_3_git/Motor_Controller_SW4STM_Workspace/Motor_Controller/inc" -I"/home/simon/Design_3_git/Motor_Controller_SW4STM_Workspace/Motor_Controller/CMSIS/device" -I"/home/simon/Design_3_git/Motor_Controller_SW4STM_Workspace/Motor_Controller/CMSIS/core" -O0 -g3 -Wall -fmessage-length=0 -ffunction-sections -c -MMD -MP -MF"src/Motor/PID.d" -MT"src/Motor/PID.o" -o "src/Motor/PID.o" "../src/Motor/PID.c"
+Finished building: ../src/Motor/PID.c
+ 
+Building target: Motor_Controller.elf
+Invoking: MCU GCC Linker
+arm-none-eabi-gcc -mcpu=cortex-m4 -mthumb -mfloat-abi=hard -mfpu=fpv4-sp-d16 -u _printf_float -T"/home/simon/Design_3_git/Motor_Controller_SW4STM_Workspace/Motor_Controller/LinkerScript.ld" -Wl,-Map=output.map -Wl,--gc-sections -o "Motor_Controller.elf" @"objects.list"   -lm
+Finished building target: Motor_Controller.elf
+ 
+make --no-print-directory post-build
+Generating binary and Printing size information:
+arm-none-eabi-objcopy -O binary "Motor_Controller.elf" "Motor_Controller.bin"
+arm-none-eabi-size "Motor_Controller.elf"
+   text	   data	    bss	    dec	    hex	filename
+  15888	   1120	   2140	  19148	   4acc	Motor_Controller.elf
+ 
+12:33:12 **** Incremental Build of configuration Debug for project Motor_Controller ****
+make -j8 all 
+make: Nothing to be done for 'all'.
+12:49:56 **** Incremental Build of configuration Debug for project Motor_Controller ****
+make -j8 all 
+Building file: ../src/main.c
+Invoking: MCU GCC Compiler
+/home/simon/Design_3_git/Motor_Controller_SW4STM_Workspace/Motor_Controller/Debug
+arm-none-eabi-gcc -mcpu=cortex-m4 -mthumb -mfloat-abi=hard -mfpu=fpv4-sp-d16 -DSTM32 -DSTM32F4 -DSTM32F407VGTx -DSTM32F407G_DISC1 -DDEBUG -DSTM32F40XX -DSTM32F40_41xxx -DUSE_STDPERIPH_DRIVER -I"/home/simon/Design_3_git/Motor_Controller_SW4STM_Workspace/Motor_Controller/StdPeriph_Driver/inc" -I"/home/simon/Design_3_git/Motor_Controller_SW4STM_Workspace/Motor_Controller/inc" -I"/home/simon/Design_3_git/Motor_Controller_SW4STM_Workspace/Motor_Controller/CMSIS/device" -I"/home/simon/Design_3_git/Motor_Controller_SW4STM_Workspace/Motor_Controller/CMSIS/core" -O0 -g3 -Wall -fmessage-length=0 -ffunction-sections -c -MMD -MP -MF"src/main.d" -MT"src/main.o" -o "src/main.o" "../src/main.c"
+Finished building: ../src/main.c
+ 
+Building target: Motor_Controller.elf
+Invoking: MCU GCC Linker
+arm-none-eabi-gcc -mcpu=cortex-m4 -mthumb -mfloat-abi=hard -mfpu=fpv4-sp-d16 -u _printf_float -T"/home/simon/Design_3_git/Motor_Controller_SW4STM_Workspace/Motor_Controller/LinkerScript.ld" -Wl,-Map=output.map -Wl,--gc-sections -o "Motor_Controller.elf" @"objects.list"   -lm
+Finished building target: Motor_Controller.elf
+ 
+make --no-print-directory post-build
+Generating binary and Printing size information:
+arm-none-eabi-objcopy -O binary "Motor_Controller.elf" "Motor_Controller.bin"
+arm-none-eabi-size "Motor_Controller.elf"
+   text	   data	    bss	    dec	    hex	filename
+  15892	   1120	   2140	  19152	   4ad0	Motor_Controller.elf
+ 
+12:49:58 **** Incremental Build of configuration Debug for project Motor_Controller ****
+make -j8 all 
+make: Nothing to be done for 'all'.
+12:55:09 **** Incremental Build of configuration Debug for project Motor_Controller ****
+make -j8 all 
+Building file: ../src/Motor/PID.c
+Building file: ../src/main.c
+Invoking: MCU GCC Compiler
+Invoking: MCU GCC Compiler
+/home/simon/Design_3_git/Motor_Controller_SW4STM_Workspace/Motor_Controller/Debug
+arm-none-eabi-gcc -mcpu=cortex-m4 -mthumb -mfloat-abi=hard -mfpu=fpv4-sp-d16 -DSTM32 -DSTM32F4 -DSTM32F407VGTx -DSTM32F407G_DISC1 -DDEBUG -DSTM32F40XX -DSTM32F40_41xxx -DUSE_STDPERIPH_DRIVER -I"/home/simon/Design_3_git/Motor_Controller_SW4STM_Workspace/Motor_Controller/StdPeriph_Driver/inc" -I"/home/simon/Design_3_git/Motor_Controller_SW4STM_Workspace/Motor_Controller/inc" -I"/home/simon/Design_3_git/Motor_Controller_SW4STM_Workspace/Motor_Controller/CMSIS/device" -I"/home/simon/Design_3_git/Motor_Controller_SW4STM_Workspace/Motor_Controller/CMSIS/core" -O0 -g3 -Wall -fmessage-length=0 -ffunction-sections -c -MMD -MP -MF"src/Motor/PID.d" -MT"src/Motor/PID.o" -o "src/Motor/PID.o" "../src/Motor/PID.c"
+/home/simon/Design_3_git/Motor_Controller_SW4STM_Workspace/Motor_Controller/Debug
+arm-none-eabi-gcc -mcpu=cortex-m4 -mthumb -mfloat-abi=hard -mfpu=fpv4-sp-d16 -DSTM32 -DSTM32F4 -DSTM32F407VGTx -DSTM32F407G_DISC1 -DDEBUG -DSTM32F40XX -DSTM32F40_41xxx -DUSE_STDPERIPH_DRIVER -I"/home/simon/Design_3_git/Motor_Controller_SW4STM_Workspace/Motor_Controller/StdPeriph_Driver/inc" -I"/home/simon/Design_3_git/Motor_Controller_SW4STM_Workspace/Motor_Controller/inc" -I"/home/simon/Design_3_git/Motor_Controller_SW4STM_Workspace/Motor_Controller/CMSIS/device" -I"/home/simon/Design_3_git/Motor_Controller_SW4STM_Workspace/Motor_Controller/CMSIS/core" -O0 -g3 -Wall -fmessage-length=0 -ffunction-sections -c -MMD -MP -MF"src/main.d" -MT"src/main.o" -o "src/main.o" "../src/main.c"
+Finished building: ../src/Motor/PID.c
+ 
+Finished building: ../src/main.c
+ 
+Building target: Motor_Controller.elf
+Invoking: MCU GCC Linker
+arm-none-eabi-gcc -mcpu=cortex-m4 -mthumb -mfloat-abi=hard -mfpu=fpv4-sp-d16 -u _printf_float -T"/home/simon/Design_3_git/Motor_Controller_SW4STM_Workspace/Motor_Controller/LinkerScript.ld" -Wl,-Map=output.map -Wl,--gc-sections -o "Motor_Controller.elf" @"objects.list"   -lm
+Finished building target: Motor_Controller.elf
+ 
+make --no-print-directory post-build
+Generating binary and Printing size information:
+arm-none-eabi-objcopy -O binary "Motor_Controller.elf" "Motor_Controller.bin"
+arm-none-eabi-size "Motor_Controller.elf"
+   text	   data	    bss	    dec	    hex	filename
+  15916	   1120	   2140	  19176	   4ae8	Motor_Controller.elf
+ 
+12:55:13 **** Incremental Build of configuration Debug for project Motor_Controller ****
+make -j8 all 
+Building file: ../src/misc/system.c
+Invoking: MCU GCC Compiler
+Building file: ../src/Motor/PID.c
+Building file: ../src/main.c
+/home/simon/Design_3_git/Motor_Controller_SW4STM_Workspace/Motor_Controller/Debug
+Invoking: MCU GCC Compiler
+arm-none-eabi-gcc -mcpu=cortex-m4 -mthumb -mfloat-abi=hard -mfpu=fpv4-sp-d16 -DSTM32 -DSTM32F4 -DSTM32F407VGTx -DSTM32F407G_DISC1 -DDEBUG -DSTM32F40XX -DSTM32F40_41xxx -DUSE_STDPERIPH_DRIVER -I"/home/simon/Design_3_git/Motor_Controller_SW4STM_Workspace/Motor_Controller/StdPeriph_Driver/inc" -I"/home/simon/Design_3_git/Motor_Controller_SW4STM_Workspace/Motor_Controller/inc" -I"/home/simon/Design_3_git/Motor_Controller_SW4STM_Workspace/Motor_Controller/CMSIS/device" -I"/home/simon/Design_3_git/Motor_Controller_SW4STM_Workspace/Motor_Controller/CMSIS/core" -O0 -g3 -Wall -fmessage-length=0 -ffunction-sections -c -MMD -MP -MF"src/misc/system.d" -MT"src/misc/system.o" -o "src/misc/system.o" "../src/misc/system.c"
+Invoking: MCU GCC Compiler
+/home/simon/Design_3_git/Motor_Controller_SW4STM_Workspace/Motor_Controller/Debug
+/home/simon/Design_3_git/Motor_Controller_SW4STM_Workspace/Motor_Controller/Debug
+arm-none-eabi-gcc -mcpu=cortex-m4 -mthumb -mfloat-abi=hard -mfpu=fpv4-sp-d16 -DSTM32 -DSTM32F4 -DSTM32F407VGTx -DSTM32F407G_DISC1 -DDEBUG -DSTM32F40XX -DSTM32F40_41xxx -DUSE_STDPERIPH_DRIVER -I"/home/simon/Design_3_git/Motor_Controller_SW4STM_Workspace/Motor_Controller/StdPeriph_Driver/inc" -I"/home/simon/Design_3_git/Motor_Controller_SW4STM_Workspace/Motor_Controller/inc" -I"/home/simon/Design_3_git/Motor_Controller_SW4STM_Workspace/Motor_Controller/CMSIS/device" -I"/home/simon/Design_3_git/Motor_Controller_SW4STM_Workspace/Motor_Controller/CMSIS/core" -O0 -g3 -Wall -fmessage-length=0 -ffunction-sections -c -MMD -MP -MF"src/main.d" -MT"src/main.o" -o "src/main.o" "../src/main.c"
+arm-none-eabi-gcc -mcpu=cortex-m4 -mthumb -mfloat-abi=hard -mfpu=fpv4-sp-d16 -DSTM32 -DSTM32F4 -DSTM32F407VGTx -DSTM32F407G_DISC1 -DDEBUG -DSTM32F40XX -DSTM32F40_41xxx -DUSE_STDPERIPH_DRIVER -I"/home/simon/Design_3_git/Motor_Controller_SW4STM_Workspace/Motor_Controller/StdPeriph_Driver/inc" -I"/home/simon/Design_3_git/Motor_Controller_SW4STM_Workspace/Motor_Controller/inc" -I"/home/simon/Design_3_git/Motor_Controller_SW4STM_Workspace/Motor_Controller/CMSIS/device" -I"/home/simon/Design_3_git/Motor_Controller_SW4STM_Workspace/Motor_Controller/CMSIS/core" -O0 -g3 -Wall -fmessage-length=0 -ffunction-sections -c -MMD -MP -MF"src/Motor/PID.d" -MT"src/Motor/PID.o" -o "src/Motor/PID.o" "../src/Motor/PID.c"
+Finished building: ../src/misc/system.c
+Finished building: ../src/Motor/PID.c
+ 
+ 
+Finished building: ../src/main.c
+ 
+Building target: Motor_Controller.elf
+Invoking: MCU GCC Linker
+arm-none-eabi-gcc -mcpu=cortex-m4 -mthumb -mfloat-abi=hard -mfpu=fpv4-sp-d16 -u _printf_float -T"/home/simon/Design_3_git/Motor_Controller_SW4STM_Workspace/Motor_Controller/LinkerScript.ld" -Wl,-Map=output.map -Wl,--gc-sections -o "Motor_Controller.elf" @"objects.list"   -lm
+Finished building target: Motor_Controller.elf
+ 
+make --no-print-directory post-build
+Generating binary and Printing size information:
+arm-none-eabi-objcopy -O binary "Motor_Controller.elf" "Motor_Controller.bin"
+arm-none-eabi-size "Motor_Controller.elf"
+   text	   data	    bss	    dec	    hex	filename
+  15916	   1120	   2140	  19176	   4ae8	Motor_Controller.elf
+ 
+12:55:15 **** Incremental Build of configuration Debug for project Motor_Controller ****
+make -j8 all 
+make: Nothing to be done for 'all'.
+13:03:44 **** Incremental Build of configuration Debug for project Motor_Controller ****
+make -j8 all 
+Building file: ../src/main.c
+Invoking: MCU GCC Compiler
+/home/simon/Design_3_git/Motor_Controller_SW4STM_Workspace/Motor_Controller/Debug
+arm-none-eabi-gcc -mcpu=cortex-m4 -mthumb -mfloat-abi=hard -mfpu=fpv4-sp-d16 -DSTM32 -DSTM32F4 -DSTM32F407VGTx -DSTM32F407G_DISC1 -DDEBUG -DSTM32F40XX -DSTM32F40_41xxx -DUSE_STDPERIPH_DRIVER -I"/home/simon/Design_3_git/Motor_Controller_SW4STM_Workspace/Motor_Controller/StdPeriph_Driver/inc" -I"/home/simon/Design_3_git/Motor_Controller_SW4STM_Workspace/Motor_Controller/inc" -I"/home/simon/Design_3_git/Motor_Controller_SW4STM_Workspace/Motor_Controller/CMSIS/device" -I"/home/simon/Design_3_git/Motor_Controller_SW4STM_Workspace/Motor_Controller/CMSIS/core" -O0 -g3 -Wall -fmessage-length=0 -ffunction-sections -c -MMD -MP -MF"src/main.d" -MT"src/main.o" -o "src/main.o" "../src/main.c"
+Finished building: ../src/main.c
+ 
+Building target: Motor_Controller.elf
+Invoking: MCU GCC Linker
+arm-none-eabi-gcc -mcpu=cortex-m4 -mthumb -mfloat-abi=hard -mfpu=fpv4-sp-d16 -u _printf_float -T"/home/simon/Design_3_git/Motor_Controller_SW4STM_Workspace/Motor_Controller/LinkerScript.ld" -Wl,-Map=output.map -Wl,--gc-sections -o "Motor_Controller.elf" @"objects.list"   -lm
+Finished building target: Motor_Controller.elf
+ 
+make --no-print-directory post-build
+Generating binary and Printing size information:
+arm-none-eabi-objcopy -O binary "Motor_Controller.elf" "Motor_Controller.bin"
+arm-none-eabi-size "Motor_Controller.elf"
+   text	   data	    bss	    dec	    hex	filename
+  15924	   1120	   2140	  19184	   4af0	Motor_Controller.elf
+ 
+13:04:00 **** Incremental Build of configuration Debug for project Motor_Controller ****
+make -j8 all 
+make: Nothing to be done for 'all'.
+13:34:46 **** Incremental Build of configuration Debug for project Motor_Controller ****
+make -j8 all 
+Building file: ../src/Motor/PID.c
+Invoking: MCU GCC Compiler
+/home/simon/Design_3_git/Motor_Controller_SW4STM_Workspace/Motor_Controller/Debug
+arm-none-eabi-gcc -mcpu=cortex-m4 -mthumb -mfloat-abi=hard -mfpu=fpv4-sp-d16 -DSTM32 -DSTM32F4 -DSTM32F407VGTx -DSTM32F407G_DISC1 -DDEBUG -DSTM32F40XX -DSTM32F40_41xxx -DUSE_STDPERIPH_DRIVER -I"/home/simon/Design_3_git/Motor_Controller_SW4STM_Workspace/Motor_Controller/StdPeriph_Driver/inc" -I"/home/simon/Design_3_git/Motor_Controller_SW4STM_Workspace/Motor_Controller/inc" -I"/home/simon/Design_3_git/Motor_Controller_SW4STM_Workspace/Motor_Controller/CMSIS/device" -I"/home/simon/Design_3_git/Motor_Controller_SW4STM_Workspace/Motor_Controller/CMSIS/core" -O0 -g3 -Wall -fmessage-length=0 -ffunction-sections -c -MMD -MP -MF"src/Motor/PID.d" -MT"src/Motor/PID.o" -o "src/Motor/PID.o" "../src/Motor/PID.c"
+Finished building: ../src/Motor/PID.c
+ 
+Building target: Motor_Controller.elf
+Invoking: MCU GCC Linker
+arm-none-eabi-gcc -mcpu=cortex-m4 -mthumb -mfloat-abi=hard -mfpu=fpv4-sp-d16 -u _printf_float -T"/home/simon/Design_3_git/Motor_Controller_SW4STM_Workspace/Motor_Controller/LinkerScript.ld" -Wl,-Map=output.map -Wl,--gc-sections -o "Motor_Controller.elf" @"objects.list"   -lm
+Finished building target: Motor_Controller.elf
+ 
+make --no-print-directory post-build
+Generating binary and Printing size information:
+arm-none-eabi-objcopy -O binary "Motor_Controller.elf" "Motor_Controller.bin"
+arm-none-eabi-size "Motor_Controller.elf"
+   text	   data	    bss	    dec	    hex	filename
+  15948	   1120	   2140	  19208	   4b08	Motor_Controller.elf
+ 
+13:37:56 **** Incremental Build of configuration Debug for project Motor_Controller ****
+make -j8 all 
+Building file: ../src/main.c
+Invoking: MCU GCC Compiler
+/home/simon/Design_3_git/Motor_Controller_SW4STM_Workspace/Motor_Controller/Debug
+arm-none-eabi-gcc -mcpu=cortex-m4 -mthumb -mfloat-abi=hard -mfpu=fpv4-sp-d16 -DSTM32 -DSTM32F4 -DSTM32F407VGTx -DSTM32F407G_DISC1 -DDEBUG -DSTM32F40XX -DSTM32F40_41xxx -DUSE_STDPERIPH_DRIVER -I"/home/simon/Design_3_git/Motor_Controller_SW4STM_Workspace/Motor_Controller/StdPeriph_Driver/inc" -I"/home/simon/Design_3_git/Motor_Controller_SW4STM_Workspace/Motor_Controller/inc" -I"/home/simon/Design_3_git/Motor_Controller_SW4STM_Workspace/Motor_Controller/CMSIS/device" -I"/home/simon/Design_3_git/Motor_Controller_SW4STM_Workspace/Motor_Controller/CMSIS/core" -O0 -g3 -Wall -fmessage-length=0 -ffunction-sections -c -MMD -MP -MF"src/main.d" -MT"src/main.o" -o "src/main.o" "../src/main.c"
+Finished building: ../src/main.c
+ 
+Building target: Motor_Controller.elf
+Invoking: MCU GCC Linker
+arm-none-eabi-gcc -mcpu=cortex-m4 -mthumb -mfloat-abi=hard -mfpu=fpv4-sp-d16 -u _printf_float -T"/home/simon/Design_3_git/Motor_Controller_SW4STM_Workspace/Motor_Controller/LinkerScript.ld" -Wl,-Map=output.map -Wl,--gc-sections -o "Motor_Controller.elf" @"objects.list"   -lm
+Finished building target: Motor_Controller.elf
+ 
+make --no-print-directory post-build
+Generating binary and Printing size information:
+arm-none-eabi-objcopy -O binary "Motor_Controller.elf" "Motor_Controller.bin"
+arm-none-eabi-size "Motor_Controller.elf"
+   text	   data	    bss	    dec	    hex	filename
+  15960	   1120	   2140	  19220	   4b14	Motor_Controller.elf
+ 
+13:38:10 **** Incremental Build of configuration Debug for project Motor_Controller ****
+make -j8 all 
+make: Nothing to be done for 'all'.
+13:47:03 **** Incremental Build of configuration Debug for project Motor_Controller ****
 make -j8 all 
 Building file: ../src/Motor/Motor.c
 Invoking: MCU GCC Compiler
@@ -16,12 +255,9 @@ Generating binary and Printing size information:
 arm-none-eabi-objcopy -O binary "Motor_Controller.elf" "Motor_Controller.bin"
 arm-none-eabi-size "Motor_Controller.elf"
    text	   data	    bss	    dec	    hex	filename
-  19040	   1120	   2156	  22316	   572c	Motor_Controller.elf
+  15960	   1120	   2140	  19220	   4b14	Motor_Controller.elf
  
-00:49:15 **** Incremental Build of configuration Debug for project Motor_Controller ****
-make -j8 all 
-make: Nothing to be done for 'all'.
-01:01:16 **** Incremental Build of configuration Debug for project Motor_Controller ****
+13:49:07 **** Incremental Build of configuration Debug for project Motor_Controller ****
 make -j8 all 
 Building file: ../src/main.c
 Invoking: MCU GCC Compiler
@@ -39,28 +275,8 @@ Generating binary and Printing size information:
 arm-none-eabi-objcopy -O binary "Motor_Controller.elf" "Motor_Controller.bin"
 arm-none-eabi-size "Motor_Controller.elf"
    text	   data	    bss	    dec	    hex	filename
-  19048	   1120	   2156	  22324	   5734	Motor_Controller.elf
+  15960	   1120	   2140	  19220	   4b14	Motor_Controller.elf
  
-01:07:37 **** Incremental Build of configuration Debug for project Motor_Controller ****
-make -j8 all 
-Building file: ../src/main.c
-Invoking: MCU GCC Compiler
-/home/simon/Design_3_git/Motor_Controller_SW4STM_Workspace/Motor_Controller/Debug
-arm-none-eabi-gcc -mcpu=cortex-m4 -mthumb -mfloat-abi=hard -mfpu=fpv4-sp-d16 -DSTM32 -DSTM32F4 -DSTM32F407VGTx -DSTM32F407G_DISC1 -DDEBUG -DSTM32F40XX -DSTM32F40_41xxx -DUSE_STDPERIPH_DRIVER -I"/home/simon/Design_3_git/Motor_Controller_SW4STM_Workspace/Motor_Controller/StdPeriph_Driver/inc" -I"/home/simon/Design_3_git/Motor_Controller_SW4STM_Workspace/Motor_Controller/inc" -I"/home/simon/Design_3_git/Motor_Controller_SW4STM_Workspace/Motor_Controller/CMSIS/device" -I"/home/simon/Design_3_git/Motor_Controller_SW4STM_Workspace/Motor_Controller/CMSIS/core" -O0 -g3 -Wall -fmessage-length=0 -ffunction-sections -c -MMD -MP -MF"src/main.d" -MT"src/main.o" -o "src/main.o" "../src/main.c"
-Finished building: ../src/main.c
- 
-Building target: Motor_Controller.elf
-Invoking: MCU GCC Linker
-arm-none-eabi-gcc -mcpu=cortex-m4 -mthumb -mfloat-abi=hard -mfpu=fpv4-sp-d16 -u _printf_float -T"/home/simon/Design_3_git/Motor_Controller_SW4STM_Workspace/Motor_Controller/LinkerScript.ld" -Wl,-Map=output.map -Wl,--gc-sections -o "Motor_Controller.elf" @"objects.list"   -lm
-Finished building target: Motor_Controller.elf
- 
-make --no-print-directory post-build
-Generating binary and Printing size information:
-arm-none-eabi-objcopy -O binary "Motor_Controller.elf" "Motor_Controller.bin"
-arm-none-eabi-size "Motor_Controller.elf"
-   text	   data	    bss	    dec	    hex	filename
-  19040	   1120	   2156	  22316	   572c	Motor_Controller.elf
- 
-01:15:32 **** Incremental Build of configuration Debug for project Motor_Controller ****
+13:49:25 **** Incremental Build of configuration Debug for project Motor_Controller ****
 make -j8 all 
 make: Nothing to be done for 'all'.

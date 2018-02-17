@@ -7,7 +7,7 @@ void execute_received_command(void);
 
 
 
-
+char finit;
 
 
 int main(void)
@@ -15,7 +15,12 @@ int main(void)
 	systemInit();
 
 	g_parameters.wheel_diameter = 6.58;
+	g_parameters.dt = 0.025;
 	storeParametersInEEPROM();
+
+	PID_Position_X_reset();
+
+	finit = 0;
 
 	while(1){
 
@@ -31,31 +36,30 @@ int main(void)
 
 			g_systickCount = 0;
 
-			if(g_typeDeplacement == X){
-				PID_1_compute();
-				PID_4_compute();
+			if(g_typeDeplacement == X && finit == 0){
+				PID_Position_X_Compute();
 			}
 			else if(g_typeDeplacement == Y){
-				PID_2_compute();
-				PID_3_compute();
+				//PID_2_compute();
+				//PID_3_compute();
 			}
 			else if(g_typeDeplacement == R){
-				PID_1_compute();
-				PID_2_compute();
-				PID_3_compute();
-				PID_4_compute();
+				//PID_1_compute();
+				//PID_2_compute();
+				//PID_3_compute();
+				//PID_4_compute();
 			}
 
 			UART_write(g_selectedUART, '#');
 			UART_write(g_selectedUART, 0x03);
 			UART_write(g_selectedUART, 0x18);
 
-			UART_writeFloatUnion(g_selectedUART, PID_1.vitesse);
-			UART_writeFloatUnion(g_selectedUART, -PID_4.vitesse);
-			UART_writeFloatUnion(g_selectedUART, PID_1.consigne_position);
-			UART_writeFloatUnion(g_selectedUART, PID_1.consigne_vitesse);
-			UART_writeFloatUnion(g_selectedUART, PID_1.position);
-			UART_writeFloatUnion(g_selectedUART, -PID_4.position);
+			UART_writeFloatUnion(g_selectedUART, Encoder_1.vitesse);
+			UART_writeFloatUnion(g_selectedUART, -Encoder_4.vitesse);
+			UART_writeFloatUnion(g_selectedUART, Encoder_1.position);
+			UART_writeFloatUnion(g_selectedUART, -Encoder_4.position);
+			UART_writeFloatUnion(g_selectedUART, PID_Position_X.consigne_position);
+			UART_writeFloatUnion(g_selectedUART, PID_Position_X.consigne_vitesse);
 
 			UART_write(g_selectedUART, '.');
 		}
@@ -170,24 +174,25 @@ void execute_received_command(void){
 		if(g_messageContent[0] == 0x01){ 		//Déplacement en X
 
 			g_typeDeplacement = X;
-			PID_4.consigne_position = - readFloatUnion(&g_messageContent[1]);
-			PID_1.consigne_position = readFloatUnion(&g_messageContent[1]);
+			PID_Position_X.consigne_position = readFloatUnion(&g_messageContent[1]);
+			finit = 0;
+
 		}
 
 		else if(g_messageContent[0] == 0x02){	//Déplacement en Y
 
 			g_typeDeplacement = Y;
-			PID_2.consigne_position = - readFloatUnion(&g_messageContent[1]);
-			PID_3.consigne_position = readFloatUnion(&g_messageContent[1]);
+		//	PID_2.consigne_position = - readFloatUnion(&g_messageContent[1]);
+		//	PID_3.consigne_position = readFloatUnion(&g_messageContent[1]);
 
 		}
 
 		else if(g_messageContent[0] == 0x03){	//Rotation
 
-			PID_1.consigne_position =  readFloatUnion(&g_messageContent[1]);
-			PID_2.consigne_position =  readFloatUnion(&g_messageContent[1]);
-			PID_3.consigne_position =  readFloatUnion(&g_messageContent[1]);
-			PID_4.consigne_position =  readFloatUnion(&g_messageContent[1]);
+			//PID_1.consigne_position =  readFloatUnion(&g_messageContent[1]);
+			//PID_2.consigne_position =  readFloatUnion(&g_messageContent[1]);
+			//PID_3.consigne_position =  readFloatUnion(&g_messageContent[1]);
+			//PID_4.consigne_position =  readFloatUnion(&g_messageContent[1]);
 
 			g_typeDeplacement = R;
 

@@ -62,7 +62,7 @@ void motor_1_init(void)
 
 	TIM_BaseStruct.TIM_Prescaler = 99;						//Gives a tick frequency of 1.68 MHz
 	TIM_BaseStruct.TIM_CounterMode = TIM_CounterMode_Up;	//Counts up
-	TIM_BaseStruct.TIM_Period = 16799;						//Gives PWM frequency of 100 Hz
+	TIM_BaseStruct.TIM_Period = 8399;						//Gives PWM frequency of 100 Hz
 	TIM_BaseStruct.TIM_ClockDivision = TIM_CKD_DIV1;
 	TIM_BaseStruct.TIM_RepetitionCounter = 0;
 	TIM_TimeBaseInit(TIM10, &TIM_BaseStruct);				//Setup TIM10
@@ -358,7 +358,7 @@ void motor_4_init(void){
 
 	TIM_BaseStruct.TIM_Prescaler = 49;						//Gives a tick frequency of 1.68 MHz
 	TIM_BaseStruct.TIM_CounterMode = TIM_CounterMode_Up;	//Counts up
-	TIM_BaseStruct.TIM_Period = 16799;						//Gives PWM frequency of 100 Hz
+	TIM_BaseStruct.TIM_Period = 8399;						//Gives PWM frequency of 100 Hz
 	TIM_BaseStruct.TIM_ClockDivision = TIM_CKD_DIV1;
 	TIM_BaseStruct.TIM_RepetitionCounter = 0;
 
@@ -429,14 +429,14 @@ void motor1_set_speed_percent(float p_speed_percent){
 		//forward
 	    GPIOD->BSRRL = 0x0002; //set   PD1
 	    GPIOD->BSRRH = 0x0001; //reset PD0
-	    TIM10->CCR1 = (unsigned int)(p_speed_percent * 16799.0);
+	    TIM10->CCR1 = (unsigned int)(p_speed_percent * 8399.0);
 	}
 	else if(p_speed_percent < 0){
 		//backward
 	    GPIOD->BSRRL = 0x0001; //set   PD0
 	    GPIOD->BSRRH = 0x0002; //reset PD1
 	    p_speed_percent *= -1.0;
-	    TIM10->CCR1 = (unsigned int)(p_speed_percent * 16799.0);
+	    TIM10->CCR1 = (unsigned int)(p_speed_percent * 8399.0);
 	}
 }
 
@@ -501,14 +501,14 @@ void motor4_set_speed_percent(float p_speed_percent){
 	else if(p_speed_percent > 0){
 	    GPIOD->BSRRL = 0x0080; //set   PD7
 	    GPIOD->BSRRH = 0x0040; //reset PD6
-	    TIM14->CCR1 = (unsigned int)(p_speed_percent * 16799.0);
+	    TIM14->CCR1 = (unsigned int)(p_speed_percent * 8399.0);
 	}
 	else if(p_speed_percent < 0){
 		//backward
 	    GPIOD->BSRRL = 0x0040; //set   PD6
 	    GPIOD->BSRRH = 0x0080; //reset PD7
 	    p_speed_percent *= -1.0;
-	    TIM14->CCR1 = (unsigned int)(p_speed_percent * 16799.0);
+	    TIM14->CCR1 = (unsigned int)(p_speed_percent * 8399.0);
 	}
 }
 

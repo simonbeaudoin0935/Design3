@@ -11,6 +11,7 @@ public:
 
    void setImageToCompute(QString p_imagePath);
 
+
 private:
 
    QString m_imagePath;

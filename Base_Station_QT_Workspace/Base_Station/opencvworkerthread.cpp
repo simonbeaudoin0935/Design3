@@ -35,15 +35,8 @@ void OpencvWorkerThread::run()
     src = cv::imread(m_imagePath.toStdString());
 
     /// Convert image to gray and blur it
-    cvtColor( src, src_gray, cv::COLOR_BGR2GRAY );
+    cvtColor( src, src_gray, COLOR_BGR2GRAY );
     blur( src_gray, src_gray, Size(3,3) );
-
-   // cv::Mat contours = cv::findContours()
-  //  if(!inputImage.empty()) cv::imshow("Display Image", inputImage);
-
-
-
-
 
 
     /// Create Window
