@@ -1,0 +1,25 @@
+/*
+ * ParameterManager.cpp
+ *
+ *  Created on: Feb 8, 2018
+ *      Author: simon
+ */
+
+#include "../../inc/ParameterManager/ParameterManager.h"
+#include "../../inc/ParameterManager/25LC128.h"
+
+ParameterManager::ParameterManager()
+{
+	eeprom_init();
+
+	this->retreiveParametersFromEeprom();
+
+}
+
+ParameterManager::~ParameterManager() {
+
+}
+
+void ParameterManager::retreiveParametersFromEeprom(){
+
+}

@@ -6,10 +6,13 @@
 #include <QtGamepad/QGamepad>
 #include <QtSerialPort/QtSerialPort>
 #include <QCamera>
+#include <QCameraImageCapture>
 
 #include "gamepadstate.h"
 #include "serialmotionsender.h"
 #include "opencvworkerthread.h"
+#include "serialreceivestatemachine.h"
+#include "pid_chart.h"
 
 namespace Ui {
 class MainWindow;
@@ -60,29 +63,58 @@ private slots:
 
     void serial_send_on_timeout();
 
+//Camera tab widget slots
     void on_pushButton_Camera_Scan_clicked();
 
     void on_comboBox_Camera_Selector_currentIndexChanged(const QString &arg1);
 
     void on_pushButton_Camera_Connect_clicked();
 
+//Motor tab slots
+
+    void serial_data_received();
+
+
+    void on_pushButton_Serial_Disconnect_clicked();
+
+    void on_pushButton_Reset_PID_clicked();
+
+    void on_pushButton_PID_Pause_Play_clicked();
+
+    void on_pushButton_Read_PID_clicked();
+
+    void on_pushButton_Store_PID_clicked();
+
+    void on_pushButton_Take_Image_clicked();
+
+
+//Camera capture slot
+
+    void image_saved(int p_int, QString p_string);
+
 private:
     Ui::MainWindow *ui;
 
-//gamepad members
-    QGamepadManager *m_gamepadManager;
-    QGamepad        *m_gamepad;
-    GamepadState    *m_gamepadState;
+    bool                m_isSerialPortConnected;
+    QSerialPort*        m_serialPort;
 
-//serial port members
-    QSerialPort     *m_serialPort;
 
-//serial motion sender
-    SerialMotionSender *m_serialMotionSenderThread;
+    SerialMotionSender* m_serialMotionSenderThread;
+    SerialReceiveStateMachine m_serialReceiveStateMachine;
 
-//Camera members
-    QCamera *m_cameraWorld;
-    bool m_isCameraConnected;
+    bool                m_isGamepadConnected;
+    QGamepad*           m_gamepad;
+    QGamepadManager*    m_gamepadManager;
+    GamepadState*       m_gamepadState;
+
+    bool             m_isCameraConnected;
+    QCamera*         m_cameraWorld;
+    QCameraImageCapture * m_cameraImageCapture;
+
+    PID_Chart       *m_pid_chart;
+
+    OpencvWorkerThread *m_openCVWorkerThread;
+
 
 };
 

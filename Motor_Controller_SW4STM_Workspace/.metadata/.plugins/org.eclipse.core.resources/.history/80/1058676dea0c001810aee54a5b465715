@@ -1,0 +1,17 @@
+/*
+ * ParameterManager.h
+ *
+ *  Created on: Feb 8, 2018
+ *      Author: simon
+ */
+
+#ifndef PARAMETERMANAGER_H_
+#define PARAMETERMANAGER_H_
+
+class ParameterManager {
+public:
+	ParameterManager();
+	virtual ~ParameterManager();
+};
+
+#endif /* PARAMETERMANAGER_H_ */

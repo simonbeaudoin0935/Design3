@@ -11,11 +11,12 @@ SerialMotionSender::SerialMotionSender(unsigned int p_sendIntervalMS):
 
 void SerialMotionSender::run()
 {
-    while(m_continueSenting){
+    do
+    {
         this->msleep(m_sendIntervalMS);
         emit timeout();
 
-    }
+    }while(m_continueSenting);
 }
 
 void SerialMotionSender::stopSending()

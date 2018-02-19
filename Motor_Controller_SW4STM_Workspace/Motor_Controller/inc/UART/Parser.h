@@ -7,7 +7,7 @@ typedef enum {
       WAIT_DATA_SIZE_CHARACTER,
       WAIT_DATA_CONTENT,
       WAIT_CHECKSUM
-    }MessageParserState;
+}MessageParserState;
 
 
 
