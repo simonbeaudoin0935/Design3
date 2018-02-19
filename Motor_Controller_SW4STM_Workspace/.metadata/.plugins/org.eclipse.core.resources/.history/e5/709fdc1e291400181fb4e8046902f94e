@@ -422,7 +422,7 @@ void motor1_set_speed_percent(float p_speed_percent){
 		//brake to ground
 	    GPIOD->BSRRL = 0x0000; //set nothing
 	    GPIOD->BSRRH = 0x0003; //reset PD0 and PD1
-	    TIM10->CCR1 = 0;
+	    TIM10->CCR1 = 1;
 	}
 	else if(p_speed_percent > 0){
 
@@ -448,7 +448,7 @@ void motor2_set_speed_percent(float p_speed_percent){
 		//brake to ground
 	    GPIOD->BSRRL = 0x0000; //set nothing
 	    GPIOD->BSRRH = 0x000C; //reset PD0 and PD1
-	    TIM10->CCR1 = 0;
+	    TIM10->CCR1 = 1;
 	}
 	else if(p_speed_percent > 0){
 	    GPIOD->BSRRL = 0x0008; //set   PD3
@@ -472,7 +472,7 @@ void motor3_set_speed_percent(float p_speed_percent){
 			//brake to ground
 			GPIOD->BSRRL = 0x0000; //set nothing
 			GPIOD->BSRRH = 0x0030; //reset PD4 and PD5
-			TIM13->CCR1 = 0;
+			TIM13->CCR1 = 1;
 		}
 		else if(p_speed_percent > 0){
 			GPIOD->BSRRL = 0x0020; //set   PD5
@@ -496,7 +496,7 @@ void motor4_set_speed_percent(float p_speed_percent){
 		//brake to ground
 	    GPIOD->BSRRL = 0x0000; //set nothing
 	    GPIOD->BSRRH = 0x00C0; //reset PD6 and PD7
-	    TIM14->CCR1 = 0;
+	    TIM14->CCR1 = 1;
 	}
 	else if(p_speed_percent > 0){
 	    GPIOD->BSRRL = 0x0080; //set   PD7

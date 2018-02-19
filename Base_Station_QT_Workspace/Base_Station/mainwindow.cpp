@@ -7,6 +7,7 @@
 
 #include <QImage>
 #include <QCameraInfo>
+#include <QImageEncoderSettings>
 
 #include <QtCharts/QChartView>
 
@@ -437,39 +438,7 @@ void MainWindow::serial_send_on_timeout()
 }
 
 
-void MainWindow::on_pushButton_Camera_Scan_clicked()
-{
-    QList<QCameraInfo> cameras = QCameraInfo::availableCameras();
-      foreach (const QCameraInfo &cameraInfo, cameras){
-          qDebug() << cameraInfo.deviceName();
-          ui->comboBox_Camera_Selector->addItem(cameraInfo.deviceName());
-      }
 
-
-}
-
-void MainWindow::on_comboBox_Camera_Selector_currentIndexChanged(const QString &arg1)
-{
-    QCameraInfo v_cameraInfo(arg1.toUtf8());
-    ui->textBrowser_Camera_Descriptor->clear();
-    ui->textBrowser_Camera_Descriptor->append(v_cameraInfo.description());
-}
-
-void MainWindow::on_pushButton_Camera_Connect_clicked()
-{
-    m_cameraWorld = new QCamera(ui->comboBox_Camera_Selector->currentText().toUtf8());
-    m_isCameraConnected = true;
-
-    m_cameraWorld->setViewfinder(ui->widget_camera_viewFinder);
-
-    m_cameraImageCapture = new QCameraImageCapture(m_cameraWorld);
-
-    m_cameraWorld->setCaptureMode(QCamera::CaptureStillImage);
-
-    connect(m_cameraImageCapture, SIGNAL(imageSaved(int,QString)),this,SLOT(image_saved(int,QString)));
-
-    m_cameraWorld->start();
-}
 
 
 float receive_float_value(QByteArray::Iterator &it){
@@ -707,10 +676,11 @@ void MainWindow::on_pushButton_Store_PID_clicked()
 
 void MainWindow::on_pushButton_Take_Image_clicked()
 {
+    qDebug() << "Desc : " << m_cameraImageCapture->supportedBufferFormats() << "\n" ;
     if(m_isCameraConnected){
         if(m_cameraImageCapture->isReadyForCapture()){
             m_cameraImageCapture->capture(ui->lineEdit_Camera_Image_Name->text());
-
+            //m_cameraImageCapture->capture("home/simon/Pictures/wasaboy.png");
         }
         else{
             QMessageBox::warning(this,"camera", "camera not ready for image capture");
@@ -732,4 +702,44 @@ void MainWindow::image_saved(int p_int, QString p_string)
     m_openCVWorkerThread->start();
 }
 
+
+void MainWindow::on_pushButton_Camera_Scan_clicked()
+{
+    QList<QCameraInfo> cameras = QCameraInfo::availableCameras();
+      foreach (const QCameraInfo &cameraInfo, cameras){
+          qDebug() << cameraInfo.deviceName();
+          ui->comboBox_Camera_Selector->addItem(cameraInfo.deviceName());
+      }
+
+
+}
+
+void MainWindow::on_comboBox_Camera_Selector_currentIndexChanged(const QString &arg1)
+{
+    QCameraInfo v_cameraInfo(arg1.toUtf8());
+    ui->textBrowser_Camera_Descriptor->clear();
+    ui->textBrowser_Camera_Descriptor->append(v_cameraInfo.description());
+}
+
+void MainWindow::on_pushButton_Camera_Connect_clicked()
+{
+    m_cameraWorld = new QCamera(ui->comboBox_Camera_Selector->currentText().toUtf8());
+    m_isCameraConnected = true;
+
+    m_cameraWorld->setViewfinder(ui->widget_camera_viewFinder);
+
+    m_cameraImageCapture = new QCameraImageCapture(m_cameraWorld);
+
+   // QImageEncoderSettings v_imageSettings;
+   // v_imageSettings.setCodec("PNG");
+   // v_imageSettings.setQuality(QMultimedia::VeryHighQuality);
+    //v_imageSettings.setQuality(QMultimedia::VeryLowQuality);
+    //v_imageSettings.setResolution(1600,1200);
+   // m_cameraImageCapture->setEncodingSettings(v_imageSettings);
+    m_cameraWorld->setCaptureMode(QCamera::CaptureStillImage);
+
+    connect(m_cameraImageCapture, SIGNAL(imageSaved(int,QString)),this,SLOT(image_saved(int,QString)));
+
+    m_cameraWorld->start();
+}
 

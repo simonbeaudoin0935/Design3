@@ -15,7 +15,7 @@ int main(void)
 	systemInit();
 
 	g_parameters.wheel_diameter = 6.58;
-	g_parameters.dt = 0.05;
+	g_parameters.dt = 0.025;
 	storeParametersInEEPROM();
 
 	PID_Position_X_reset();
