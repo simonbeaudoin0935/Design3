@@ -76,7 +76,11 @@ Le git contient les dossiers suivants :
 * \*\*cannot find -lGL\*\* : `sudo apt-get install libgl1-mesa-dev`
 * \*\*cannot find -lpulse : `sudo apt-get install libpulse-dev`
 
+# Pour faire marcher la clé USB wifi avec linux 
 
-
-
-
+* Télécharger les sources du driver : `git clone https://github.com/gnab/rtl8812au.git`
+* Aller dans le dosser : `cd rtl8812au`
+* Compiler : `make`
+* insérer le driver : `sudo insmod 8812au.ko`
+* Installer le driver dans le systeme : `sudo cp 8812au.ko /lib/modules/$(uname -r)/kernel/drivers/net/wireless`
+* Persister les changements : `sudo depmod`

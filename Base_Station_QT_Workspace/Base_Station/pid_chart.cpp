@@ -26,32 +26,32 @@ PID_Chart::PID_Chart(QGraphicsItem *parent, Qt::WindowFlags wFlags):
     QPen pen1(Qt::black);
     pen1.setWidth(1);
     m_serieVmax->setPen(pen1);
-    m_serieVmax->setName("Encoder_1.vitesse");
+    m_serieVmax->setName("Actual speed");
 
     QPen pen2(Qt::magenta);
     pen2.setWidth(1);
     m_serieConsignePosition->setPen(pen2);
-    m_serieConsignePosition->setName("-Encoder_4.vitesse");
+    m_serieConsignePosition->setName("actual distance");
 
     QPen pen3(Qt::red);
     pen3.setWidth(1);
     m_serieConsigneVitesse->setPen(pen3);
-    m_serieConsigneVitesse->setName("Encoder_1.position");
+    m_serieConsigneVitesse->setName("expected speed");
 
     QPen pen4(Qt::green);
     pen4.setWidth(1);
     m_serieVitesse->setPen(pen4);
-    m_serieVitesse->setName(" -Encoder_4.position");
+    m_serieVitesse->setName("expected distance");
 
     QPen pen5(Qt::blue);
     pen5.setWidth(1);
     m_seriePosition->setPen(pen5);
-    m_seriePosition->setName("consigne_position");
+    m_seriePosition->setName("distance error");
 
     QPen pen6(Qt::gray);
     pen6.setWidth(1);
     m_seriePIDOutput->setPen(pen6);
-    m_seriePIDOutput->setName("consigne_vitesse");
+    m_seriePIDOutput->setName("speed error");
 
     this->addSeries(m_serieVmax);
     this->addSeries(m_serieConsignePosition);

@@ -2,10 +2,12 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <QLabel>
 #include <QTimer>
 #include <QTime>
 
 #include "camera.h"
+#include "robotmanagerthread.h"
 #include "detecteurcarres.h"
 
 namespace Ui {
@@ -21,10 +23,16 @@ public:
     ~MainWindow();
 
 public slots:
+
+//slots non reliés à des widgets
     void dt_timeout();
+    void handleRobotConnectionStatus(ROBOT_CONNECTION p_status);
 
 private slots:
 
+    void cameraDisconnected();
+
+//Slots des widgets de la barre de menu
     void on_actionInfo_triggered();
 
 //Slots des widgets de la tab des settings de la camera
@@ -36,21 +44,37 @@ private slots:
 
     void on_pushButton_Disconnect_Camera_clicked();
 
+    void on_pushButton_Connect_Robot_clicked();
+
 //slots des widghets de la tab du jeu
 
     void on_pushButton_Start_Game_clicked();
 
+
+
+
+
+
 private:
 
 //Qt library objects
-    Ui::MainWindow* ui;
-    QTimer*         m_timer;
-    QTime*          m_time;
+    Ui::MainWindow*     ui;
+    QTimer*             m_timer;
+    QTime*              m_time;
 
-//custom objetc
-    Camera*         m_camera;
-    DetecteurCarres* m_detecteurCarres;
-    bool            m_isGameStarted;
+    QLabel*             m_statusBarCameraLabel;
+    QLabel*             m_statusBarCameraStatus;
+    QLabel*             m_statusBarRobotLabel;
+    QLabel*             m_statusBarRobotStatus;
+
+
+//custom objects
+    bool                m_isGameStarted;
+
+    Camera*             m_camera;
+    DetecteurCarres*    m_detecteurCarres;
+    RobotManagerThread* m_robotManager;
+
 };
 
 #endif // MAINWINDOW_H
