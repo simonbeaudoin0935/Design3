@@ -4,7 +4,7 @@
 #
 #-------------------------------------------------
 
-QT       += core gui multimedia multimediawidgets
+QT       += core gui multimedia multimediawidgets network
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -30,7 +30,8 @@ SOURCES += \
         mainwindow.cpp \
     camera.cpp \
     detecteurzonejeu.cpp \
-    detecteurcarres.cpp
+    detecteurcarres.cpp \
+    robotmanagerthread.cpp
 
 HEADERS += \
         mainwindow.h \
@@ -38,7 +39,8 @@ HEADERS += \
     define.h \
     detecteurzonejeu.h \
     detecteurcarres.h \
-    cameracalibration.h
+    cameracalibration.h \
+    robotmanagerthread.h
 
 FORMS += \
         mainwindow.ui

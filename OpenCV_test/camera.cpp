@@ -1,24 +1,70 @@
 #include "camera.h"
 
+#include "define.h"
+
 #include <QCameraInfo>
 #include <QImage>
 
+double table_1_camera_matrix[9] = TABLE_1_CAMERA_MATRIX;
+double table_1_distortion_matrix[5] = TABLE_1_DISTORTION_MATRIX;
 
+double table_2_camera_matrix[9] = TABLE_2_CAMERA_MATRIX;
+double table_2_distortion_matrix[5] = TABLE_2_DISTORTION_MATRIX;
 
-double c[9] = {5.7254083771647004e+02, 0., 320., 0., 5.7254083771647004e+02, 240., 0., 0., 1.};
+double table_3_camera_matrix[9] = TABLE_3_CAMERA_MATRIX;
+double table_3_distortion_matrix[5] = TABLE_3_DISTORTION_MATRIX;
 
-double d[5] = {-1.7362703587024278e-01, 8.2552030882771299e-01,
-               -4.3008418461358436e-04, -7.5739445839932886e-03,
-               -1.0206943494686624e+00};
+double table_4_camera_matrix[9] = TABLE_4_CAMERA_MATRIX;
+double table_4_distortion_matrix[5] = TABLE_4_DISTORTION_MATRIX;
 
-Camera::Camera():
-    m_cameraConnected(false)
+double table_5_camera_matrix[9] = TABLE_5_CAMERA_MATRIX;
+double table_5_distortion_matrix[5] = TABLE_5_DISTORTION_MATRIX;
+
+double table_6_camera_matrix[9] = TABLE_6_CAMERA_MATRIX;
+double table_6_distortion_matrix[5] = TABLE_6_DISTORTION_MATRIX;
+
+Camera::Camera(TABLE p_table):
+    m_cameraConnected(false),
+    m_useUndistortion(false)
 {
-    m_cameraMatrix = new cv::Mat(3,3,CV_64F,c);
 
+    switch(p_table)
+    {
+    case TABLE_1:
+        m_cameraMatrix = new cv::Mat(3,3,CV_64F,table_1_camera_matrix);
+        m_distortionCoefficient = new cv::Mat(1,5,CV_64F,table_1_distortion_matrix);
+        break;
+    case TABLE_2:
+        m_cameraMatrix = new cv::Mat(3,3,CV_64F,table_2_camera_matrix);
+        m_distortionCoefficient = new cv::Mat(1,5,CV_64F,table_2_distortion_matrix);
+        break;
+    case TABLE_3:
+        m_cameraMatrix = new cv::Mat(3,3,CV_64F,table_3_camera_matrix);
+        m_distortionCoefficient = new cv::Mat(1,5,CV_64F,table_3_distortion_matrix);
+        break;
+    case TABLE_4:
+        m_cameraMatrix = new cv::Mat(3,3,CV_64F,table_4_camera_matrix);
+        m_distortionCoefficient = new cv::Mat(1,5,CV_64F,table_4_distortion_matrix);
+        break;
+    case TABLE_5:
+        m_cameraMatrix = new cv::Mat(3,3,CV_64F,table_5_camera_matrix);
+        m_distortionCoefficient = new cv::Mat(1,5,CV_64F,table_5_distortion_matrix);
+        break;
+    case TABLE_6:
+        m_cameraMatrix = new cv::Mat(3,3,CV_64F,table_6_camera_matrix);
+        m_distortionCoefficient = new cv::Mat(1,5,CV_64F,table_6_distortion_matrix);
+        break;
+    default:
+        break;
+    }
+}
 
-    m_distortionCoefficient = new cv::Mat(1,5,CV_64F,d);
-
+Camera::~Camera()
+{
+    m_videoCapture->release();
+    delete m_videoCapture;
+    delete m_cameraMatrix;
+    delete m_distortionCoefficient;
 }
 
 bool Camera::isCameraConnected() const
@@ -44,7 +90,6 @@ bool Camera::connectCamera(const QString &p_cameraName)
            delete m_videoCapture;
            m_cameraConnected = false;
         }
-
     }
 
     else
@@ -54,7 +99,6 @@ bool Camera::connectCamera(const QString &p_cameraName)
     }
 
     return m_cameraConnected;
-
 }
 
 bool Camera::disconnectCamera()
@@ -67,24 +111,107 @@ bool Camera::disconnectCamera()
     return false;
 }
 
-Camera &Camera::operator>>(cv::Mat &p_matrix)
+void Camera::setTable(TABLE p_table)
 {
-    if(m_cameraConnected){
-        cv::Mat distorted;
-        *m_videoCapture >> distorted;
-        undistort(distorted, p_matrix, *m_cameraMatrix, *m_distortionCoefficient);
-        //*m_videoCapture >> p_matrix;
+    delete m_cameraMatrix;
+    delete m_distortionCoefficient;
+
+    switch(p_table)
+    {
+    case TABLE_1:
+        m_cameraMatrix = new cv::Mat(3,3,CV_64F,table_1_camera_matrix);
+        m_distortionCoefficient = new cv::Mat(1,5,CV_64F,table_1_distortion_matrix);
+        break;
+    case TABLE_2:
+        m_cameraMatrix = new cv::Mat(3,3,CV_64F,table_2_camera_matrix);
+        m_distortionCoefficient = new cv::Mat(1,5,CV_64F,table_2_distortion_matrix);
+        break;
+    case TABLE_3:
+        m_cameraMatrix = new cv::Mat(3,3,CV_64F,table_3_camera_matrix);
+        m_distortionCoefficient = new cv::Mat(1,5,CV_64F,table_3_distortion_matrix);
+        break;
+    case TABLE_4:
+        m_cameraMatrix = new cv::Mat(3,3,CV_64F,table_4_camera_matrix);
+        m_distortionCoefficient = new cv::Mat(1,5,CV_64F,table_4_distortion_matrix);
+        break;
+    case TABLE_5:
+        m_cameraMatrix = new cv::Mat(3,3,CV_64F,table_5_camera_matrix);
+        m_distortionCoefficient = new cv::Mat(1,5,CV_64F,table_5_distortion_matrix);
+        break;
+    case TABLE_6:
+        m_cameraMatrix = new cv::Mat(3,3,CV_64F,table_6_camera_matrix);
+        m_distortionCoefficient = new cv::Mat(1,5,CV_64F,table_6_distortion_matrix);
+        break;
+    default:
+        break;
     }
-    return *this;
 }
 
-QPixmap Camera::Mat2QPixmap(const cv::Mat &mat)
+bool Camera::operator>>(cv::Mat& p_matrix)
 {
-    cv::Mat temp; // make the same cv::Mat
-    cv::cvtColor(mat, temp,cv::COLOR_BGR2RGB); // cvtColor Makes a copt, that what i need
+    if(m_cameraConnected)
+    {
+        cv::Mat v_tmp;
+
+        bool v_success = m_videoCapture->read(v_tmp);
+
+        if(!v_success)
+        {
+            emit cameraDisconnected();
+            m_cameraConnected = false;
+            return false;
+        }
+
+        if(m_useUndistortion)
+        { 
+            undistort(v_tmp, v_tmp, *m_cameraMatrix, *m_distortionCoefficient);
+        }
+
+        p_matrix = v_tmp;
+
+    }
 
 
-    return QPixmap::fromImage(QImage((unsigned char*) temp.data, temp.cols, temp.rows, QImage::Format_RGB888));
+    return true;
+}
+
+
+bool Camera::operator>>(QPixmap& p_pixmap)
+{
+    if(m_cameraConnected)
+    {
+        cv::Mat v_tmp;
+
+        bool v_success = m_videoCapture->read(v_tmp);
+
+        if(!v_success)
+        {
+            emit cameraDisconnected();
+            m_cameraConnected = false;
+            return false;
+        }
+
+        if(m_useUndistortion)
+        {
+            undistort(v_tmp, v_tmp, *m_cameraMatrix, *m_distortionCoefficient);
+        }
+
+        cv::cvtColor(v_tmp, v_tmp ,cv::COLOR_BGR2RGB);
+
+        p_pixmap = QPixmap::fromImage(QImage((unsigned char*) v_tmp.data, v_tmp.cols, v_tmp.rows, QImage::Format_RGB888));
+
+    }
+
+    return true;
+}
+
+QPixmap Camera::Mat2QPixmap(const cv::Mat& p_mat)
+{
+    cv::Mat v_tmp;
+
+    cv::cvtColor(p_mat, v_tmp ,cv::COLOR_BGR2RGB);
+
+    return QPixmap::fromImage(QImage((unsigned char*) v_tmp.data, v_tmp.cols, v_tmp.rows, QImage::Format_RGB888));
 }
 
 

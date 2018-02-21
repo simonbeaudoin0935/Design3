@@ -21,8 +21,8 @@ QT_BEGIN_MOC_NAMESPACE
 QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
 struct qt_meta_stringdata_MainWindow_t {
-    QByteArrayData data[9];
-    char stringdata0[245];
+    QByteArrayData data[14];
+    char stringdata0[354];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -34,19 +34,28 @@ static const qt_meta_stringdata_MainWindow_t qt_meta_stringdata_MainWindow = {
 QT_MOC_LITERAL(0, 0, 10), // "MainWindow"
 QT_MOC_LITERAL(1, 11, 10), // "dt_timeout"
 QT_MOC_LITERAL(2, 22, 0), // ""
-QT_MOC_LITERAL(3, 23, 23), // "on_actionInfo_triggered"
-QT_MOC_LITERAL(4, 47, 34), // "on_pushButton_Scan_Cameras_cl..."
-QT_MOC_LITERAL(5, 82, 52), // "on_listWidget_Connected_Camer..."
-QT_MOC_LITERAL(6, 135, 36), // "on_pushButton_Connect_Camera_..."
-QT_MOC_LITERAL(7, 172, 39), // "on_pushButton_Disconnect_Came..."
-QT_MOC_LITERAL(8, 212, 32) // "on_pushButton_Start_Game_clicked"
+QT_MOC_LITERAL(3, 23, 27), // "handleRobotConnectionStatus"
+QT_MOC_LITERAL(4, 51, 16), // "ROBOT_CONNECTION"
+QT_MOC_LITERAL(5, 68, 8), // "p_status"
+QT_MOC_LITERAL(6, 77, 18), // "cameraDisconnected"
+QT_MOC_LITERAL(7, 96, 23), // "on_actionInfo_triggered"
+QT_MOC_LITERAL(8, 120, 34), // "on_pushButton_Scan_Cameras_cl..."
+QT_MOC_LITERAL(9, 155, 52), // "on_listWidget_Connected_Camer..."
+QT_MOC_LITERAL(10, 208, 36), // "on_pushButton_Connect_Camera_..."
+QT_MOC_LITERAL(11, 245, 39), // "on_pushButton_Disconnect_Came..."
+QT_MOC_LITERAL(12, 285, 35), // "on_pushButton_Connect_Robot_c..."
+QT_MOC_LITERAL(13, 321, 32) // "on_pushButton_Start_Game_clicked"
 
     },
-    "MainWindow\0dt_timeout\0\0on_actionInfo_triggered\0"
+    "MainWindow\0dt_timeout\0\0"
+    "handleRobotConnectionStatus\0"
+    "ROBOT_CONNECTION\0p_status\0cameraDisconnected\0"
+    "on_actionInfo_triggered\0"
     "on_pushButton_Scan_Cameras_clicked\0"
     "on_listWidget_Connected_Cameras_itemSelectionChanged\0"
     "on_pushButton_Connect_Camera_clicked\0"
     "on_pushButton_Disconnect_Camera_clicked\0"
+    "on_pushButton_Connect_Robot_clicked\0"
     "on_pushButton_Start_Game_clicked"
 };
 #undef QT_MOC_LITERAL
@@ -57,7 +66,7 @@ static const uint qt_meta_data_MainWindow[] = {
        7,       // revision
        0,       // classname
        0,    0, // classinfo
-       7,   14, // methods
+      10,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -65,15 +74,21 @@ static const uint qt_meta_data_MainWindow[] = {
        0,       // signalCount
 
  // slots: name, argc, parameters, tag, flags
-       1,    0,   49,    2, 0x0a /* Public */,
-       3,    0,   50,    2, 0x08 /* Private */,
-       4,    0,   51,    2, 0x08 /* Private */,
-       5,    0,   52,    2, 0x08 /* Private */,
-       6,    0,   53,    2, 0x08 /* Private */,
-       7,    0,   54,    2, 0x08 /* Private */,
-       8,    0,   55,    2, 0x08 /* Private */,
+       1,    0,   64,    2, 0x0a /* Public */,
+       3,    1,   65,    2, 0x0a /* Public */,
+       6,    0,   68,    2, 0x08 /* Private */,
+       7,    0,   69,    2, 0x08 /* Private */,
+       8,    0,   70,    2, 0x08 /* Private */,
+       9,    0,   71,    2, 0x08 /* Private */,
+      10,    0,   72,    2, 0x08 /* Private */,
+      11,    0,   73,    2, 0x08 /* Private */,
+      12,    0,   74,    2, 0x08 /* Private */,
+      13,    0,   75,    2, 0x08 /* Private */,
 
  // slots: parameters
+    QMetaType::Void,
+    QMetaType::Void, 0x80000000 | 4,    5,
+    QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
@@ -92,16 +107,18 @@ void MainWindow::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, 
         Q_UNUSED(_t)
         switch (_id) {
         case 0: _t->dt_timeout(); break;
-        case 1: _t->on_actionInfo_triggered(); break;
-        case 2: _t->on_pushButton_Scan_Cameras_clicked(); break;
-        case 3: _t->on_listWidget_Connected_Cameras_itemSelectionChanged(); break;
-        case 4: _t->on_pushButton_Connect_Camera_clicked(); break;
-        case 5: _t->on_pushButton_Disconnect_Camera_clicked(); break;
-        case 6: _t->on_pushButton_Start_Game_clicked(); break;
+        case 1: _t->handleRobotConnectionStatus((*reinterpret_cast< ROBOT_CONNECTION(*)>(_a[1]))); break;
+        case 2: _t->cameraDisconnected(); break;
+        case 3: _t->on_actionInfo_triggered(); break;
+        case 4: _t->on_pushButton_Scan_Cameras_clicked(); break;
+        case 5: _t->on_listWidget_Connected_Cameras_itemSelectionChanged(); break;
+        case 6: _t->on_pushButton_Connect_Camera_clicked(); break;
+        case 7: _t->on_pushButton_Disconnect_Camera_clicked(); break;
+        case 8: _t->on_pushButton_Connect_Robot_clicked(); break;
+        case 9: _t->on_pushButton_Start_Game_clicked(); break;
         default: ;
         }
     }
-    Q_UNUSED(_a);
 }
 
 QT_INIT_METAOBJECT const QMetaObject MainWindow::staticMetaObject = {
@@ -129,13 +146,13 @@ int MainWindow::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 7)
+        if (_id < 10)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 7;
+        _id -= 10;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 7)
+        if (_id < 10)
             *reinterpret_cast<int*>(_a[0]) = -1;
-        _id -= 7;
+        _id -= 10;
     }
     return _id;
 }
