@@ -76,6 +76,7 @@ MainWindow::~MainWindow()
 
 void MainWindow::dt_timeout()
 {
+    static int i = 0;
     if(m_camera->isCameraConnected()){
 
 
@@ -93,9 +94,15 @@ void MainWindow::dt_timeout()
         else{
             ui->lcdNumber_Elapsed_Time->display(0.0);
         }
-
-        ui->label_Computed_Image->setPixmap(m_camera->Mat2QPixmap(src));
+        if(i == 0){
+        QImage img = m_camera->Mat2QImage(src);
+        QPixmap pix = m_camera->Mat2QPixmap(src);
+        ui->label_Computed_Image->setPixmap(pix);
         ui->label_Computed_Image->show();
+
+        m_robotManager->sendCommand_Pixmap(pix);
+        }
+        i++;
     }
 }
 
@@ -109,9 +116,13 @@ void MainWindow::handleRobotConnectionStatus(ROBOT_CONNECTION p_status)
     {
     case SUCCES:
         ui->pushButton_Connect_Robot->setText("Connecté !");
+        m_statusBarRobotStatus->setText("Connected");
+        m_statusBarRobotStatus->setStyleSheet("QLabel { background-color : white; color : green; }");
         break;
 
     case FAILURE:
+        m_statusBarRobotStatus->setText("Connection error");
+        m_statusBarRobotStatus->setStyleSheet("QLabel { background-color : white; color : red; }");
         ui->pushButton_Connect_Robot->setText("Réessayer...");
         ui->pushButton_Connect_Robot->setEnabled(true);
         break;

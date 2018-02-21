@@ -31,6 +31,7 @@ public:
     bool operator>>(cv::Mat& p_matrix);
     bool operator>>(QPixmap& p_pixmap);
     static QPixmap Mat2QPixmap(cv::Mat const& p_mat);
+    static QImage Mat2QImage(const cv::Mat& p_mat);
 
 signals:
 

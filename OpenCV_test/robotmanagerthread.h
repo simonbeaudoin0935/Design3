@@ -12,6 +12,8 @@ enum ROBOT_CONNECTION{
 };
 
 
+
+
 class RobotManagerThread : public QThread
 {
     Q_OBJECT
@@ -23,6 +25,11 @@ public:
     bool isConnectedToRobot() const;
 
     void connectToRobot(QString p_ipAdress, int p_port);
+
+
+    bool sendCommand_Ping(int p_index);
+    bool sendCommand_XDisplacement(float p_displacementCM);
+    bool sendCommand_Pixmap(QPixmap &img);
 
 protected:
     void run();
@@ -42,7 +49,7 @@ private:
 
     bool     m_isConnectedToRobot;
     QTcpSocket* m_robotTcpSocket;
-    QDataStream m_robotInputDataStream;
+    QDataStream m_robotDataStream;
 
 };
 

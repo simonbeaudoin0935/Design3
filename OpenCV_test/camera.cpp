@@ -214,6 +214,14 @@ QPixmap Camera::Mat2QPixmap(const cv::Mat& p_mat)
     return QPixmap::fromImage(QImage((unsigned char*) v_tmp.data, v_tmp.cols, v_tmp.rows, QImage::Format_RGB888));
 }
 
+QImage Camera::Mat2QImage(const cv::Mat& p_mat)
+{
+    cv::Mat v_tmp;
+
+    cv::cvtColor(p_mat, v_tmp ,cv::COLOR_BGR2RGB);
+
+    return QImage((unsigned char*) v_tmp.data, v_tmp.cols, v_tmp.rows, QImage::Format_RGB888);
+}
 
 
 

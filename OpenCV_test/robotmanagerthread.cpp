@@ -1,5 +1,5 @@
 #include "robotmanagerthread.h"
-
+#include <QBuffer>
 #include <QMessageBox>
 
 RobotManagerThread::RobotManagerThread(QObject* p_parent):
@@ -7,8 +7,8 @@ RobotManagerThread::RobotManagerThread(QObject* p_parent):
     m_isConnectedToRobot(false),
     m_robotTcpSocket(new QTcpSocket(this))
 {
-    m_robotInputDataStream.setDevice(m_robotTcpSocket);
-    m_robotInputDataStream.setVersion(QDataStream::Qt_5_10);
+    m_robotDataStream.setDevice(m_robotTcpSocket);
+    m_robotDataStream.setVersion(QDataStream::Qt_5_10);
 
 
     QObject::connect(m_robotTcpSocket,
@@ -44,6 +44,7 @@ void RobotManagerThread::connected()
 {
     m_isConnectedToRobot = true;
     emit robotConnectionStatus(ROBOT_CONNECTION::SUCCES);
+   // this->start();
 
 }
 
@@ -52,7 +53,6 @@ void RobotManagerThread::disconnected()
     m_isConnectedToRobot = false;
     emit robotConnectionStatus(ROBOT_CONNECTION::FAILURE);
 }
-
 
 void RobotManagerThread::error(QAbstractSocket::SocketError p_socketError)
 {
@@ -100,19 +100,147 @@ bool RobotManagerThread::isConnectedToRobot() const
 void RobotManagerThread::connectToRobot(QString p_ipAdress, int p_port)
 {
     m_isConnectedToRobot = false;
+
     m_robotTcpSocket->abort();
+
     m_robotTcpSocket->connectToHost(p_ipAdress, p_port);
-
-
 }
-
 
 //thread code
 
 
 void RobotManagerThread::run()
 {
+    int index = 0;
+
+    while(1)
+    {
+        qDebug() << "index : " << index << "\n";
+        sendCommand_Ping(index++);
+
+        sleep(1);
+
+    }
 
 }
+
+
+
+
+bool RobotManagerThread::sendCommand_Ping(int p_index)
+{
+    if(m_isConnectedToRobot)
+    {
+        QByteArray v_robotCommand;
+        QDataStream out(&v_robotCommand, QIODevice::WriteOnly);
+        out.setVersion(QDataStream::Qt_5_10);
+
+        out  << p_index;
+
+
+
+        m_robotTcpSocket->write(v_robotCommand);
+    }
+
+    return m_isConnectedToRobot;
+}
+
+bool RobotManagerThread::sendCommand_XDisplacement(float p_displacementCM)
+{
+    if(m_isConnectedToRobot)
+    {
+        QByteArray v_robotCommand;
+        v_robotCommand.append(0x03);
+    }
+
+    return m_isConnectedToRobot;
+}
+
+bool RobotManagerThread::sendCommand_Pixmap(QPixmap &img)
+{
+    if(m_isConnectedToRobot)
+    {
+
+        QByteArray ba;
+        QBuffer buff(&ba);
+
+        buff.open(QIODevice::WriteOnly);
+
+        img.save(&buff,"PNG");
+
+
+
+
+
+
+        union
+        {
+            qint64 entier;
+            char bytes[sizeof(qint64)];
+        }v_data;
+
+        v_data.entier = ba.size();
+
+     //   for(int i = 0 ; i != sizeof(qint64); i++)
+     //   {
+     //          ba.prepend(v_data.bytes[i]);
+      //  }
+
+        qDebug() << "size of :" << v_data.entier << "\n";
+        m_robotDataStream.writeRawData(v_data.bytes, sizeof(qint64));
+        m_robotTcpSocket->write(ba);
+
+        QImage img = QImage::fromData(ba,"PNG");
+        img.save("/home/simon/yowasa.png", "PNG");
+    }
+
+    return m_isConnectedToRobot;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 

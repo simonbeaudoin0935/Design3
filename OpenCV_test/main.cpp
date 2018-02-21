@@ -7,5 +7,6 @@ int main(int argc, char *argv[])
     MainWindow w;
     w.show();
 
+    qDebug() << sizeof(int);
     return a.exec();
 }
