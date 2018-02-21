@@ -3,9 +3,21 @@
 #include <QCameraInfo>
 #include <QImage>
 
+
+
+double c[9] = {5.7254083771647004e+02, 0., 320., 0., 5.7254083771647004e+02, 240., 0., 0., 1.};
+
+double d[5] = {-1.7362703587024278e-01, 8.2552030882771299e-01,
+               -4.3008418461358436e-04, -7.5739445839932886e-03,
+               -1.0206943494686624e+00};
+
 Camera::Camera():
     m_cameraConnected(false)
 {
+    m_cameraMatrix = new cv::Mat(3,3,CV_64F,c);
+
+
+    m_distortionCoefficient = new cv::Mat(1,5,CV_64F,d);
 
 }
 
@@ -58,7 +70,10 @@ bool Camera::disconnectCamera()
 Camera &Camera::operator>>(cv::Mat &p_matrix)
 {
     if(m_cameraConnected){
-        *m_videoCapture >> p_matrix;
+        cv::Mat distorted;
+        *m_videoCapture >> distorted;
+        undistort(distorted, p_matrix, *m_cameraMatrix, *m_distortionCoefficient);
+        //*m_videoCapture >> p_matrix;
     }
     return *this;
 }

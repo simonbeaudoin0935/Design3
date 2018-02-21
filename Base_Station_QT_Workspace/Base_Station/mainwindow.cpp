@@ -489,7 +489,7 @@ void MainWindow::serial_data_received()
                 break;
 
              case 0x03:
-
+                qDebug("wasabi)");
                 m_pid_chart->addPIDOutputPoint(v_data);
                 break;
 
@@ -698,8 +698,8 @@ void MainWindow::image_saved(int p_int, QString p_string)
 
     QMessageBox::information(this,"Image","Image saved as : " + p_string);
 
-    m_openCVWorkerThread->setImageToCompute(p_string);
-    m_openCVWorkerThread->start();
+    //m_openCVWorkerThread->setImageToCompute(p_string);
+   // m_openCVWorkerThread->start();
 }
 
 

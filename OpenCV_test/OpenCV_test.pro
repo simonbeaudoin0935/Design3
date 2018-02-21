@@ -30,8 +30,7 @@ SOURCES += \
         mainwindow.cpp \
     camera.cpp \
     detecteurzonejeu.cpp \
-    detecteurcarres.cpp \
-    cameracalibration.cpp
+    detecteurcarres.cpp
 
 HEADERS += \
         mainwindow.h \

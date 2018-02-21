@@ -19,6 +19,8 @@ public:
 private:
     bool m_cameraConnected;
     cv::VideoCapture* m_videoCapture;
+    cv::Mat* m_cameraMatrix;
+    cv::Mat* m_distortionCoefficient;
 };
 
 #endif // CAMERA_H

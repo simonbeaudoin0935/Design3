@@ -50,9 +50,14 @@ void Encoder_4_Compute(void){
 
 
 void PID_Position_X_Compute(void){
-	//Asservissement en position
+
+//Traitement de la nouvelle position et vitesse
+
 	Encoder_1_Compute();
+
 	Encoder_4_Compute();
+
+//Asservissement en position
 
 	PID_Position_X.position = 0.5 * (Encoder_1.position - Encoder_4.position);
 
@@ -72,12 +77,15 @@ void PID_Position_X_Compute(void){
 	PID_Position_X.consigne_vitesse = g_parameters.motor_1_PKp * PID_Position_X.erreur_position    +
 						     	 	  g_parameters.motor_1_PKi * PID_Position_X.integral_position  +
 									  g_parameters.motor_1_PKd * derivee_erreur_position;
+	//On limitte la vitesse
 
 	if(PID_Position_X.consigne_vitesse > g_parameters.motor_1_Vmax)
 		PID_Position_X.consigne_vitesse = g_parameters.motor_1_Vmax;
 
 	if(PID_Position_X.consigne_vitesse < - g_parameters.motor_1_Vmax)
 		PID_Position_X.consigne_vitesse = - g_parameters.motor_1_Vmax;
+
+	//On limite l'acceleration
 
 	float acceleration = (PID_Position_X.consigne_vitesse - PID_Position_X.consigne_vitesse_old)  / g_parameters.dt;
 
@@ -89,7 +97,7 @@ void PID_Position_X_Compute(void){
 
 
 
-	//Asservissement en vitesse moteur 1
+//Asservissement en vitesse moteur 1
 
 	Encoder_1.vitesse = (Encoder_1.position - Encoder_1.position_old) / g_parameters.dt;
 
@@ -107,7 +115,7 @@ void PID_Position_X_Compute(void){
 						   	   g_parameters.motor_1_VKi * PID_Vitesse_1.integral_vitesse +
 							   g_parameters.motor_1_VKd * derivee_erreur_vitesse;
 
-	//Asservissement en vitesse moteur 4
+//Asservissement en vitesse moteur 4
 
 	Encoder_4.vitesse = (Encoder_4.position - Encoder_4.position_old) / g_parameters.dt;
 
@@ -128,10 +136,15 @@ void PID_Position_X_Compute(void){
 
 
 
-
+//On set la commande calculée au moteurs
 
 	motor1_set_speed_percent(PID_Vitesse_1.pid_output);
+
+
 	motor4_set_speed_percent(PID_Vitesse_4.pid_output);
+
+
+//On arrête le pid si l'erreur sur la position est moins de un 1mm
 
 	if(((PID_Position_X.erreur_position > 0.0)? PID_Position_X.erreur_position : - PID_Position_X.erreur_position ) < 0.1){
 			PID_Position_X_reset();

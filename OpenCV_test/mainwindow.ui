@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>516</width>
-    <height>398</height>
+    <width>669</width>
+    <height>630</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -80,9 +80,60 @@
        <attribute name="title">
         <string>Réglages Camera</string>
        </attribute>
-       <layout class="QVBoxLayout" name="verticalLayout_4">
+       <layout class="QVBoxLayout" name="verticalLayout_6">
         <item>
          <layout class="QVBoxLayout" name="verticalLayout_3">
+          <item>
+           <layout class="QHBoxLayout" name="horizontalLayout_3">
+            <item>
+             <widget class="QLabel" name="label_2">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Maximum" vsizetype="Preferred">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="text">
+               <string>Table : </string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QComboBox" name="comboBox_choix_Table">
+              <item>
+               <property name="text">
+                <string>Table 1</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>Table 2</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>Table 3</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>Table 4</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>Table 5</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>Table 6</string>
+               </property>
+              </item>
+             </widget>
+            </item>
+           </layout>
+          </item>
           <item>
            <layout class="QHBoxLayout" name="horizontalLayout">
             <item>
@@ -124,14 +175,76 @@
             </item>
            </layout>
           </item>
+          <item>
+           <spacer name="verticalSpacer">
+            <property name="orientation">
+             <enum>Qt::Vertical</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>20</width>
+              <height>40</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+          <item>
+           <layout class="QHBoxLayout" name="horizontalLayout_4">
+            <item>
+             <widget class="QPushButton" name="pushButton">
+              <property name="text">
+               <string>Connecter Robot</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <layout class="QVBoxLayout" name="verticalLayout_5">
+              <item>
+               <layout class="QHBoxLayout" name="horizontalLayout_5">
+                <item>
+                 <widget class="QRadioButton" name="radioButton">
+                  <property name="text">
+                   <string>PLT-3105</string>
+                  </property>
+                  <property name="checked">
+                   <bool>true</bool>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QLineEdit" name="lineEdit">
+                  <property name="text">
+                   <string>192.168.1.110</string>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
+              </item>
+              <item>
+               <layout class="QHBoxLayout" name="horizontalLayout_6">
+                <item>
+                 <widget class="QRadioButton" name="radioButton_2">
+                  <property name="text">
+                   <string>PLT-3109</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QLineEdit" name="lineEdit_2">
+                  <property name="text">
+                   <string>192.168.0.110</string>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
+              </item>
+             </layout>
+            </item>
+           </layout>
+          </item>
          </layout>
         </item>
        </layout>
-      </widget>
-      <widget class="QWidget" name="tab_Robot_Settings">
-       <attribute name="title">
-        <string>Réglages Robot</string>
-       </attribute>
       </widget>
      </widget>
     </item>
@@ -142,7 +255,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>516</width>
+     <width>669</width>
      <height>22</height>
     </rect>
    </property>
