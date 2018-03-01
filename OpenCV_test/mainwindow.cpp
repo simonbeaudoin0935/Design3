@@ -4,6 +4,7 @@
 
 //Project includes
 #include "define.h"
+#include "pidvaluesstruct.h"
 
 //OpenCV includes
 #include "opencv2/highgui/highgui.hpp"
@@ -15,6 +16,7 @@
 #include <QDebug>
 #include <QCameraInfo>
 #include <QMessageBox>
+#include <QChartView>
 
 //Standard library includes
 #include <stdio.h>
@@ -37,10 +39,18 @@ MainWindow::MainWindow(QWidget *parent) :
     m_isGameStarted(false),
     m_camera(new Camera),
     m_detecteurCarres(new DetecteurCarres),
-    m_robotManager(new RobotManagerThread(this))
+    m_robotManager(new RobotManager(this))
 
 {
     ui->setupUi(this);
+
+    m_pidChart = new PIDChart();
+    m_pidChart->setSizePolicy(QSizePolicy(QSizePolicy::Expanding,QSizePolicy::Expanding));
+    QChartView *chartView = new QChartView(m_pidChart);
+    chartView->setSizePolicy(QSizePolicy(QSizePolicy::Expanding,QSizePolicy::Expanding));
+    chartView->setRenderHint(QPainter::Antialiasing);
+
+    ui->verticalLayout_19->addWidget(chartView);
 
     QObject::connect(m_timer,
                      SIGNAL(timeout()),
@@ -48,9 +58,9 @@ MainWindow::MainWindow(QWidget *parent) :
                      SLOT(dt_timeout()));
 
     QObject::connect(m_robotManager,
-                     SIGNAL(robotConnectionStatus(ROBOT_CONNECTION)),
+                     SIGNAL(robotConnectionStatus(RobotManager::ROBOT_CONNECTION)),
                      this,
-                     SLOT(handleRobotConnectionStatus(ROBOT_CONNECTION)));
+                     SLOT(handleRobotConnectionStatus(RobotManager::ROBOT_CONNECTION)));
 
     QObject::connect(m_camera,
                      SIGNAL(cameraDisconnected()),
@@ -76,7 +86,7 @@ MainWindow::~MainWindow()
 
 void MainWindow::dt_timeout()
 {
-    static int i = 0;
+
     if(m_camera->isCameraConnected()){
 
 
@@ -90,19 +100,16 @@ void MainWindow::dt_timeout()
             std::vector< std::vector< cv::Point>> squares;
             m_detecteurCarres->detecterCarres(src,0,0,100000,1000000,squares);
             m_detecteurCarres->drawSquare(src,squares);
+
+
+            QPixmap pix = m_camera->Mat2QPixmap(src);
+            ui->label_Computed_Image->setPixmap(pix);
+            ui->label_Computed_Image->show();
         }
         else{
             ui->lcdNumber_Elapsed_Time->display(0.0);
         }
-        if(i == 0){
-        QImage img = m_camera->Mat2QImage(src);
-        QPixmap pix = m_camera->Mat2QPixmap(src);
-        ui->label_Computed_Image->setPixmap(pix);
-        ui->label_Computed_Image->show();
 
-        m_robotManager->sendCommand_Pixmap(pix);
-        }
-        i++;
     }
 }
 
@@ -110,17 +117,17 @@ void MainWindow::dt_timeout()
 
 
 
-void MainWindow::handleRobotConnectionStatus(ROBOT_CONNECTION p_status)
+void MainWindow::handleRobotConnectionStatus(RobotManager::ROBOT_CONNECTION p_status)
 {
     switch(p_status)
     {
-    case SUCCES:
+    case RobotManager::SUCCES:
         ui->pushButton_Connect_Robot->setText("Connecté !");
         m_statusBarRobotStatus->setText("Connected");
         m_statusBarRobotStatus->setStyleSheet("QLabel { background-color : white; color : green; }");
         break;
 
-    case FAILURE:
+    case RobotManager::FAILURE:
         m_statusBarRobotStatus->setText("Connection error");
         m_statusBarRobotStatus->setStyleSheet("QLabel { background-color : white; color : red; }");
         ui->pushButton_Connect_Robot->setText("Réessayer...");
@@ -153,8 +160,9 @@ void MainWindow::cameraDisconnected()
 
 
 
-
-// Slots des widgets de la tab du jeu
+/*
+ * Slots des widgets de la tab du jeu
+ */
 
 void MainWindow::on_pushButton_Start_Game_clicked()
 {
@@ -180,8 +188,10 @@ void MainWindow::on_pushButton_Start_Game_clicked()
 
 
 
+/*
+ * Slots des widgets de la tab des settings
+ */
 
-// Slots des widgets de la tab des settings
 
 void MainWindow::on_pushButton_Scan_Cameras_clicked()
 {
@@ -246,11 +256,6 @@ void MainWindow::on_actionInfo_triggered()
     QMessageBox::information(NULL,"Information", v_information);
 }
 
-
-
-
-
-
 void MainWindow::on_pushButton_Connect_Robot_clicked()
 {
     ui->pushButton_Connect_Robot->setText("Connexion ...");
@@ -275,59 +280,104 @@ void MainWindow::on_pushButton_Connect_Robot_clicked()
 }
 
 
+/*
+ * slots des widgets de la tab PID
+ */
 
+void MainWindow::on_pushButton_PID_Pause_Play_clicked()
+{
+    if(ui->pushButton_PID_Pause_Play->text() == "Pause"){
+        ui->pushButton_PID_Pause_Play->setText("Play");
+        m_pidChart->play_pause(false);
+    }
+    else{
+         ui->pushButton_PID_Pause_Play->setText("Pause");
+         m_pidChart->play_pause(true);
+    }
+}
 
+void MainWindow::on_pushButton_PID_Activate_clicked()
+{
+    if(ui->pushButton_PID_Activate->text() == "Activer"){
+        ui->pushButton_PID_Activate->setText("Desactiver");
+        m_robotManager->sendCommand_Activate_PID_Debug(true);
+    }
+    else{
+        ui->pushButton_PID_Activate->setText("Activer");
+        m_robotManager->sendCommand_Activate_PID_Debug(true);
+    }
+}
 
+void MainWindow::on_pushButton_PID_Start_clicked()
+{
+    if(ui->radioButton_Deplacement_X->isChecked())
+    {
+        m_robotManager->sendCommand_Displacement_X((float) ui->doubleSpinBox_Deplacement_X->value());
+    }
+    else if(ui->radioButton_Deplacement_Y->isChecked())
+    {
+        m_robotManager->sendCommand_Displacement_Y((float) ui->doubleSpinBox_Deplacement_Y->value());
+    }
+    else if(ui->radioButton_Deplacement_R->isChecked())
+    {
+        m_robotManager->sendCommand_Displacement_R((float) ui->doubleSpinBox_Deplacement_R->value());
+    }
+}
 
+void MainWindow::on_pushButton_PID_Kill_clicked()
+{
+    m_robotManager->sendCommand_Cancel_Displacement();
+}
 
+void MainWindow::on_pushButton_Read_PID_Values_clicked()
+{
+    m_robotManager->sendCommand_Request_PID_Values();
+}
 
+void MainWindow::on_pushButton_Store_PID_Values_clicked()
+{
+    PIDValuesStruct v_pidValues;
 
+    v_pidValues.position_X_PKp  = (float) ui->doubleSpinBox_Position_X_PKp->value();
+    v_pidValues.position_X_PKi  = (float) ui->doubleSpinBox_Position_X_PKi->value();
+    v_pidValues.position_X_PKd  = (float) ui->doubleSpinBox_Position_X_PKd->value();
+    v_pidValues.position_X_Vmax = (float) ui->doubleSpinBox_Position_X_Vmax->value();
+    v_pidValues.position_X_Amax = (float) ui->doubleSpinBox_Position_X_Amax->value();
 
+    v_pidValues.position_Y_PKp  = (float) ui->doubleSpinBox_Position_Y_PKp->value();
+    v_pidValues.position_Y_PKi  = (float) ui->doubleSpinBox_Position_Y_PKi->value();
+    v_pidValues.position_Y_PKd  = (float) ui->doubleSpinBox_Position_Y_PKd->value();
+    v_pidValues.position_Y_Vmax = (float) ui->doubleSpinBox_Position_Y_Vmax->value();
+    v_pidValues.position_Y_Amax = (float) ui->doubleSpinBox_Position_Y_Amax->value();
 
+    v_pidValues.position_R_PKp  = (float) ui->doubleSpinBox_Position_R_PKp->value();
+    v_pidValues.position_R_PKi  = (float) ui->doubleSpinBox_Position_R_PKi->value();
+    v_pidValues.position_R_PKd  = (float) ui->doubleSpinBox_Position_R_PKd->value();
+    v_pidValues.position_R_Vmax = (float) ui->doubleSpinBox_Position_R_Vmax->value();
+    v_pidValues.position_R_Amax = (float) ui->doubleSpinBox_Position_R_Amax->value();
 
+    v_pidValues.motor_1_VKp = (float) ui->doubleSpinBox_Motor_1_VKp->value();
+    v_pidValues.motor_1_VKi = (float) ui->doubleSpinBox_Motor_1_VKi->value();
+    v_pidValues.motor_1_VKd = (float) ui->doubleSpinBox_Motor_1_VKd->value();
 
+    v_pidValues.motor_2_VKp = (float) ui->doubleSpinBox_Motor_2_VKp->value();
+    v_pidValues.motor_2_VKi = (float) ui->doubleSpinBox_Motor_2_VKi->value();
+    v_pidValues.motor_2_VKd = (float) ui->doubleSpinBox_Motor_2_VKd->value();
 
+    v_pidValues.motor_3_VKp = (float) ui->doubleSpinBox_Motor_3_VKp->value();
+    v_pidValues.motor_3_VKi = (float) ui->doubleSpinBox_Motor_3_VKi->value();
+    v_pidValues.motor_3_VKd = (float) ui->doubleSpinBox_Motor_3_VKd->value();
 
+    v_pidValues.motor_4_VKp = (float) ui->doubleSpinBox_Motor_4_VKp->value();
+    v_pidValues.motor_4_VKi = (float) ui->doubleSpinBox_Motor_4_VKi->value();
+    v_pidValues.motor_4_VKd = (float) ui->doubleSpinBox_Motor_4_VKd->value();
 
+    v_pidValues.dt = (float) ui->doubleSpinBox_dT->value();
+    v_pidValues.wheel_diameter = (float) ui->doubleSpinBox_wheelDiameter->value();
 
+    m_robotManager->sendCommand_Store_PID_Values(v_pidValues);
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+}
 
 
 

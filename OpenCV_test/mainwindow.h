@@ -7,8 +7,9 @@
 #include <QTime>
 
 #include "camera.h"
-#include "robotmanagerthread.h"
+#include "robotmanager.h"
 #include "detecteurcarres.h"
+#include "pidchart.h"
 
 namespace Ui {
 class MainWindow;
@@ -26,7 +27,7 @@ public slots:
 
 //slots non reliés à des widgets
     void dt_timeout();
-    void handleRobotConnectionStatus(ROBOT_CONNECTION p_status);
+    void handleRobotConnectionStatus(RobotManager::ROBOT_CONNECTION p_status);
 
 private slots:
 
@@ -55,6 +56,18 @@ private slots:
 
 
 
+    void on_pushButton_PID_Pause_Play_clicked();
+
+    void on_pushButton_Read_PID_Values_clicked();
+
+    void on_pushButton_Store_PID_Values_clicked();
+
+    void on_pushButton_PID_Activate_clicked();
+
+    void on_pushButton_PID_Start_clicked();
+
+    void on_pushButton_PID_Kill_clicked();
+
 private:
 
 //Qt library objects
@@ -73,7 +86,8 @@ private:
 
     Camera*             m_camera;
     DetecteurCarres*    m_detecteurCarres;
-    RobotManagerThread* m_robotManager;
+    RobotManager*       m_robotManager;
+    PIDChart*           m_pidChart;
 
 };
 

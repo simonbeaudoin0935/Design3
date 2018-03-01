@@ -230,6 +230,7 @@ DIST          = ../../../Qt/5.10.1/gcc_64/mkspecs/features/spec_pre.prf \
 		../../../Qt/5.10.1/gcc_64/mkspecs/features/qt_config.prf \
 		../../../Qt/5.10.1/gcc_64/mkspecs/linux-g++/qmake.conf \
 		../../../Qt/5.10.1/gcc_64/mkspecs/features/spec_post.prf \
+		../Base_Station/.qmake.stash \
 		../../../Qt/5.10.1/gcc_64/mkspecs/features/exclusive_builds.prf \
 		../../../Qt/5.10.1/gcc_64/mkspecs/features/toolchain.prf \
 		../../../Qt/5.10.1/gcc_64/mkspecs/features/default_pre.prf \
@@ -435,6 +436,7 @@ Makefile: ../Base_Station/Base_Station.pro ../../../Qt/5.10.1/gcc_64/mkspecs/lin
 		../../../Qt/5.10.1/gcc_64/mkspecs/features/qt_config.prf \
 		../../../Qt/5.10.1/gcc_64/mkspecs/linux-g++/qmake.conf \
 		../../../Qt/5.10.1/gcc_64/mkspecs/features/spec_post.prf \
+		.qmake.stash \
 		../../../Qt/5.10.1/gcc_64/mkspecs/features/exclusive_builds.prf \
 		../../../Qt/5.10.1/gcc_64/mkspecs/features/toolchain.prf \
 		../../../Qt/5.10.1/gcc_64/mkspecs/features/default_pre.prf \
@@ -628,6 +630,7 @@ Makefile: ../Base_Station/Base_Station.pro ../../../Qt/5.10.1/gcc_64/mkspecs/lin
 ../../../Qt/5.10.1/gcc_64/mkspecs/features/qt_config.prf:
 ../../../Qt/5.10.1/gcc_64/mkspecs/linux-g++/qmake.conf:
 ../../../Qt/5.10.1/gcc_64/mkspecs/features/spec_post.prf:
+.qmake.stash:
 ../../../Qt/5.10.1/gcc_64/mkspecs/features/exclusive_builds.prf:
 ../../../Qt/5.10.1/gcc_64/mkspecs/features/toolchain.prf:
 ../../../Qt/5.10.1/gcc_64/mkspecs/features/default_pre.prf:
@@ -1753,6 +1756,69 @@ mainwindow.o: ../Base_Station/mainwindow.cpp ../Base_Station/mainwindow.h \
 		../../../Qt/5.10.1/gcc_64/include/QtGui/QBrush \
 		../../../Qt/5.10.1/gcc_64/include/QtCore/QMargins \
 		ui_mainwindow.h \
+		../../../Qt/5.10.1/gcc_64/include/QtWidgets/QAction \
+		../../../Qt/5.10.1/gcc_64/include/QtWidgets/qaction.h \
+		../../../Qt/5.10.1/gcc_64/include/QtWidgets/qactiongroup.h \
+		../../../Qt/5.10.1/gcc_64/include/QtWidgets/QApplication \
+		../../../Qt/5.10.1/gcc_64/include/QtWidgets/qapplication.h \
+		../../../Qt/5.10.1/gcc_64/include/QtWidgets/qdesktopwidget.h \
+		../../../Qt/5.10.1/gcc_64/include/QtGui/qguiapplication.h \
+		../../../Qt/5.10.1/gcc_64/include/QtGui/qinputmethod.h \
+		../../../Qt/5.10.1/gcc_64/include/QtWidgets/QButtonGroup \
+		../../../Qt/5.10.1/gcc_64/include/QtWidgets/qbuttongroup.h \
+		../../../Qt/5.10.1/gcc_64/include/QtWidgets/QCheckBox \
+		../../../Qt/5.10.1/gcc_64/include/QtWidgets/qcheckbox.h \
+		../../../Qt/5.10.1/gcc_64/include/QtWidgets/qabstractbutton.h \
+		../../../Qt/5.10.1/gcc_64/include/QtWidgets/QComboBox \
+		../../../Qt/5.10.1/gcc_64/include/QtWidgets/qcombobox.h \
+		../../../Qt/5.10.1/gcc_64/include/QtWidgets/qabstractitemdelegate.h \
+		../../../Qt/5.10.1/gcc_64/include/QtWidgets/qstyleoption.h \
+		../../../Qt/5.10.1/gcc_64/include/QtWidgets/qabstractspinbox.h \
+		../../../Qt/5.10.1/gcc_64/include/QtGui/qvalidator.h \
+		../../../Qt/5.10.1/gcc_64/include/QtWidgets/qslider.h \
+		../../../Qt/5.10.1/gcc_64/include/QtWidgets/qabstractslider.h \
+		../../../Qt/5.10.1/gcc_64/include/QtWidgets/qstyle.h \
+		../../../Qt/5.10.1/gcc_64/include/QtWidgets/qtabbar.h \
+		../../../Qt/5.10.1/gcc_64/include/QtWidgets/qrubberband.h \
+		../../../Qt/5.10.1/gcc_64/include/QtWidgets/qframe.h \
+		../../../Qt/5.10.1/gcc_64/include/QtWidgets/QDial \
+		../../../Qt/5.10.1/gcc_64/include/QtWidgets/qdial.h \
+		../../../Qt/5.10.1/gcc_64/include/QtWidgets/QDoubleSpinBox \
+		../../../Qt/5.10.1/gcc_64/include/QtWidgets/qspinbox.h \
+		../../../Qt/5.10.1/gcc_64/include/QtWidgets/QFrame \
+		../../../Qt/5.10.1/gcc_64/include/QtWidgets/QGridLayout \
+		../../../Qt/5.10.1/gcc_64/include/QtWidgets/qgridlayout.h \
+		../../../Qt/5.10.1/gcc_64/include/QtWidgets/qlayout.h \
+		../../../Qt/5.10.1/gcc_64/include/QtWidgets/qlayoutitem.h \
+		../../../Qt/5.10.1/gcc_64/include/QtWidgets/qboxlayout.h \
+		../../../Qt/5.10.1/gcc_64/include/QtWidgets/QHBoxLayout \
+		../../../Qt/5.10.1/gcc_64/include/QtWidgets/QHeaderView \
+		../../../Qt/5.10.1/gcc_64/include/QtWidgets/qheaderview.h \
+		../../../Qt/5.10.1/gcc_64/include/QtWidgets/qabstractitemview.h \
+		../../../Qt/5.10.1/gcc_64/include/QtWidgets/qabstractscrollarea.h \
+		../../../Qt/5.10.1/gcc_64/include/QtWidgets/QLabel \
+		../../../Qt/5.10.1/gcc_64/include/QtWidgets/qlabel.h \
+		../../../Qt/5.10.1/gcc_64/include/QtWidgets/QLineEdit \
+		../../../Qt/5.10.1/gcc_64/include/QtWidgets/qlineedit.h \
+		../../../Qt/5.10.1/gcc_64/include/QtGui/qtextcursor.h \
+		../../../Qt/5.10.1/gcc_64/include/QtGui/qtextformat.h \
+		../../../Qt/5.10.1/gcc_64/include/QtGui/qtextoption.h \
+		../../../Qt/5.10.1/gcc_64/include/QtWidgets/QProgressBar \
+		../../../Qt/5.10.1/gcc_64/include/QtWidgets/qprogressbar.h \
+		../../../Qt/5.10.1/gcc_64/include/QtWidgets/QPushButton \
+		../../../Qt/5.10.1/gcc_64/include/QtWidgets/qpushbutton.h \
+		../../../Qt/5.10.1/gcc_64/include/QtWidgets/QRadioButton \
+		../../../Qt/5.10.1/gcc_64/include/QtWidgets/qradiobutton.h \
+		../../../Qt/5.10.1/gcc_64/include/QtWidgets/QTabWidget \
+		../../../Qt/5.10.1/gcc_64/include/QtWidgets/QTextBrowser \
+		../../../Qt/5.10.1/gcc_64/include/QtWidgets/qtextbrowser.h \
+		../../../Qt/5.10.1/gcc_64/include/QtWidgets/qtextedit.h \
+		../../../Qt/5.10.1/gcc_64/include/QtGui/qtextdocument.h \
+		../../../Qt/5.10.1/gcc_64/include/QtWidgets/QVBoxLayout \
+		../../../Qt/5.10.1/gcc_64/include/QtWidgets/QWidget \
+		../../../Qt/5.10.1/gcc_64/include/QtMultimediaWidgets/qcameraviewfinder.h \
+		../../../Qt/5.10.1/gcc_64/include/QtMultimediaWidgets/qvideowidget.h \
+		../../../Qt/5.10.1/gcc_64/include/QtMultimediaWidgets/qtmultimediawidgetdefs.h \
 		../../../Qt/5.10.1/gcc_64/include/QtWidgets/QMessageBox \
 		../../../Qt/5.10.1/gcc_64/include/QtWidgets/qmessagebox.h \
 		../../../Qt/5.10.1/gcc_64/include/QtWidgets/qdialog.h \
@@ -1766,10 +1832,7 @@ mainwindow.o: ../Base_Station/mainwindow.cpp ../Base_Station/mainwindow.h \
 		../../../Qt/5.10.1/gcc_64/include/QtWidgets/QGraphicsView \
 		../../../Qt/5.10.1/gcc_64/include/QtWidgets/qgraphicsview.h \
 		../../../Qt/5.10.1/gcc_64/include/QtGui/qpainter.h \
-		../../../Qt/5.10.1/gcc_64/include/QtGui/qtextoption.h \
 		../../../Qt/5.10.1/gcc_64/include/QtWidgets/qscrollarea.h \
-		../../../Qt/5.10.1/gcc_64/include/QtWidgets/qabstractscrollarea.h \
-		../../../Qt/5.10.1/gcc_64/include/QtWidgets/qframe.h \
 		../../../Qt/5.10.1/gcc_64/include/QtWidgets/qgraphicsscene.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o mainwindow.o ../Base_Station/mainwindow.cpp
 
