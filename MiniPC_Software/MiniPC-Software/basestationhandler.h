@@ -4,6 +4,8 @@
 
 #include <QtNetwork>
 
+#include "receivestatemachine.h"
+
 class BaseStationHandler : public QObject
 {
 
@@ -12,6 +14,9 @@ class BaseStationHandler : public QObject
 public:
     explicit BaseStationHandler(QObject* p_parent = nullptr);
     virtual ~BaseStationHandler();
+
+signals :
+    void forwardToMotorController(QByteArray p_message);
 
 private slots:
 
@@ -25,6 +30,8 @@ private:
     QTcpServer* m_tcpServer;
     QTcpSocket* m_tcpSocket;
     QDataStream* m_baseStationDataStream;
+
+    ReceiveStateMachine m_receiveStateMachine;
 
     void handleCommand_Ping();
     void handleCommand_Displacement_X();
@@ -60,7 +67,7 @@ private:
          REQUEST_PID_VALUES     = 0x1B
      };
 
-     enum FROM_ROBOT_COMMAND_ID
+    enum FROM_ROBOT_COMMAND_ID
      {
          PING_ACK               = 0x02,
          DISPLACEMENT_X_ACK     = 0x04,

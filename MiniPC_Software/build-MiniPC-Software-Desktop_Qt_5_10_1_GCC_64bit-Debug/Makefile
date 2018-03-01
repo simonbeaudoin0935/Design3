@@ -12,10 +12,10 @@ MAKEFILE      = Makefile
 
 CC            = gcc
 CXX           = g++
-DEFINES       = -DQT_DEPRECATED_WARNINGS -DQT_QML_DEBUG -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB
+DEFINES       = -DQT_DEPRECATED_WARNINGS -DQT_QML_DEBUG -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_SERIALPORT_LIB -DQT_CORE_LIB
 CFLAGS        = -pipe -g -Wall -W -D_REENTRANT -fPIC $(DEFINES)
 CXXFLAGS      = -pipe -g -std=gnu++11 -Wall -W -D_REENTRANT -fPIC $(DEFINES)
-INCPATH       = -I../MiniPC-Software -I. -I../../../../Qt/5.10.1/gcc_64/include -I../../../../Qt/5.10.1/gcc_64/include/QtWidgets -I../../../../Qt/5.10.1/gcc_64/include/QtGui -I../../../../Qt/5.10.1/gcc_64/include/QtNetwork -I../../../../Qt/5.10.1/gcc_64/include/QtCore -I. -isystem /usr/include/libdrm -I../../../../Qt/5.10.1/gcc_64/mkspecs/linux-g++
+INCPATH       = -I../MiniPC-Software -I. -I../../../../Qt/5.10.1/gcc_64/include -I../../../../Qt/5.10.1/gcc_64/include/QtWidgets -I../../../../Qt/5.10.1/gcc_64/include/QtGui -I../../../../Qt/5.10.1/gcc_64/include/QtNetwork -I../../../../Qt/5.10.1/gcc_64/include/QtSerialPort -I../../../../Qt/5.10.1/gcc_64/include/QtCore -I. -isystem /usr/include/libdrm -I../../../../Qt/5.10.1/gcc_64/mkspecs/linux-g++
 QMAKE         = /home/simon/Qt/5.10.1/gcc_64/bin/qmake
 DEL_FILE      = rm -f
 CHK_DIR_EXISTS= test -d
@@ -38,7 +38,7 @@ DISTNAME      = MiniPC-Software1.0.0
 DISTDIR = /home/simon/Documents/Design3/MiniPC_Software/build-MiniPC-Software-Desktop_Qt_5_10_1_GCC_64bit-Debug/.tmp/MiniPC-Software1.0.0
 LINK          = g++
 LFLAGS        = -Wl,-rpath,/home/simon/Qt/5.10.1/gcc_64/lib
-LIBS          = $(SUBLIBS) -L/home/simon/Qt/5.10.1/gcc_64/lib -lQt5Widgets -lQt5Gui -lQt5Network -lQt5Core -lGL -lpthread 
+LIBS          = $(SUBLIBS) -L/home/simon/Qt/5.10.1/gcc_64/lib -lQt5Widgets -lQt5Gui -lQt5Network -lQt5SerialPort -lQt5Core -lGL -lpthread 
 AR            = ar cqs
 RANLIB        = 
 SED           = sed
@@ -52,13 +52,19 @@ OBJECTS_DIR   = ./
 
 SOURCES       = ../MiniPC-Software/main.cpp \
 		../MiniPC-Software/mainthread.cpp \
-		../MiniPC-Software/basestationthandler.cpp moc_mainthread.cpp \
-		moc_basestationhandler.cpp
+		../MiniPC-Software/basestationthandler.cpp \
+		../MiniPC-Software/receivestatemachine.cpp \
+		../MiniPC-Software/motorcontrollerhandler.cpp moc_mainthread.cpp \
+		moc_basestationhandler.cpp \
+		moc_motorcontrollerhandler.cpp
 OBJECTS       = main.o \
 		mainthread.o \
 		basestationthandler.o \
+		receivestatemachine.o \
+		motorcontrollerhandler.o \
 		moc_mainthread.o \
-		moc_basestationhandler.o
+		moc_basestationhandler.o \
+		moc_motorcontrollerhandler.o
 DIST          = ../../../../Qt/5.10.1/gcc_64/mkspecs/features/spec_pre.prf \
 		../../../../Qt/5.10.1/gcc_64/mkspecs/common/unix.conf \
 		../../../../Qt/5.10.1/gcc_64/mkspecs/common/linux.conf \
@@ -225,9 +231,13 @@ DIST          = ../../../../Qt/5.10.1/gcc_64/mkspecs/features/spec_pre.prf \
 		../../../../Qt/5.10.1/gcc_64/mkspecs/features/lex.prf \
 		../MiniPC-Software/MiniPC-Software.pro ../MiniPC-Software/mainthread.h \
 		../MiniPC-Software/basestationhandler.h \
-		../MiniPC-Software/pidvaluesstruct.h ../MiniPC-Software/main.cpp \
+		../MiniPC-Software/pidvaluesstruct.h \
+		../MiniPC-Software/receivestatemachine.h \
+		../MiniPC-Software/motorcontrollerhandler.h ../MiniPC-Software/main.cpp \
 		../MiniPC-Software/mainthread.cpp \
-		../MiniPC-Software/basestationthandler.cpp
+		../MiniPC-Software/basestationthandler.cpp \
+		../MiniPC-Software/receivestatemachine.cpp \
+		../MiniPC-Software/motorcontrollerhandler.cpp
 QMAKE_TARGET  = MiniPC-Software
 DESTDIR       = 
 TARGET        = MiniPC-Software
@@ -407,6 +417,7 @@ Makefile: ../MiniPC-Software/MiniPC-Software.pro ../../../../Qt/5.10.1/gcc_64/mk
 		../../../../Qt/5.10.1/gcc_64/lib/libQt5Widgets.prl \
 		../../../../Qt/5.10.1/gcc_64/lib/libQt5Gui.prl \
 		../../../../Qt/5.10.1/gcc_64/lib/libQt5Network.prl \
+		../../../../Qt/5.10.1/gcc_64/lib/libQt5SerialPort.prl \
 		../../../../Qt/5.10.1/gcc_64/lib/libQt5Core.prl
 	$(QMAKE) -o Makefile ../MiniPC-Software/MiniPC-Software.pro -spec linux-g++ CONFIG+=debug CONFIG+=qml_debug
 ../../../../Qt/5.10.1/gcc_64/mkspecs/features/spec_pre.prf:
@@ -577,6 +588,7 @@ Makefile: ../MiniPC-Software/MiniPC-Software.pro ../../../../Qt/5.10.1/gcc_64/mk
 ../../../../Qt/5.10.1/gcc_64/lib/libQt5Widgets.prl:
 ../../../../Qt/5.10.1/gcc_64/lib/libQt5Gui.prl:
 ../../../../Qt/5.10.1/gcc_64/lib/libQt5Network.prl:
+../../../../Qt/5.10.1/gcc_64/lib/libQt5SerialPort.prl:
 ../../../../Qt/5.10.1/gcc_64/lib/libQt5Core.prl:
 qmake: FORCE
 	@$(QMAKE) -o Makefile ../MiniPC-Software/MiniPC-Software.pro -spec linux-g++ CONFIG+=debug CONFIG+=qml_debug
@@ -593,8 +605,8 @@ distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
 	$(COPY_FILE) --parents ../../../../Qt/5.10.1/gcc_64/mkspecs/features/data/dummy.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents ../MiniPC-Software/mainthread.h ../MiniPC-Software/basestationhandler.h ../MiniPC-Software/pidvaluesstruct.h $(DISTDIR)/
-	$(COPY_FILE) --parents ../MiniPC-Software/main.cpp ../MiniPC-Software/mainthread.cpp ../MiniPC-Software/basestationthandler.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents ../MiniPC-Software/mainthread.h ../MiniPC-Software/basestationhandler.h ../MiniPC-Software/pidvaluesstruct.h ../MiniPC-Software/receivestatemachine.h ../MiniPC-Software/motorcontrollerhandler.h $(DISTDIR)/
+	$(COPY_FILE) --parents ../MiniPC-Software/main.cpp ../MiniPC-Software/mainthread.cpp ../MiniPC-Software/basestationthandler.cpp ../MiniPC-Software/receivestatemachine.cpp ../MiniPC-Software/motorcontrollerhandler.cpp $(DISTDIR)/
 
 
 clean: compiler_clean 
@@ -626,9 +638,9 @@ compiler_moc_predefs_clean:
 moc_predefs.h: ../../../../Qt/5.10.1/gcc_64/mkspecs/features/data/dummy.cpp
 	g++ -pipe -g -std=gnu++11 -Wall -W -dM -E -o moc_predefs.h ../../../../Qt/5.10.1/gcc_64/mkspecs/features/data/dummy.cpp
 
-compiler_moc_header_make_all: moc_mainthread.cpp moc_basestationhandler.cpp
+compiler_moc_header_make_all: moc_mainthread.cpp moc_basestationhandler.cpp moc_motorcontrollerhandler.cpp
 compiler_moc_header_clean:
-	-$(DEL_FILE) moc_mainthread.cpp moc_basestationhandler.cpp
+	-$(DEL_FILE) moc_mainthread.cpp moc_basestationhandler.cpp moc_motorcontrollerhandler.cpp
 moc_mainthread.cpp: ../../../../Qt/5.10.1/gcc_64/include/QtCore/QThread \
 		../../../../Qt/5.10.1/gcc_64/include/QtCore/qthread.h \
 		../../../../Qt/5.10.1/gcc_64/include/QtCore/qobject.h \
@@ -876,10 +888,15 @@ moc_mainthread.cpp: ../../../../Qt/5.10.1/gcc_64/include/QtCore/QThread \
 		../../../../Qt/5.10.1/gcc_64/include/QtNetwork/qsslkey.h \
 		../../../../Qt/5.10.1/gcc_64/include/QtNetwork/qudpsocket.h \
 		../../../../Qt/5.10.1/gcc_64/include/QtNetwork/qtnetworkversion.h \
+		../MiniPC-Software/receivestatemachine.h \
+		../MiniPC-Software/motorcontrollerhandler.h \
+		../../../../Qt/5.10.1/gcc_64/include/QtSerialPort/QSerialPort \
+		../../../../Qt/5.10.1/gcc_64/include/QtSerialPort/qserialport.h \
+		../../../../Qt/5.10.1/gcc_64/include/QtSerialPort/qserialportglobal.h \
 		../MiniPC-Software/mainthread.h \
 		moc_predefs.h \
 		../../../../Qt/5.10.1/gcc_64/bin/moc
-	/home/simon/Qt/5.10.1/gcc_64/bin/moc $(DEFINES) --include ./moc_predefs.h -I/home/simon/Qt/5.10.1/gcc_64/mkspecs/linux-g++ -I/home/simon/Documents/Design3/MiniPC_Software/MiniPC-Software -I/home/simon/Qt/5.10.1/gcc_64/include -I/home/simon/Qt/5.10.1/gcc_64/include/QtWidgets -I/home/simon/Qt/5.10.1/gcc_64/include/QtGui -I/home/simon/Qt/5.10.1/gcc_64/include/QtNetwork -I/home/simon/Qt/5.10.1/gcc_64/include/QtCore -I. -I/usr/include/c++/5 -I/usr/include/x86_64-linux-gnu/c++/5 -I/usr/include/c++/5/backward -I/usr/lib/gcc/x86_64-linux-gnu/5/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ../MiniPC-Software/mainthread.h -o moc_mainthread.cpp
+	/home/simon/Qt/5.10.1/gcc_64/bin/moc $(DEFINES) --include ./moc_predefs.h -I/home/simon/Qt/5.10.1/gcc_64/mkspecs/linux-g++ -I/home/simon/Documents/Design3/MiniPC_Software/MiniPC-Software -I/home/simon/Qt/5.10.1/gcc_64/include -I/home/simon/Qt/5.10.1/gcc_64/include/QtWidgets -I/home/simon/Qt/5.10.1/gcc_64/include/QtGui -I/home/simon/Qt/5.10.1/gcc_64/include/QtNetwork -I/home/simon/Qt/5.10.1/gcc_64/include/QtSerialPort -I/home/simon/Qt/5.10.1/gcc_64/include/QtCore -I. -I/usr/include/c++/5 -I/usr/include/x86_64-linux-gnu/c++/5 -I/usr/include/c++/5/backward -I/usr/lib/gcc/x86_64-linux-gnu/5/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ../MiniPC-Software/mainthread.h -o moc_mainthread.cpp
 
 moc_basestationhandler.cpp: ../../../../Qt/5.10.1/gcc_64/include/QtNetwork/QtNetwork \
 		../../../../Qt/5.10.1/gcc_64/include/QtNetwork/QtNetworkDepends \
@@ -1126,10 +1143,71 @@ moc_basestationhandler.cpp: ../../../../Qt/5.10.1/gcc_64/include/QtNetwork/QtNet
 		../../../../Qt/5.10.1/gcc_64/include/QtNetwork/qsslkey.h \
 		../../../../Qt/5.10.1/gcc_64/include/QtNetwork/qudpsocket.h \
 		../../../../Qt/5.10.1/gcc_64/include/QtNetwork/qtnetworkversion.h \
+		../MiniPC-Software/receivestatemachine.h \
 		../MiniPC-Software/basestationhandler.h \
 		moc_predefs.h \
 		../../../../Qt/5.10.1/gcc_64/bin/moc
-	/home/simon/Qt/5.10.1/gcc_64/bin/moc $(DEFINES) --include ./moc_predefs.h -I/home/simon/Qt/5.10.1/gcc_64/mkspecs/linux-g++ -I/home/simon/Documents/Design3/MiniPC_Software/MiniPC-Software -I/home/simon/Qt/5.10.1/gcc_64/include -I/home/simon/Qt/5.10.1/gcc_64/include/QtWidgets -I/home/simon/Qt/5.10.1/gcc_64/include/QtGui -I/home/simon/Qt/5.10.1/gcc_64/include/QtNetwork -I/home/simon/Qt/5.10.1/gcc_64/include/QtCore -I. -I/usr/include/c++/5 -I/usr/include/x86_64-linux-gnu/c++/5 -I/usr/include/c++/5/backward -I/usr/lib/gcc/x86_64-linux-gnu/5/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ../MiniPC-Software/basestationhandler.h -o moc_basestationhandler.cpp
+	/home/simon/Qt/5.10.1/gcc_64/bin/moc $(DEFINES) --include ./moc_predefs.h -I/home/simon/Qt/5.10.1/gcc_64/mkspecs/linux-g++ -I/home/simon/Documents/Design3/MiniPC_Software/MiniPC-Software -I/home/simon/Qt/5.10.1/gcc_64/include -I/home/simon/Qt/5.10.1/gcc_64/include/QtWidgets -I/home/simon/Qt/5.10.1/gcc_64/include/QtGui -I/home/simon/Qt/5.10.1/gcc_64/include/QtNetwork -I/home/simon/Qt/5.10.1/gcc_64/include/QtSerialPort -I/home/simon/Qt/5.10.1/gcc_64/include/QtCore -I. -I/usr/include/c++/5 -I/usr/include/x86_64-linux-gnu/c++/5 -I/usr/include/c++/5/backward -I/usr/lib/gcc/x86_64-linux-gnu/5/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ../MiniPC-Software/basestationhandler.h -o moc_basestationhandler.cpp
+
+moc_motorcontrollerhandler.cpp: ../../../../Qt/5.10.1/gcc_64/include/QtSerialPort/QSerialPort \
+		../../../../Qt/5.10.1/gcc_64/include/QtSerialPort/qserialport.h \
+		../../../../Qt/5.10.1/gcc_64/include/QtCore/qiodevice.h \
+		../../../../Qt/5.10.1/gcc_64/include/QtCore/qglobal.h \
+		../../../../Qt/5.10.1/gcc_64/include/QtCore/qconfig-bootstrapped.h \
+		../../../../Qt/5.10.1/gcc_64/include/QtCore/qconfig.h \
+		../../../../Qt/5.10.1/gcc_64/include/QtCore/qtcore-config.h \
+		../../../../Qt/5.10.1/gcc_64/include/QtCore/qsystemdetection.h \
+		../../../../Qt/5.10.1/gcc_64/include/QtCore/qprocessordetection.h \
+		../../../../Qt/5.10.1/gcc_64/include/QtCore/qcompilerdetection.h \
+		../../../../Qt/5.10.1/gcc_64/include/QtCore/qtypeinfo.h \
+		../../../../Qt/5.10.1/gcc_64/include/QtCore/qsysinfo.h \
+		../../../../Qt/5.10.1/gcc_64/include/QtCore/qlogging.h \
+		../../../../Qt/5.10.1/gcc_64/include/QtCore/qflags.h \
+		../../../../Qt/5.10.1/gcc_64/include/QtCore/qatomic.h \
+		../../../../Qt/5.10.1/gcc_64/include/QtCore/qbasicatomic.h \
+		../../../../Qt/5.10.1/gcc_64/include/QtCore/qatomic_bootstrap.h \
+		../../../../Qt/5.10.1/gcc_64/include/QtCore/qgenericatomic.h \
+		../../../../Qt/5.10.1/gcc_64/include/QtCore/qatomic_cxx11.h \
+		../../../../Qt/5.10.1/gcc_64/include/QtCore/qatomic_msvc.h \
+		../../../../Qt/5.10.1/gcc_64/include/QtCore/qglobalstatic.h \
+		../../../../Qt/5.10.1/gcc_64/include/QtCore/qmutex.h \
+		../../../../Qt/5.10.1/gcc_64/include/QtCore/qnumeric.h \
+		../../../../Qt/5.10.1/gcc_64/include/QtCore/qversiontagging.h \
+		../../../../Qt/5.10.1/gcc_64/include/QtCore/qobject.h \
+		../../../../Qt/5.10.1/gcc_64/include/QtCore/qobjectdefs.h \
+		../../../../Qt/5.10.1/gcc_64/include/QtCore/qnamespace.h \
+		../../../../Qt/5.10.1/gcc_64/include/QtCore/qobjectdefs_impl.h \
+		../../../../Qt/5.10.1/gcc_64/include/QtCore/qstring.h \
+		../../../../Qt/5.10.1/gcc_64/include/QtCore/qchar.h \
+		../../../../Qt/5.10.1/gcc_64/include/QtCore/qbytearray.h \
+		../../../../Qt/5.10.1/gcc_64/include/QtCore/qrefcount.h \
+		../../../../Qt/5.10.1/gcc_64/include/QtCore/qarraydata.h \
+		../../../../Qt/5.10.1/gcc_64/include/QtCore/qstringliteral.h \
+		../../../../Qt/5.10.1/gcc_64/include/QtCore/qstringalgorithms.h \
+		../../../../Qt/5.10.1/gcc_64/include/QtCore/qstringview.h \
+		../../../../Qt/5.10.1/gcc_64/include/QtCore/qstringbuilder.h \
+		../../../../Qt/5.10.1/gcc_64/include/QtCore/qlist.h \
+		../../../../Qt/5.10.1/gcc_64/include/QtCore/qalgorithms.h \
+		../../../../Qt/5.10.1/gcc_64/include/QtCore/qiterator.h \
+		../../../../Qt/5.10.1/gcc_64/include/QtCore/qhashfunctions.h \
+		../../../../Qt/5.10.1/gcc_64/include/QtCore/qpair.h \
+		../../../../Qt/5.10.1/gcc_64/include/QtCore/qbytearraylist.h \
+		../../../../Qt/5.10.1/gcc_64/include/QtCore/qstringlist.h \
+		../../../../Qt/5.10.1/gcc_64/include/QtCore/qregexp.h \
+		../../../../Qt/5.10.1/gcc_64/include/QtCore/qstringmatcher.h \
+		../../../../Qt/5.10.1/gcc_64/include/QtCore/qcoreevent.h \
+		../../../../Qt/5.10.1/gcc_64/include/QtCore/qscopedpointer.h \
+		../../../../Qt/5.10.1/gcc_64/include/QtCore/qmetatype.h \
+		../../../../Qt/5.10.1/gcc_64/include/QtCore/qvarlengtharray.h \
+		../../../../Qt/5.10.1/gcc_64/include/QtCore/qcontainerfwd.h \
+		../../../../Qt/5.10.1/gcc_64/include/QtCore/qobject_impl.h \
+		../../../../Qt/5.10.1/gcc_64/include/QtSerialPort/qserialportglobal.h \
+		../MiniPC-Software/receivestatemachine.h \
+		../../../../Qt/5.10.1/gcc_64/include/QtCore/QByteArray \
+		../MiniPC-Software/motorcontrollerhandler.h \
+		moc_predefs.h \
+		../../../../Qt/5.10.1/gcc_64/bin/moc
+	/home/simon/Qt/5.10.1/gcc_64/bin/moc $(DEFINES) --include ./moc_predefs.h -I/home/simon/Qt/5.10.1/gcc_64/mkspecs/linux-g++ -I/home/simon/Documents/Design3/MiniPC_Software/MiniPC-Software -I/home/simon/Qt/5.10.1/gcc_64/include -I/home/simon/Qt/5.10.1/gcc_64/include/QtWidgets -I/home/simon/Qt/5.10.1/gcc_64/include/QtGui -I/home/simon/Qt/5.10.1/gcc_64/include/QtNetwork -I/home/simon/Qt/5.10.1/gcc_64/include/QtSerialPort -I/home/simon/Qt/5.10.1/gcc_64/include/QtCore -I. -I/usr/include/c++/5 -I/usr/include/x86_64-linux-gnu/c++/5 -I/usr/include/c++/5/backward -I/usr/lib/gcc/x86_64-linux-gnu/5/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ../MiniPC-Software/motorcontrollerhandler.h -o moc_motorcontrollerhandler.cpp
 
 compiler_moc_objc_header_make_all:
 compiler_moc_objc_header_clean:
@@ -1395,6 +1473,11 @@ main.o: ../MiniPC-Software/main.cpp ../MiniPC-Software/mainthread.h \
 		../../../../Qt/5.10.1/gcc_64/include/QtNetwork/qsslkey.h \
 		../../../../Qt/5.10.1/gcc_64/include/QtNetwork/qudpsocket.h \
 		../../../../Qt/5.10.1/gcc_64/include/QtNetwork/qtnetworkversion.h \
+		../MiniPC-Software/receivestatemachine.h \
+		../MiniPC-Software/motorcontrollerhandler.h \
+		../../../../Qt/5.10.1/gcc_64/include/QtSerialPort/QSerialPort \
+		../../../../Qt/5.10.1/gcc_64/include/QtSerialPort/qserialport.h \
+		../../../../Qt/5.10.1/gcc_64/include/QtSerialPort/qserialportglobal.h \
 		../../../../Qt/5.10.1/gcc_64/include/QtCore/QCoreApplication
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o main.o ../MiniPC-Software/main.cpp
 
@@ -1645,7 +1728,12 @@ mainthread.o: ../MiniPC-Software/mainthread.cpp ../MiniPC-Software/mainthread.h 
 		../../../../Qt/5.10.1/gcc_64/include/QtCore/QHash \
 		../../../../Qt/5.10.1/gcc_64/include/QtNetwork/qsslkey.h \
 		../../../../Qt/5.10.1/gcc_64/include/QtNetwork/qudpsocket.h \
-		../../../../Qt/5.10.1/gcc_64/include/QtNetwork/qtnetworkversion.h
+		../../../../Qt/5.10.1/gcc_64/include/QtNetwork/qtnetworkversion.h \
+		../MiniPC-Software/receivestatemachine.h \
+		../MiniPC-Software/motorcontrollerhandler.h \
+		../../../../Qt/5.10.1/gcc_64/include/QtSerialPort/QSerialPort \
+		../../../../Qt/5.10.1/gcc_64/include/QtSerialPort/qserialport.h \
+		../../../../Qt/5.10.1/gcc_64/include/QtSerialPort/qserialportglobal.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o mainthread.o ../MiniPC-Software/mainthread.cpp
 
 basestationthandler.o: ../MiniPC-Software/basestationthandler.cpp ../MiniPC-Software/basestationhandler.h \
@@ -1893,14 +1981,105 @@ basestationthandler.o: ../MiniPC-Software/basestationthandler.cpp ../MiniPC-Soft
 		../../../../Qt/5.10.1/gcc_64/include/QtCore/QHash \
 		../../../../Qt/5.10.1/gcc_64/include/QtNetwork/qsslkey.h \
 		../../../../Qt/5.10.1/gcc_64/include/QtNetwork/qudpsocket.h \
-		../../../../Qt/5.10.1/gcc_64/include/QtNetwork/qtnetworkversion.h
+		../../../../Qt/5.10.1/gcc_64/include/QtNetwork/qtnetworkversion.h \
+		../MiniPC-Software/receivestatemachine.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o basestationthandler.o ../MiniPC-Software/basestationthandler.cpp
+
+receivestatemachine.o: ../MiniPC-Software/receivestatemachine.cpp ../MiniPC-Software/receivestatemachine.h \
+		../../../../Qt/5.10.1/gcc_64/include/QtCore/QByteArray \
+		../../../../Qt/5.10.1/gcc_64/include/QtCore/qbytearray.h \
+		../../../../Qt/5.10.1/gcc_64/include/QtCore/qrefcount.h \
+		../../../../Qt/5.10.1/gcc_64/include/QtCore/qatomic.h \
+		../../../../Qt/5.10.1/gcc_64/include/QtCore/qglobal.h \
+		../../../../Qt/5.10.1/gcc_64/include/QtCore/qconfig-bootstrapped.h \
+		../../../../Qt/5.10.1/gcc_64/include/QtCore/qconfig.h \
+		../../../../Qt/5.10.1/gcc_64/include/QtCore/qtcore-config.h \
+		../../../../Qt/5.10.1/gcc_64/include/QtCore/qsystemdetection.h \
+		../../../../Qt/5.10.1/gcc_64/include/QtCore/qprocessordetection.h \
+		../../../../Qt/5.10.1/gcc_64/include/QtCore/qcompilerdetection.h \
+		../../../../Qt/5.10.1/gcc_64/include/QtCore/qtypeinfo.h \
+		../../../../Qt/5.10.1/gcc_64/include/QtCore/qsysinfo.h \
+		../../../../Qt/5.10.1/gcc_64/include/QtCore/qlogging.h \
+		../../../../Qt/5.10.1/gcc_64/include/QtCore/qflags.h \
+		../../../../Qt/5.10.1/gcc_64/include/QtCore/qglobalstatic.h \
+		../../../../Qt/5.10.1/gcc_64/include/QtCore/qmutex.h \
+		../../../../Qt/5.10.1/gcc_64/include/QtCore/qnumeric.h \
+		../../../../Qt/5.10.1/gcc_64/include/QtCore/qversiontagging.h \
+		../../../../Qt/5.10.1/gcc_64/include/QtCore/qbasicatomic.h \
+		../../../../Qt/5.10.1/gcc_64/include/QtCore/qatomic_bootstrap.h \
+		../../../../Qt/5.10.1/gcc_64/include/QtCore/qgenericatomic.h \
+		../../../../Qt/5.10.1/gcc_64/include/QtCore/qatomic_cxx11.h \
+		../../../../Qt/5.10.1/gcc_64/include/QtCore/qatomic_msvc.h \
+		../../../../Qt/5.10.1/gcc_64/include/QtCore/qnamespace.h \
+		../../../../Qt/5.10.1/gcc_64/include/QtCore/qarraydata.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o receivestatemachine.o ../MiniPC-Software/receivestatemachine.cpp
+
+motorcontrollerhandler.o: ../MiniPC-Software/motorcontrollerhandler.cpp ../MiniPC-Software/motorcontrollerhandler.h \
+		../../../../Qt/5.10.1/gcc_64/include/QtSerialPort/QSerialPort \
+		../../../../Qt/5.10.1/gcc_64/include/QtSerialPort/qserialport.h \
+		../../../../Qt/5.10.1/gcc_64/include/QtCore/qiodevice.h \
+		../../../../Qt/5.10.1/gcc_64/include/QtCore/qglobal.h \
+		../../../../Qt/5.10.1/gcc_64/include/QtCore/qconfig-bootstrapped.h \
+		../../../../Qt/5.10.1/gcc_64/include/QtCore/qconfig.h \
+		../../../../Qt/5.10.1/gcc_64/include/QtCore/qtcore-config.h \
+		../../../../Qt/5.10.1/gcc_64/include/QtCore/qsystemdetection.h \
+		../../../../Qt/5.10.1/gcc_64/include/QtCore/qprocessordetection.h \
+		../../../../Qt/5.10.1/gcc_64/include/QtCore/qcompilerdetection.h \
+		../../../../Qt/5.10.1/gcc_64/include/QtCore/qtypeinfo.h \
+		../../../../Qt/5.10.1/gcc_64/include/QtCore/qsysinfo.h \
+		../../../../Qt/5.10.1/gcc_64/include/QtCore/qlogging.h \
+		../../../../Qt/5.10.1/gcc_64/include/QtCore/qflags.h \
+		../../../../Qt/5.10.1/gcc_64/include/QtCore/qatomic.h \
+		../../../../Qt/5.10.1/gcc_64/include/QtCore/qbasicatomic.h \
+		../../../../Qt/5.10.1/gcc_64/include/QtCore/qatomic_bootstrap.h \
+		../../../../Qt/5.10.1/gcc_64/include/QtCore/qgenericatomic.h \
+		../../../../Qt/5.10.1/gcc_64/include/QtCore/qatomic_cxx11.h \
+		../../../../Qt/5.10.1/gcc_64/include/QtCore/qatomic_msvc.h \
+		../../../../Qt/5.10.1/gcc_64/include/QtCore/qglobalstatic.h \
+		../../../../Qt/5.10.1/gcc_64/include/QtCore/qmutex.h \
+		../../../../Qt/5.10.1/gcc_64/include/QtCore/qnumeric.h \
+		../../../../Qt/5.10.1/gcc_64/include/QtCore/qversiontagging.h \
+		../../../../Qt/5.10.1/gcc_64/include/QtCore/qobject.h \
+		../../../../Qt/5.10.1/gcc_64/include/QtCore/qobjectdefs.h \
+		../../../../Qt/5.10.1/gcc_64/include/QtCore/qnamespace.h \
+		../../../../Qt/5.10.1/gcc_64/include/QtCore/qobjectdefs_impl.h \
+		../../../../Qt/5.10.1/gcc_64/include/QtCore/qstring.h \
+		../../../../Qt/5.10.1/gcc_64/include/QtCore/qchar.h \
+		../../../../Qt/5.10.1/gcc_64/include/QtCore/qbytearray.h \
+		../../../../Qt/5.10.1/gcc_64/include/QtCore/qrefcount.h \
+		../../../../Qt/5.10.1/gcc_64/include/QtCore/qarraydata.h \
+		../../../../Qt/5.10.1/gcc_64/include/QtCore/qstringliteral.h \
+		../../../../Qt/5.10.1/gcc_64/include/QtCore/qstringalgorithms.h \
+		../../../../Qt/5.10.1/gcc_64/include/QtCore/qstringview.h \
+		../../../../Qt/5.10.1/gcc_64/include/QtCore/qstringbuilder.h \
+		../../../../Qt/5.10.1/gcc_64/include/QtCore/qlist.h \
+		../../../../Qt/5.10.1/gcc_64/include/QtCore/qalgorithms.h \
+		../../../../Qt/5.10.1/gcc_64/include/QtCore/qiterator.h \
+		../../../../Qt/5.10.1/gcc_64/include/QtCore/qhashfunctions.h \
+		../../../../Qt/5.10.1/gcc_64/include/QtCore/qpair.h \
+		../../../../Qt/5.10.1/gcc_64/include/QtCore/qbytearraylist.h \
+		../../../../Qt/5.10.1/gcc_64/include/QtCore/qstringlist.h \
+		../../../../Qt/5.10.1/gcc_64/include/QtCore/qregexp.h \
+		../../../../Qt/5.10.1/gcc_64/include/QtCore/qstringmatcher.h \
+		../../../../Qt/5.10.1/gcc_64/include/QtCore/qcoreevent.h \
+		../../../../Qt/5.10.1/gcc_64/include/QtCore/qscopedpointer.h \
+		../../../../Qt/5.10.1/gcc_64/include/QtCore/qmetatype.h \
+		../../../../Qt/5.10.1/gcc_64/include/QtCore/qvarlengtharray.h \
+		../../../../Qt/5.10.1/gcc_64/include/QtCore/qcontainerfwd.h \
+		../../../../Qt/5.10.1/gcc_64/include/QtCore/qobject_impl.h \
+		../../../../Qt/5.10.1/gcc_64/include/QtSerialPort/qserialportglobal.h \
+		../MiniPC-Software/receivestatemachine.h \
+		../../../../Qt/5.10.1/gcc_64/include/QtCore/QByteArray
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o motorcontrollerhandler.o ../MiniPC-Software/motorcontrollerhandler.cpp
 
 moc_mainthread.o: moc_mainthread.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_mainthread.o moc_mainthread.cpp
 
 moc_basestationhandler.o: moc_basestationhandler.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_basestationhandler.o moc_basestationhandler.cpp
+
+moc_motorcontrollerhandler.o: moc_motorcontrollerhandler.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_motorcontrollerhandler.o moc_motorcontrollerhandler.cpp
 
 ####### Install
 

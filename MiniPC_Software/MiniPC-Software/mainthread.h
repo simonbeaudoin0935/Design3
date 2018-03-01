@@ -4,6 +4,7 @@
 #include <QThread>
 
 #include "basestationhandler.h"
+#include "motorcontrollerhandler.h"
 
 class MainThread : public QThread
 {
@@ -17,7 +18,8 @@ public:
     void run() Q_DECL_OVERRIDE ;
 
 private:
-    BaseStationHandler* m_baseStation;
+    BaseStationHandler* m_baseStationHandler;
+    MotorControllerHandler* m_motorControllerHandler;
 };
 
 #endif // MAINTHREAD_H
