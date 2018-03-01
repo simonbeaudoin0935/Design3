@@ -4,7 +4,7 @@
 #
 #-------------------------------------------------
 
-QT       += core gui
+QT       += core network serialport
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -25,10 +25,15 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
         main.cpp \
-        mainwindow.cpp
+    mainthread.cpp \
+    basestationthandler.cpp \
+    receivestatemachine.cpp \
+    motorcontrollerhandler.cpp
 
 HEADERS += \
-        mainwindow.h
+    mainthread.h \
+    basestationhandler.h \
+    pidvaluesstruct.h \
+    receivestatemachine.h \
+    motorcontrollerhandler.h
 
-FORMS += \
-        mainwindow.ui

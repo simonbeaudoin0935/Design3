@@ -1,11 +1,12 @@
-#include "mainwindow.h"
-#include <QApplication>
+#include "mainthread.h"
+#include <QCoreApplication>
 
 int main(int argc, char *argv[])
 {
-    QApplication a(argc, argv);
-    MainWindow w;
-    w.show();
+    QCoreApplication a(argc, argv);
+    MainThread v_mainThread;
+
+    v_mainThread.start();
 
     return a.exec();
 }
