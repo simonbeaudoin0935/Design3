@@ -1192,6 +1192,7 @@ public:
         comboBox_choix_Table->addItem(QString());
         comboBox_choix_Table->addItem(QString());
         comboBox_choix_Table->addItem(QString());
+        comboBox_choix_Table->addItem(QString());
         comboBox_choix_Table->setObjectName(QStringLiteral("comboBox_choix_Table"));
 
         horizontalLayout_3->addWidget(comboBox_choix_Table);
@@ -1349,8 +1350,8 @@ public:
 
         retranslateUi(MainWindow);
 
-        tabWidget->setCurrentIndex(1);
-        tabWidget_3->setCurrentIndex(1);
+        tabWidget->setCurrentIndex(2);
+        tabWidget_3->setCurrentIndex(0);
 
 
         QMetaObject::connectSlotsByName(MainWindow);
@@ -1422,13 +1423,14 @@ public:
         pushButton_Store_PID_Values->setText(QApplication::translate("MainWindow", "Store", nullptr));
         tabWidget_3->setTabText(tabWidget_3->indexOf(tab_9), QApplication::translate("MainWindow", "Robot parameters editor", nullptr));
         tabWidget->setTabText(tabWidget->indexOf(tab_PID), QApplication::translate("MainWindow", "PID", nullptr));
-        label_2->setText(QApplication::translate("MainWindow", "Table : ", nullptr));
-        comboBox_choix_Table->setItemText(0, QApplication::translate("MainWindow", "Table 1", nullptr));
-        comboBox_choix_Table->setItemText(1, QApplication::translate("MainWindow", "Table 2", nullptr));
-        comboBox_choix_Table->setItemText(2, QApplication::translate("MainWindow", "Table 3", nullptr));
-        comboBox_choix_Table->setItemText(3, QApplication::translate("MainWindow", "Table 4", nullptr));
-        comboBox_choix_Table->setItemText(4, QApplication::translate("MainWindow", "Table 5", nullptr));
-        comboBox_choix_Table->setItemText(5, QApplication::translate("MainWindow", "Table 6", nullptr));
+        label_2->setText(QApplication::translate("MainWindow", "R\303\251glage de calibration", nullptr));
+        comboBox_choix_Table->setItemText(0, QApplication::translate("MainWindow", "-- aucun --", nullptr));
+        comboBox_choix_Table->setItemText(1, QApplication::translate("MainWindow", "Table 1", nullptr));
+        comboBox_choix_Table->setItemText(2, QApplication::translate("MainWindow", "Table 2", nullptr));
+        comboBox_choix_Table->setItemText(3, QApplication::translate("MainWindow", "Table 3", nullptr));
+        comboBox_choix_Table->setItemText(4, QApplication::translate("MainWindow", "Table 4", nullptr));
+        comboBox_choix_Table->setItemText(5, QApplication::translate("MainWindow", "Table 5", nullptr));
+        comboBox_choix_Table->setItemText(6, QApplication::translate("MainWindow", "Table 6", nullptr));
 
         pushButton_Scan_Cameras->setText(QApplication::translate("MainWindow", "Scanner les cam\303\251ras du syst\303\250me", nullptr));
         pushButton_Connect_Camera->setText(QApplication::translate("MainWindow", "Connecter", nullptr));
