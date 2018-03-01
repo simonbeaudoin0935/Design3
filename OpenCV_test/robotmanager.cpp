@@ -7,9 +7,11 @@
 RobotManager::RobotManager(QObject* p_parent):
     m_parent(p_parent),
     m_isConnectedToRobot(false),
-    m_robotTcpSocket(new QTcpSocket(this)),
-    m_robotReceiveStateMachine(new RobotReceiveStateMachine)
+    m_robotTcpSocket(new QTcpSocket(this))
+
 {
+
+
 
     QObject::connect(m_robotTcpSocket,
                      SIGNAL(connected()),
@@ -87,18 +89,30 @@ void RobotManager::error(QAbstractSocket::SocketError p_socketError)
 
 void RobotManager::readyRead()
 {
-    QByteArray v_receivedData = m_robotTcpSocket->readAll();
+    QByteArray v_data = m_robotTcpSocket->readAll();
 
-    for(auto v_it = v_receivedData.begin(); v_it != v_receivedData.end(); v_it++)
+    for(QByteArray::iterator it = v_data.begin(); it != v_data.end(); it++)
     {
-        if(m_robotReceiveStateMachine->parseMessage(*v_it))
+        if(m_robotReceiveStateMachine.parseMessage(*it))
         {
+            unsigned char v_messageID = m_robotReceiveStateMachine.getMessageId();
 
+            switch(v_messageID)
+            {
+            case PING_ACK : handleReply_PingACK();
+                break;
+
+            default :
+                break;
+
+
+            }
         }
-
     }
 
 }
+
+
 
 //public functions
 
@@ -127,14 +141,23 @@ bool RobotManager::sendCommand_Ping(int p_index)
 {
     if(m_isConnectedToRobot)
     {
-        QByteArray v_robotCommand;
-        QDataStream out(&v_robotCommand, QIODevice::WriteOnly);
-        out.setVersion(QDataStream::Qt_5_10);
+        qDebug() << "PING : " << p_index << "\n";
+        QByteArray v_robotMsg;
 
-        out << (char)PING;
-        out << p_index;
+        intUnion_t v_union;
 
-        m_robotTcpSocket->write(v_robotCommand);
+        v_union.integer = p_index;
+
+        v_robotMsg.append('#')
+                  .append(PING)
+                  .append(0x04)
+                  .append(v_union.bytes[0])
+                  .append(v_union.bytes[0])
+                  .append(v_union.bytes[0])
+                  .append(v_union.bytes[0])
+                  .append('.');
+
+        m_robotTcpSocket->write(v_robotMsg);
     }
 
     return m_isConnectedToRobot;
@@ -404,7 +427,19 @@ bool RobotManager::sendCommand_Request_PID_Values()
 
 
 
+void RobotManager::handleReply_PingACK()
+{
+    intUnion_t v_intUnion;
 
+    QByteArray v_content = m_robotReceiveStateMachine.getMessageContent();
+
+    v_intUnion.bytes[0] = v_content.at(0);
+    v_intUnion.bytes[1] = v_content.at(1);
+    v_intUnion.bytes[2] = v_content.at(2);
+    v_intUnion.bytes[3] = v_content.at(3);
+
+    qDebug() << "PING ACK : " << v_intUnion.integer << "\n";
+}
 
 
 

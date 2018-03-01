@@ -18,7 +18,7 @@
     <item>
      <widget class="QTabWidget" name="tabWidget">
       <property name="currentIndex">
-       <number>1</number>
+       <number>2</number>
       </property>
       <widget class="QWidget" name="tab_View">
        <attribute name="title">
@@ -170,7 +170,7 @@
         <item>
          <widget class="QTabWidget" name="tabWidget_3">
           <property name="currentIndex">
-           <number>1</number>
+           <number>0</number>
           </property>
           <widget class="QWidget" name="tab_8">
            <attribute name="title">
@@ -1096,12 +1096,17 @@
                </sizepolicy>
               </property>
               <property name="text">
-               <string>Table : </string>
+               <string>Réglage de calibration</string>
               </property>
              </widget>
             </item>
             <item>
              <widget class="QComboBox" name="comboBox_choix_Table">
+              <item>
+               <property name="text">
+                <string>-- aucun --</string>
+               </property>
+              </item>
               <item>
                <property name="text">
                 <string>Table 1</string>

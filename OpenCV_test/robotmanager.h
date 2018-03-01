@@ -63,8 +63,9 @@ private:
 
     bool     m_isConnectedToRobot;
     QTcpSocket* m_robotTcpSocket;
+    RobotReceiveStateMachine m_robotReceiveStateMachine;
 
-    RobotReceiveStateMachine* m_robotReceiveStateMachine;
+
 
 
     enum TO_ROBOT_COMMAND_ID
@@ -98,6 +99,8 @@ private:
 
         PID_OUTPUT             = 0x12
     };
+
+    void handleReply_PingACK();
 
 };
 

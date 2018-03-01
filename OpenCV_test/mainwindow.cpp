@@ -86,7 +86,7 @@ MainWindow::~MainWindow()
 
 void MainWindow::dt_timeout()
 {
-
+    static int i = 1;
     if(m_camera->isCameraConnected()){
 
 
@@ -110,6 +110,12 @@ void MainWindow::dt_timeout()
             ui->lcdNumber_Elapsed_Time->display(0.0);
         }
 
+    }
+
+    if(m_robotManager->isConnectedToRobot())
+    {
+
+        m_robotManager->sendCommand_Ping(i++);
     }
 }
 
