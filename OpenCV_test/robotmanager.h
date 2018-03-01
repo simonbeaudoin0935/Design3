@@ -6,6 +6,7 @@
 #include <QTcpSocket>
 #include <QDataStream>
 
+
 #include "robotreceivestatemachine.h"
 #include "pidvaluesstruct.h"
 
@@ -52,6 +53,8 @@ signals:
 
 
 private slots:
+
+
     //liés au socket
     void connected();
     void disconnected();
@@ -61,9 +64,12 @@ private slots:
 private:
     QObject* m_parent;
 
+
     bool     m_isConnectedToRobot;
     QTcpSocket* m_robotTcpSocket;
     RobotReceiveStateMachine m_robotReceiveStateMachine;
+
+
 
 
 
@@ -101,6 +107,12 @@ private:
     };
 
     void handleReply_PingACK();
+    void handleReply_Displacement_X_ACK();
+    void handleReply_Displacement_Y_ACK();
+    void handleReply_Displacement_R_ACK();
+    void handleReply_Country_Code();
+    void handleReply_Requested_PID_Values();
+    void handleReply_PID_Output();
 
 };
 

@@ -9,6 +9,7 @@ RobotManager::RobotManager(QObject* p_parent):
     m_isConnectedToRobot(false),
     m_robotTcpSocket(new QTcpSocket(this))
 
+
 {
 
 
@@ -141,7 +142,7 @@ bool RobotManager::sendCommand_Ping(int p_index)
 {
     if(m_isConnectedToRobot)
     {
-        qDebug() << "PING : " << p_index << "\n";
+        //qDebug() << "PING : " << p_index << "\n";
         QByteArray v_robotMsg;
 
         intUnion_t v_union;
@@ -152,9 +153,9 @@ bool RobotManager::sendCommand_Ping(int p_index)
                   .append(PING)
                   .append(0x04)
                   .append(v_union.bytes[0])
-                  .append(v_union.bytes[0])
-                  .append(v_union.bytes[0])
-                  .append(v_union.bytes[0])
+                  .append(v_union.bytes[1])
+                  .append(v_union.bytes[2])
+                  .append(v_union.bytes[3])
                   .append('.');
 
         m_robotTcpSocket->write(v_robotMsg);
@@ -165,18 +166,28 @@ bool RobotManager::sendCommand_Ping(int p_index)
 
 bool RobotManager::sendCommand_Displacement_X(float p_cm, float p_vmax, float p_amax)
 {
+    Q_UNUSED(p_vmax)
+    Q_UNUSED(p_amax)
+
     if(m_isConnectedToRobot)
     {
-        QByteArray v_robotCommand;
-        QDataStream out(&v_robotCommand, QIODevice::WriteOnly);
-        out.setVersion(QDataStream::Qt_5_10);
+        qDebug() << "DISPLACEMENT_X : " << p_cm << "\n";
+        QByteArray v_robotMsg;
 
-        out << (char)DISPLACEMENT_X
-            << p_cm
-            << p_vmax
-            << p_amax;
+        floatUnion_t v_union;
 
-        m_robotTcpSocket->write(v_robotCommand);
+        v_union.floating = p_cm;
+
+        v_robotMsg.append('#')
+                  .append(DISPLACEMENT_X)
+                  .append(0x04)
+                  .append(v_union.bytes[0])
+                  .append(v_union.bytes[1])
+                  .append(v_union.bytes[2])
+                  .append(v_union.bytes[3])
+                  .append('.');
+
+        m_robotTcpSocket->write(v_robotMsg);
     }
 
     return m_isConnectedToRobot;
@@ -184,18 +195,28 @@ bool RobotManager::sendCommand_Displacement_X(float p_cm, float p_vmax, float p_
 
 bool RobotManager::sendCommand_Displacement_Y(float p_cm, float p_vmax, float p_amax)
 {
+    Q_UNUSED(p_vmax)
+    Q_UNUSED(p_amax)
+
     if(m_isConnectedToRobot)
     {
-        QByteArray v_robotCommand;
-        QDataStream out(&v_robotCommand, QIODevice::WriteOnly);
-        out.setVersion(QDataStream::Qt_5_10);
+        qDebug() << "DISPLACEMENT_Y : " << p_cm << "\n";
+        QByteArray v_robotMsg;
 
-        out << (char)DISPLACEMENT_Y
-            << p_cm
-            << p_vmax
-            << p_amax;
+        floatUnion_t v_union;
 
-        m_robotTcpSocket->write(v_robotCommand);
+        v_union.floating = p_cm;
+
+        v_robotMsg.append('#')
+                  .append(DISPLACEMENT_Y)
+                  .append(0x04)
+                  .append(v_union.bytes[0])
+                  .append(v_union.bytes[1])
+                  .append(v_union.bytes[2])
+                  .append(v_union.bytes[3])
+                  .append('.');
+
+        m_robotTcpSocket->write(v_robotMsg);
     }
 
     return m_isConnectedToRobot;
@@ -203,18 +224,28 @@ bool RobotManager::sendCommand_Displacement_Y(float p_cm, float p_vmax, float p_
 
 bool RobotManager::sendCommand_Displacement_R(float p_deg, float p_vmax, float p_amax)
 {
+    Q_UNUSED(p_vmax)
+    Q_UNUSED(p_amax)
+
     if(m_isConnectedToRobot)
     {
-        QByteArray v_robotCommand;
-        QDataStream out(&v_robotCommand, QIODevice::WriteOnly);
-        out.setVersion(QDataStream::Qt_5_10);
+        qDebug() << "DISPLACEMENT_R : " << p_deg << "\n";
+        QByteArray v_robotMsg;
 
-        out << (char)DISPLACEMENT_R
-            << p_deg
-            << p_vmax
-            << p_amax;
+        floatUnion_t v_union;
 
-        m_robotTcpSocket->write(v_robotCommand);
+        v_union.floating = p_deg;
+
+        v_robotMsg.append('#')
+                  .append(DISPLACEMENT_R)
+                  .append(0x04)
+                  .append(v_union.bytes[0])
+                  .append(v_union.bytes[1])
+                  .append(v_union.bytes[2])
+                  .append(v_union.bytes[3])
+                  .append('.');
+
+        m_robotTcpSocket->write(v_robotMsg);
     }
 
     return m_isConnectedToRobot;
@@ -224,13 +255,16 @@ bool RobotManager::sendCommand_Cancel_Displacement()
 {
     if(m_isConnectedToRobot)
     {
-        QByteArray v_robotCommand;
-        QDataStream out(&v_robotCommand, QIODevice::WriteOnly);
-        out.setVersion(QDataStream::Qt_5_10);
+        qDebug() << "CANCEL_DISPLACEMENT\n";
+        QByteArray v_robotMsg;
 
-        out << (char)CANCEL_DISPLACEMENT;
 
-        m_robotTcpSocket->write(v_robotCommand);
+        v_robotMsg.append('#')
+                  .append(CANCEL_DISPLACEMENT)
+                  .append((char)0x00)
+                  .append('.');
+
+        m_robotTcpSocket->write(v_robotMsg);
     }
 
     return m_isConnectedToRobot;
@@ -240,14 +274,17 @@ bool RobotManager::sendCommand_Change_LED_State(bool p_on_off)
 {
     if(m_isConnectedToRobot)
     {
-        QByteArray v_robotCommand;
-        QDataStream out(&v_robotCommand, QIODevice::WriteOnly);
-        out.setVersion(QDataStream::Qt_5_10);
+        qDebug() << "CHANGE_LED_STATE\n";
+        QByteArray v_robotMsg;
 
-        out << (char)CHANGE_LED_STATE
-            << p_on_off;
 
-        m_robotTcpSocket->write(v_robotCommand);
+        v_robotMsg.append('#')
+                  .append(CHANGE_LED_STATE)
+                  .append(0x01)
+                  .append(p_on_off ? 0x01 : 0x00)
+                  .append('.');
+
+        m_robotTcpSocket->write(v_robotMsg);
     }
 
     return m_isConnectedToRobot;
@@ -257,13 +294,16 @@ bool RobotManager::sendCommand_Request_Country_Code()
 {
     if(m_isConnectedToRobot)
     {
-        QByteArray v_robotCommand;
-        QDataStream out(&v_robotCommand, QIODevice::WriteOnly);
-        out.setVersion(QDataStream::Qt_5_10);
+        qDebug() << "REQUEST_COUNTRY_CODE\n";
+        QByteArray v_robotMsg;
 
-        out << (char)REQUEST_COUNTRY_CODE;
 
-        m_robotTcpSocket->write(v_robotCommand);
+        v_robotMsg.append('#')
+                  .append(REQUEST_COUNTRY_CODE)
+                  .append((char)0x00)
+                  .append('.');
+
+        m_robotTcpSocket->write(v_robotMsg);
     }
 
     return m_isConnectedToRobot;
@@ -273,14 +313,23 @@ bool RobotManager::sendCommand_Tilt_Camera_Left_Right(float p_angle)
 {
     if(m_isConnectedToRobot)
     {
-        QByteArray v_robotCommand;
-        QDataStream out(&v_robotCommand, QIODevice::WriteOnly);
-        out.setVersion(QDataStream::Qt_5_10);
+        qDebug() << "TILT_CAMERA_LEFT_RIGHT : " << p_angle << "\n";
+        QByteArray v_robotMsg;
 
-        out << (char)TILT_CAMERA_LEFT_RIGHT
-            << p_angle;
+        floatUnion_t v_union;
 
-        m_robotTcpSocket->write(v_robotCommand);
+        v_union.floating = p_angle;
+
+        v_robotMsg.append('#')
+                  .append(TILT_CAMERA_LEFT_RIGHT)
+                  .append(0x04)
+                  .append(v_union.bytes[0])
+                  .append(v_union.bytes[1])
+                  .append(v_union.bytes[2])
+                  .append(v_union.bytes[3])
+                  .append('.');
+
+        m_robotTcpSocket->write(v_robotMsg);
     }
 
     return m_isConnectedToRobot;
@@ -290,14 +339,23 @@ bool RobotManager::sendCommand_Tilt_Camera_Up_Down(float p_angle)
 {
     if(m_isConnectedToRobot)
     {
-        QByteArray v_robotCommand;
-        QDataStream out(&v_robotCommand, QIODevice::WriteOnly);
-        out.setVersion(QDataStream::Qt_5_10);
+        qDebug() << "TILT_CAMERA_UP_DOWN\n";
+        QByteArray v_robotMsg;
 
-        out << (char)TILT_CAMERA_UP_DOWN
-            << p_angle;
+        floatUnion_t v_union;
 
-        m_robotTcpSocket->write(v_robotCommand);
+        v_union.floating = p_angle;
+
+        v_robotMsg.append('#')
+                  .append(TILT_CAMERA_UP_DOWN)
+                  .append(0x04)
+                  .append(v_union.bytes[0])
+                  .append(v_union.bytes[1])
+                  .append(v_union.bytes[2])
+                  .append(v_union.bytes[3])
+                  .append('.');
+
+        m_robotTcpSocket->write(v_robotMsg);
     }
 
     return m_isConnectedToRobot;
@@ -307,13 +365,16 @@ bool RobotManager::sendCommand_Grip_Prehenser()
 {
     if(m_isConnectedToRobot)
     {
-        QByteArray v_robotCommand;
-        QDataStream out(&v_robotCommand, QIODevice::WriteOnly);
-        out.setVersion(QDataStream::Qt_5_10);
+        qDebug() << "GRIP_PREHENSER\n";
+        QByteArray v_robotMsg;
 
-        out << (char)GRIP_PREHENSER;
 
-        m_robotTcpSocket->write(v_robotCommand);
+        v_robotMsg.append('#')
+                  .append(GRIP_PREHENSER)
+                  .append((char)0x00)
+                  .append('.');
+
+        m_robotTcpSocket->write(v_robotMsg);
     }
 
     return m_isConnectedToRobot;
@@ -323,13 +384,16 @@ bool RobotManager::sendCommand_Release_Prehenser()
 {
     if(m_isConnectedToRobot)
     {
-        QByteArray v_robotCommand;
-        QDataStream out(&v_robotCommand, QIODevice::WriteOnly);
-        out.setVersion(QDataStream::Qt_5_10);
+        qDebug() << "RELEASE_PREHENSER\n";
+        QByteArray v_robotMsg;
 
-        out << (char)RELEASE_PREHENSER;
 
-        m_robotTcpSocket->write(v_robotCommand);
+        v_robotMsg.append('#')
+                  .append(RELEASE_PREHENSER)
+                  .append((char)0x00)
+                  .append('.');
+
+        m_robotTcpSocket->write(v_robotMsg);
     }
 
     return m_isConnectedToRobot;
@@ -339,14 +403,17 @@ bool RobotManager::sendCommand_Activate_PID_Debug(bool p_activate)
 {
     if(m_isConnectedToRobot)
     {
-        QByteArray v_robotCommand;
-        QDataStream out(&v_robotCommand, QIODevice::WriteOnly);
-        out.setVersion(QDataStream::Qt_5_10);
+        qDebug() << "ACTIVATE_PID_DEBUG : " << p_activate << "\n";
+        QByteArray v_robotMsg;
 
-        out << (char)ACTIVATE_PID_DEBUG
-            << p_activate;
 
-        m_robotTcpSocket->write(v_robotCommand);
+        v_robotMsg.append('#')
+                  .append(ACTIVATE_PID_DEBUG)
+                  .append(0x01)
+                  .append(p_activate ? 0x01 : 0x00)
+                  .append('.');
+
+        m_robotTcpSocket->write(v_robotMsg);
     }
 
     return m_isConnectedToRobot;
@@ -356,68 +423,241 @@ bool RobotManager::sendCommand_Store_PID_Values(PIDValuesStruct p_pidValues)
 {
     if(m_isConnectedToRobot)
     {
-        QByteArray v_robotCommand;
-        QDataStream out(&v_robotCommand, QIODevice::WriteOnly);
-        out.setVersion(QDataStream::Qt_5_10);
+        qDebug() << "STORE_PID_VALUES \n";
+        QByteArray v_robotMsg;
 
-        out << (char)STORE_PID_VALUES
-
-            << p_pidValues.position_X_PKp
-            << p_pidValues.position_X_PKi
-            << p_pidValues.position_X_PKd
-            << p_pidValues.position_X_Vmax
-            << p_pidValues.position_X_Amax
-
-            << p_pidValues.position_Y_PKp
-            << p_pidValues.position_Y_PKi
-            << p_pidValues.position_Y_PKd
-            << p_pidValues.position_Y_Vmax
-            << p_pidValues.position_Y_Amax
-
-            << p_pidValues.position_R_PKp
-            << p_pidValues.position_R_PKi
-            << p_pidValues.position_R_PKd
-            << p_pidValues.position_R_Vmax
-            << p_pidValues.position_R_Amax
-
-            << p_pidValues.motor_1_VKp
-            << p_pidValues.motor_1_VKi
-            << p_pidValues.motor_1_VKd
-
-            << p_pidValues.motor_2_VKp
-            << p_pidValues.motor_2_VKi
-            << p_pidValues.motor_2_VKd
-
-            << p_pidValues.motor_3_VKp
-            << p_pidValues.motor_3_VKi
-            << p_pidValues.motor_3_VKd
-
-            << p_pidValues.motor_4_VKp
-            << p_pidValues.motor_4_VKi
-            << p_pidValues.motor_4_VKd
-
-            << p_pidValues.dt
-
-            << p_pidValues.wheel_diameter;
+        floatUnion_t v_union;
 
 
-        m_robotTcpSocket->write(v_robotCommand);
+
+        v_robotMsg.append('#')
+                  .append(STORE_PID_VALUES)
+                  .append(0x74);
+        //position x
+        v_union.floating = p_pidValues.position_X_PKp;
+        v_robotMsg.append(v_union.bytes[0])
+                  .append(v_union.bytes[1])
+                  .append(v_union.bytes[2])
+                  .append(v_union.bytes[3]);
+
+        v_union.floating = p_pidValues.position_X_PKi;
+        v_robotMsg.append(v_union.bytes[0])
+                  .append(v_union.bytes[1])
+                  .append(v_union.bytes[2])
+                  .append(v_union.bytes[3]);
+
+        v_union.floating = p_pidValues.position_X_PKd;
+        v_robotMsg.append(v_union.bytes[0])
+                  .append(v_union.bytes[1])
+                  .append(v_union.bytes[2])
+                  .append(v_union.bytes[3]);
+
+        v_union.floating = p_pidValues.position_X_Vmax;
+        v_robotMsg.append(v_union.bytes[0])
+                  .append(v_union.bytes[1])
+                  .append(v_union.bytes[2])
+                  .append(v_union.bytes[3]);
+
+        v_union.floating = p_pidValues.position_X_Amax;
+        v_robotMsg.append(v_union.bytes[0])
+                  .append(v_union.bytes[1])
+                  .append(v_union.bytes[2])
+                  .append(v_union.bytes[3]);
+
+        //position y
+
+        v_union.floating = p_pidValues.position_Y_PKp;
+        v_robotMsg.append(v_union.bytes[0])
+                  .append(v_union.bytes[1])
+                  .append(v_union.bytes[2])
+                  .append(v_union.bytes[3]);
+
+        v_union.floating = p_pidValues.position_Y_PKi;
+        v_robotMsg.append(v_union.bytes[0])
+                  .append(v_union.bytes[1])
+                  .append(v_union.bytes[2])
+                  .append(v_union.bytes[3]);
+
+        v_union.floating = p_pidValues.position_Y_PKd;
+        v_robotMsg.append(v_union.bytes[0])
+                  .append(v_union.bytes[1])
+                  .append(v_union.bytes[2])
+                  .append(v_union.bytes[3]);
+
+        v_union.floating = p_pidValues.position_Y_Vmax;
+        v_robotMsg.append(v_union.bytes[0])
+                  .append(v_union.bytes[1])
+                  .append(v_union.bytes[2])
+                  .append(v_union.bytes[3]);
+
+        v_union.floating = p_pidValues.position_Y_Amax;
+        v_robotMsg.append(v_union.bytes[0])
+                  .append(v_union.bytes[1])
+                  .append(v_union.bytes[2])
+                  .append(v_union.bytes[3]);
+
+        //position r
+
+        v_union.floating = p_pidValues.position_R_PKp;
+        v_robotMsg.append(v_union.bytes[0])
+                  .append(v_union.bytes[1])
+                  .append(v_union.bytes[2])
+                  .append(v_union.bytes[3]);
+
+        v_union.floating = p_pidValues.position_R_PKi;
+        v_robotMsg.append(v_union.bytes[0])
+                  .append(v_union.bytes[1])
+                  .append(v_union.bytes[2])
+                  .append(v_union.bytes[3]);
+
+        v_union.floating = p_pidValues.position_R_PKd;
+        v_robotMsg.append(v_union.bytes[0])
+                  .append(v_union.bytes[1])
+                  .append(v_union.bytes[2])
+                  .append(v_union.bytes[3]);
+
+        v_union.floating = p_pidValues.position_R_Vmax;
+        v_robotMsg.append(v_union.bytes[0])
+                  .append(v_union.bytes[1])
+                  .append(v_union.bytes[2])
+                  .append(v_union.bytes[3]);
+
+        v_union.floating = p_pidValues.position_R_Amax;
+        v_robotMsg.append(v_union.bytes[0])
+                  .append(v_union.bytes[1])
+                  .append(v_union.bytes[2])
+                  .append(v_union.bytes[3]);
+
+        //motor 1
+
+        v_union.floating = p_pidValues.motor_1_VKp;
+        v_robotMsg.append(v_union.bytes[0])
+                  .append(v_union.bytes[1])
+                  .append(v_union.bytes[2])
+                  .append(v_union.bytes[3]);
+
+        v_union.floating = p_pidValues.motor_1_VKi;
+        v_robotMsg.append(v_union.bytes[0])
+                  .append(v_union.bytes[1])
+                  .append(v_union.bytes[2])
+                  .append(v_union.bytes[3]);
+
+        v_union.floating = p_pidValues.motor_1_VKd;
+        v_robotMsg.append(v_union.bytes[0])
+                  .append(v_union.bytes[1])
+                  .append(v_union.bytes[2])
+                  .append(v_union.bytes[3]);
+
+        //motor 2
+
+        v_union.floating = p_pidValues.motor_2_VKp;
+        v_robotMsg.append(v_union.bytes[0])
+                  .append(v_union.bytes[1])
+                  .append(v_union.bytes[2])
+                  .append(v_union.bytes[3]);
+
+        v_union.floating = p_pidValues.motor_2_VKi;
+        v_robotMsg.append(v_union.bytes[0])
+                  .append(v_union.bytes[1])
+                  .append(v_union.bytes[2])
+                  .append(v_union.bytes[3]);
+
+        v_union.floating = p_pidValues.motor_2_VKd;
+        v_robotMsg.append(v_union.bytes[0])
+                  .append(v_union.bytes[1])
+                  .append(v_union.bytes[2])
+                  .append(v_union.bytes[3]);
+
+        //motor 3
+        v_union.floating = p_pidValues.motor_3_VKp;
+        v_robotMsg.append(v_union.bytes[0])
+                  .append(v_union.bytes[1])
+                  .append(v_union.bytes[2])
+                  .append(v_union.bytes[3]);
+
+        v_union.floating = p_pidValues.motor_3_VKi;
+        v_robotMsg.append(v_union.bytes[0])
+                  .append(v_union.bytes[1])
+                  .append(v_union.bytes[2])
+                  .append(v_union.bytes[3]);
+
+        v_union.floating = p_pidValues.motor_3_VKd;
+        v_robotMsg.append(v_union.bytes[0])
+                  .append(v_union.bytes[1])
+                  .append(v_union.bytes[2])
+                  .append(v_union.bytes[3]);
+
+        //motor 4
+
+        v_union.floating = p_pidValues.motor_4_VKp;
+        v_robotMsg.append(v_union.bytes[0])
+                  .append(v_union.bytes[1])
+                  .append(v_union.bytes[2])
+                  .append(v_union.bytes[3]);
+
+        v_union.floating = p_pidValues.motor_4_VKi;
+        v_robotMsg.append(v_union.bytes[0])
+                  .append(v_union.bytes[1])
+                  .append(v_union.bytes[2])
+                  .append(v_union.bytes[3]);
+
+        v_union.floating = p_pidValues.motor_4_VKd;
+        v_robotMsg.append(v_union.bytes[0])
+                  .append(v_union.bytes[1])
+                  .append(v_union.bytes[2])
+                  .append(v_union.bytes[3]);
+
+        //dt
+
+        v_union.floating = p_pidValues.dt;
+        v_robotMsg.append(v_union.bytes[0])
+                  .append(v_union.bytes[1])
+                  .append(v_union.bytes[2])
+                  .append(v_union.bytes[3]);
+
+        //wheel diameter
+
+        v_union.floating = p_pidValues.wheel_diameter;
+        v_robotMsg.append(v_union.bytes[0])
+                  .append(v_union.bytes[1])
+                  .append(v_union.bytes[2])
+                  .append(v_union.bytes[3])
+                  .append('.');
+
+
+
+
+        m_robotTcpSocket->write(v_robotMsg);
     }
 
     return m_isConnectedToRobot;
+
+
+
+
+
+
+
+
+
+
+
 }
 
 bool RobotManager::sendCommand_Request_PID_Values()
 {
     if(m_isConnectedToRobot)
     {
-        QByteArray v_robotCommand;
-        QDataStream out(&v_robotCommand, QIODevice::WriteOnly);
-        out.setVersion(QDataStream::Qt_5_10);
+        qDebug() << "REQUEST_PID_VALUES\n";
+        QByteArray v_robotMsg;
 
-        out << (char)REQUEST_PID_VALUES;
 
-        m_robotTcpSocket->write(v_robotCommand);
+        v_robotMsg.append('#')
+                  .append(REQUEST_PID_VALUES)
+                  .append((char)0x00)
+                  .append('.');
+
+        m_robotTcpSocket->write(v_robotMsg);
     }
 
     return m_isConnectedToRobot;
@@ -439,6 +679,36 @@ void RobotManager::handleReply_PingACK()
     v_intUnion.bytes[3] = v_content.at(3);
 
     qDebug() << "PING ACK : " << v_intUnion.integer << "\n";
+}
+
+void RobotManager::handleReply_Displacement_X_ACK()
+{
+
+}
+
+void RobotManager::handleReply_Displacement_Y_ACK()
+{
+
+}
+
+void RobotManager::handleReply_Displacement_R_ACK()
+{
+
+}
+
+void RobotManager::handleReply_Country_Code()
+{
+
+}
+
+void RobotManager::handleReply_Requested_PID_Values()
+{
+
+}
+
+void RobotManager::handleReply_PID_Output()
+{
+
 }
 
 
