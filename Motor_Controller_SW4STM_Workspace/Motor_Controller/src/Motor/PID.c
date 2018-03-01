@@ -14,19 +14,9 @@ PID_Vitesse_t PID_Vitesse_1, PID_Vitesse_2, PID_Vitesse_3, PID_Vitesse_4;
 type_deplacement g_typeDeplacement;
 
 
-void PID_resetAll(void){
-	//PID_1_reset();
-	//PID_2_reset();
-	//PID_3_reset();
-	//PID_4_reset();
-}
+extern char g_immobilize;
 
-void PID_computeAll(void){
-	//PID_1_compute();
-	//PID_2_compute();
-	//PID_3_compute();
-	//PID_4_compute();
-}
+
 
 
 void Encoder_1_Compute(void){
@@ -36,8 +26,22 @@ void Encoder_1_Compute(void){
 
 	TIM1->CNT = 32762;
 }
-//void Encoder_2_Compute(void);
-//void Encoder_3_Compute(void);
+
+void Encoder_2_Compute(void){
+	//Calcul de la nouvelle position
+
+	Encoder_2.position += TICK_TO_CM(((int)(TIM2->CNT) - 32762));
+
+	TIM2->CNT = 32762;
+}
+
+void Encoder_3_Compute(void){
+	//Calcul de la nouvelle position
+
+	Encoder_3.position += TICK_TO_CM(((int)(TIM3->CNT) - 32762));
+
+	TIM3->CNT = 32762;
+}
 
 void Encoder_4_Compute(void){
 	//Calcul de la nouvelle position
@@ -61,7 +65,6 @@ void PID_Position_X_Compute(void){
 
 	PID_Position_X.position = 0.5 * (Encoder_1.position - Encoder_4.position);
 
-	//PID_Position_X.position = Encoder_1.position;
 
 	PID_Position_X.consigne_vitesse_old = PID_Position_X.consigne_vitesse;
 
@@ -74,26 +77,26 @@ void PID_Position_X_Compute(void){
 
 	float derivee_erreur_position = (PID_Position_X.erreur_position - PID_Position_X.erreur_position_old) / g_parameters.dt;
 
-	PID_Position_X.consigne_vitesse = g_parameters.motor_1_PKp * PID_Position_X.erreur_position    +
-						     	 	  g_parameters.motor_1_PKi * PID_Position_X.integral_position  +
-									  g_parameters.motor_1_PKd * derivee_erreur_position;
+	PID_Position_X.consigne_vitesse = g_parameters.position_X_PKp * PID_Position_X.erreur_position    +
+						     	 	  g_parameters.position_X_PKi * PID_Position_X.integral_position  +
+									  g_parameters.position_X_PKd * derivee_erreur_position;
 	//On limitte la vitesse
 
-	if(PID_Position_X.consigne_vitesse > g_parameters.motor_1_Vmax)
-		PID_Position_X.consigne_vitesse = g_parameters.motor_1_Vmax;
+	if(PID_Position_X.consigne_vitesse > g_parameters.position_X_Vmax)
+		PID_Position_X.consigne_vitesse = g_parameters.position_X_Vmax;
 
-	if(PID_Position_X.consigne_vitesse < - g_parameters.motor_1_Vmax)
-		PID_Position_X.consigne_vitesse = - g_parameters.motor_1_Vmax;
+	if(PID_Position_X.consigne_vitesse < - g_parameters.position_X_Vmax)
+		PID_Position_X.consigne_vitesse = - g_parameters.position_X_Vmax;
 
 	//On limite l'acceleration
 
 	float acceleration = (PID_Position_X.consigne_vitesse - PID_Position_X.consigne_vitesse_old)  / g_parameters.dt;
 
-	if(acceleration > g_parameters.motor_1_Amax)
-		PID_Position_X.consigne_vitesse = PID_Position_X.consigne_vitesse_old + (g_parameters.motor_1_Amax * g_parameters.dt);
+	if(acceleration > g_parameters.position_X_Amax)
+		PID_Position_X.consigne_vitesse = PID_Position_X.consigne_vitesse_old + (g_parameters.position_X_Amax * g_parameters.dt);
 
-	if(acceleration < - g_parameters.motor_1_Amax)
-		PID_Position_X.consigne_vitesse = PID_Position_X.consigne_vitesse_old - (g_parameters.motor_1_Amax * g_parameters.dt);
+	if(acceleration < - g_parameters.position_X_Amax)
+		PID_Position_X.consigne_vitesse = PID_Position_X.consigne_vitesse_old - (g_parameters.position_X_Amax * g_parameters.dt);
 
 
 
@@ -134,8 +137,6 @@ void PID_Position_X_Compute(void){
 							   g_parameters.motor_1_VKd * derivee_erreur_vitesse;
 
 
-
-
 //On set la commande calculée au moteurs
 
 	motor1_set_speed_percent(PID_Vitesse_1.pid_output);
@@ -147,19 +148,250 @@ void PID_Position_X_Compute(void){
 //On arrête le pid si l'erreur sur la position est moins de un 1mm
 
 	if(((PID_Position_X.erreur_position > 0.0)? PID_Position_X.erreur_position : - PID_Position_X.erreur_position ) < 0.1){
-			PID_Position_X_reset();
-			extern char finit;
-			finit = 1;
-
+		PID_resetAll();
+		g_immobilize = 1;
 	}
 
 }
 
 void PID_Position_Y_Compute(void){
 
+//Traitement de la nouvelle position et vitesse
+
+	Encoder_2_Compute();
+
+	Encoder_3_Compute();
+
+//Asservissement en position
+
+	PID_Position_Y.position = 0.5 * (Encoder_2.position - Encoder_3.position);
+
+
+	PID_Position_Y.consigne_vitesse_old = PID_Position_Y.consigne_vitesse;
+
+	PID_Position_Y.erreur_position_old  = PID_Position_Y.erreur_position;
+
+
+	PID_Position_Y.erreur_position      = PID_Position_Y.consigne_position - PID_Position_Y.position;
+
+	PID_Position_Y.integral_position   += PID_Position_Y.erreur_position * g_parameters.dt;
+
+	float derivee_erreur_position = (PID_Position_Y.erreur_position - PID_Position_Y.erreur_position_old) / g_parameters.dt;
+
+	PID_Position_Y.consigne_vitesse = g_parameters.position_Y_PKp * PID_Position_Y.erreur_position    +
+						     	 	  g_parameters.position_Y_PKi * PID_Position_Y.integral_position  +
+									  g_parameters.position_Y_PKd * derivee_erreur_position;
+	//On limitte la vitesse
+
+	if(PID_Position_Y.consigne_vitesse > g_parameters.position_Y_Vmax)
+		PID_Position_Y.consigne_vitesse = g_parameters.position_Y_Vmax;
+
+	if(PID_Position_Y.consigne_vitesse < - g_parameters.position_Y_Vmax)
+		PID_Position_Y.consigne_vitesse = - g_parameters.position_Y_Vmax;
+
+	//On limite l'acceleration
+
+	float acceleration = (PID_Position_Y.consigne_vitesse - PID_Position_Y.consigne_vitesse_old)  / g_parameters.dt;
+
+	if(acceleration > g_parameters.position_Y_Amax)
+		PID_Position_Y.consigne_vitesse = PID_Position_Y.consigne_vitesse_old + (g_parameters.position_Y_Amax * g_parameters.dt);
+
+	if(acceleration < - g_parameters.position_Y_Amax)
+		PID_Position_Y.consigne_vitesse = PID_Position_Y.consigne_vitesse_old - (g_parameters.position_Y_Amax * g_parameters.dt);
+
+
+
+//Asservissement en vitesse moteur 2
+
+	Encoder_2.vitesse = (Encoder_2.position - Encoder_2.position_old) / g_parameters.dt;
+
+	Encoder_2.position_old = Encoder_2.position;
+
+	PID_Vitesse_2.erreur_vitesse_old = PID_Vitesse_2.erreur_vitesse;
+
+	PID_Vitesse_2.erreur_vitesse = PID_Position_Y.consigne_vitesse - Encoder_2.vitesse;
+
+	float derivee_erreur_vitesse = (PID_Vitesse_2.erreur_vitesse - PID_Vitesse_2.erreur_vitesse_old) / g_parameters.dt;
+
+	PID_Vitesse_2.integral_vitesse += PID_Vitesse_2.erreur_vitesse * g_parameters.dt;
+
+	PID_Vitesse_2.pid_output = g_parameters.motor_2_VKp * PID_Vitesse_2.erreur_vitesse +
+						   	   g_parameters.motor_2_VKi * PID_Vitesse_2.integral_vitesse +
+							   g_parameters.motor_2_VKd * derivee_erreur_vitesse;
+
+//Asservissement en vitesse moteur 3
+
+	Encoder_3.vitesse = (Encoder_3.position - Encoder_3.position_old) / g_parameters.dt;
+
+	Encoder_3.position_old = Encoder_3.position;
+
+	PID_Vitesse_3.erreur_vitesse_old = PID_Vitesse_3.erreur_vitesse;
+
+	PID_Vitesse_3.erreur_vitesse = -PID_Position_Y.consigne_vitesse - Encoder_3.vitesse;
+
+	derivee_erreur_vitesse = (PID_Vitesse_3.erreur_vitesse - PID_Vitesse_3.erreur_vitesse_old) / g_parameters.dt;
+
+	PID_Vitesse_3.integral_vitesse += PID_Vitesse_3.erreur_vitesse * g_parameters.dt;
+
+	PID_Vitesse_3.pid_output = g_parameters.motor_3_VKp * PID_Vitesse_3.erreur_vitesse +
+						   	   g_parameters.motor_3_VKi * PID_Vitesse_3.integral_vitesse +
+							   g_parameters.motor_3_VKd * derivee_erreur_vitesse;
+
+
+//On set la commande calculée au moteurs
+
+	motor2_set_speed_percent(PID_Vitesse_2.pid_output);
+
+
+	motor3_set_speed_percent(PID_Vitesse_3.pid_output);
+
+
+//On arrête le pid si l'erreur sur la position est moins de un 1mm
+
+	if(((PID_Position_Y.erreur_position > 0.0)? PID_Position_Y.erreur_position : - PID_Position_Y.erreur_position ) < 0.1){
+		PID_resetAll();
+		g_immobilize = 1;
+	}
+
 }
 
-void PID_Position_Z_Compute(void){
+void PID_Position_R_Compute(void){
+
+//Traitement de la nouvelle position et vitesse
+
+	Encoder_1_Compute();
+	Encoder_2_Compute();
+	Encoder_3_Compute();
+	Encoder_4_Compute();
+
+//Asservissement en position
+
+	PID_Position_R.position = 0.25 * (Encoder_1.position + Encoder_2.position + Encoder_3.position + Encoder_4.position);
+
+
+
+	PID_Position_R.consigne_vitesse_old = PID_Position_R.consigne_vitesse;
+
+	PID_Position_R.erreur_position_old  = PID_Position_R.erreur_position;
+
+
+	PID_Position_R.erreur_position      = PID_Position_R.consigne_position - PID_Position_R.position;
+
+	PID_Position_R.integral_position   += PID_Position_R.erreur_position * g_parameters.dt;
+
+	float derivee_erreur_position = (PID_Position_R.erreur_position - PID_Position_R.erreur_position_old) / g_parameters.dt;
+
+	PID_Position_R.consigne_vitesse = g_parameters.position_R_PKp * PID_Position_R.erreur_position    +
+						     	 	  g_parameters.position_R_PKi * PID_Position_R.integral_position  +
+									  g_parameters.position_R_PKd * derivee_erreur_position;
+	//On limitte la vitesse
+
+	if(PID_Position_R.consigne_vitesse > g_parameters.position_R_Vmax)
+		PID_Position_R.consigne_vitesse = g_parameters.position_R_Vmax;
+
+	if(PID_Position_R.consigne_vitesse < - g_parameters.position_R_Vmax)
+		PID_Position_R.consigne_vitesse = - g_parameters.position_R_Vmax;
+
+	//On limite l'acceleration
+
+	float acceleration = (PID_Position_R.consigne_vitesse - PID_Position_R.consigne_vitesse_old)  / g_parameters.dt;
+
+	if(acceleration > g_parameters.position_R_Amax)
+		PID_Position_R.consigne_vitesse = PID_Position_R.consigne_vitesse_old + (g_parameters.position_R_Amax * g_parameters.dt);
+
+	if(acceleration < - g_parameters.position_R_Amax)
+		PID_Position_R.consigne_vitesse = PID_Position_R.consigne_vitesse_old - (g_parameters.position_R_Amax * g_parameters.dt);
+
+
+
+//Asservissement en vitesse moteur 1
+
+	Encoder_1.vitesse = (Encoder_1.position - Encoder_1.position_old) / g_parameters.dt;
+
+	Encoder_1.position_old = Encoder_1.position;
+
+	PID_Vitesse_1.erreur_vitesse_old = PID_Vitesse_1.erreur_vitesse;
+
+	PID_Vitesse_1.erreur_vitesse = PID_Position_R.consigne_vitesse - Encoder_1.vitesse;
+
+	float derivee_erreur_vitesse = (PID_Vitesse_1.erreur_vitesse - PID_Vitesse_1.erreur_vitesse_old) / g_parameters.dt;
+
+	PID_Vitesse_1.integral_vitesse += PID_Vitesse_1.erreur_vitesse * g_parameters.dt;
+
+	PID_Vitesse_1.pid_output = g_parameters.motor_1_VKp * PID_Vitesse_1.erreur_vitesse +
+						   	   g_parameters.motor_1_VKi * PID_Vitesse_1.integral_vitesse +
+							   g_parameters.motor_1_VKd * derivee_erreur_vitesse;
+
+
+//Asservissement en vitesse moteur 2
+
+	Encoder_2.vitesse = (Encoder_2.position - Encoder_2.position_old) / g_parameters.dt;
+
+	Encoder_2.position_old = Encoder_2.position;
+
+	PID_Vitesse_2.erreur_vitesse_old = PID_Vitesse_2.erreur_vitesse;
+
+	PID_Vitesse_2.erreur_vitesse = PID_Position_R.consigne_vitesse - Encoder_2.vitesse;
+
+	derivee_erreur_vitesse = (PID_Vitesse_2.erreur_vitesse - PID_Vitesse_2.erreur_vitesse_old) / g_parameters.dt;
+
+	PID_Vitesse_2.integral_vitesse += PID_Vitesse_2.erreur_vitesse * g_parameters.dt;
+
+	PID_Vitesse_2.pid_output = g_parameters.motor_2_VKp * PID_Vitesse_2.erreur_vitesse +
+						   	   g_parameters.motor_2_VKi * PID_Vitesse_2.integral_vitesse +
+							   g_parameters.motor_2_VKd * derivee_erreur_vitesse;
+
+//Asservissement en vitesse moteur 3
+
+	Encoder_3.vitesse = (Encoder_3.position - Encoder_3.position_old) / g_parameters.dt;
+
+	Encoder_3.position_old = Encoder_3.position;
+
+	PID_Vitesse_3.erreur_vitesse_old = PID_Vitesse_3.erreur_vitesse;
+
+	PID_Vitesse_3.erreur_vitesse = PID_Position_R.consigne_vitesse - Encoder_3.vitesse;
+
+	derivee_erreur_vitesse = (PID_Vitesse_3.erreur_vitesse - PID_Vitesse_3.erreur_vitesse_old) / g_parameters.dt;
+
+	PID_Vitesse_3.integral_vitesse += PID_Vitesse_3.erreur_vitesse * g_parameters.dt;
+
+	PID_Vitesse_3.pid_output = g_parameters.motor_3_VKp * PID_Vitesse_3.erreur_vitesse +
+						   	   g_parameters.motor_3_VKi * PID_Vitesse_3.integral_vitesse +
+							   g_parameters.motor_3_VKd * derivee_erreur_vitesse;
+
+//Asservissement en vitesse moteur 4
+
+	Encoder_4.vitesse = (Encoder_4.position - Encoder_4.position_old) / g_parameters.dt;
+
+	Encoder_4.position_old = Encoder_4.position;
+
+	PID_Vitesse_4.erreur_vitesse_old = PID_Vitesse_4.erreur_vitesse;
+
+	PID_Vitesse_4.erreur_vitesse = PID_Position_R.consigne_vitesse - Encoder_4.vitesse;
+
+	derivee_erreur_vitesse = (PID_Vitesse_4.erreur_vitesse - PID_Vitesse_4.erreur_vitesse_old) / g_parameters.dt;
+
+	PID_Vitesse_4.integral_vitesse += PID_Vitesse_4.erreur_vitesse * g_parameters.dt;
+
+	PID_Vitesse_4.pid_output = g_parameters.motor_1_VKp * PID_Vitesse_4.erreur_vitesse +
+						   	   g_parameters.motor_1_VKi * PID_Vitesse_4.integral_vitesse +
+							   g_parameters.motor_1_VKd * derivee_erreur_vitesse;
+
+
+//On set la commande calculée au moteurs
+
+	motor1_set_speed_percent(PID_Vitesse_1.pid_output);
+	motor2_set_speed_percent(PID_Vitesse_2.pid_output);
+	motor3_set_speed_percent(PID_Vitesse_3.pid_output);
+	motor4_set_speed_percent(PID_Vitesse_4.pid_output);
+
+
+//On arrête le pid si l'erreur sur la position est moins de un 1mm
+
+	if(((PID_Position_R.erreur_position > 0.0)? PID_Position_R.erreur_position : - PID_Position_R.erreur_position ) < 0.1){
+		PID_resetAll();
+		g_immobilize = 1;
+	}
 
 }
 
@@ -167,242 +399,82 @@ void PID_Position_Z_Compute(void){
 
 
 
-
-//
-//void PID_2_compute(void){
-//
-////Calcul de la nouvelle position
-//
-//	uint16_t motor_2_tick = TIM2->CNT;
-//
-//	TIM2->CNT = 32762;
-//
-//	PID_2.position += TICK_TO_CM(((int)motor_2_tick - 32762));
-//
-////Asservissement en position
-//
-//	PID_2.consigne_vitesse_old = PID_2.consigne_vitesse;
-//
-//	PID_2.erreur_position_old  = PID_2.erreur_position;
-//
-//	PID_2.erreur_position      = PID_2.consigne_position - PID_2.position;
-//
-//	PID_2.integral_position   += PID_2.erreur_position * g_parameters.dt;
-//
-//	float derivee_erreur_position = (PID_2.erreur_position - PID_2.erreur_position_old) / g_parameters.dt;
-//
-//	PID_2.consigne_vitesse = g_parameters.motor_2_PKp * PID_2.erreur_position    +
-//						     g_parameters.motor_2_PKi * PID_2.integral_position  +
-//							 g_parameters.motor_2_PKd * derivee_erreur_position;
-//
-//	if(PID_2.consigne_vitesse > g_parameters.motor_2_Vmax)
-//		PID_2.consigne_vitesse = g_parameters.motor_2_Vmax;
-//
-//	if(PID_2.consigne_vitesse < - g_parameters.motor_2_Vmax)
-//		PID_2.consigne_vitesse = - g_parameters.motor_2_Vmax;
-//
-//	float acceleration = (PID_2.consigne_vitesse - PID_2.consigne_vitesse_old)  / g_parameters.dt;
-//
-//	if(acceleration > g_parameters.motor_2_Amax)
-//		PID_2.consigne_vitesse = PID_2.consigne_vitesse_old + (g_parameters.motor_2_Amax * g_parameters.dt);
-//
-//	if(acceleration < - g_parameters.motor_2_Amax)
-//		PID_2.consigne_vitesse = PID_2.consigne_vitesse_old - (g_parameters.motor_2_Amax * g_parameters.dt);
-//
-////	//A MODIFIER
-////	if(g_typeDeplacement == X){
-////		PID_2.consigne_vitesse = - PID_1.consigne_vitesse;
-////	}
-//
-////Asservissement en vitesse
-//
-//	PID_2.vitesse = (PID_2.position - PID_2.position_old) / g_parameters.dt;
-//
-//	PID_2.position_old = PID_2.position;
-//
-//	PID_2.erreur_vitesse_old = PID_2.erreur_vitesse;
-//
-//	PID_2.erreur_vitesse = PID_2.consigne_vitesse - PID_2.vitesse;
-//
-//	float derivee_erreur_vitesse = (PID_2.erreur_vitesse - PID_2.erreur_vitesse_old) / g_parameters.dt;
-//
-//	PID_2.integral_vitesse += PID_2.erreur_vitesse * g_parameters.dt;
-//
-//	PID_2.pid_output = g_parameters.motor_2_VKp * PID_2.erreur_vitesse +
-//					   g_parameters.motor_2_VKi * PID_2.integral_vitesse +
-//					   g_parameters.motor_2_VKd * derivee_erreur_vitesse;
-//
-//	if(((PID_2.erreur_position > 0.0)? PID_2.erreur_position : - PID_2.erreur_position ) < 0.1)
-//		PID_2_reset();
-//
-//	motor2_set_speed_percent(PID_2.pid_output);
-//}
-//
-//void PID_3_compute(void){
-//
-////Calcul de la nouvelle position
-//
-//	uint16_t motor_3_tick = TIM3->CNT;
-//
-//	TIM3->CNT = 32762;
-//
-//	PID_3.position += TICK_TO_CM(((int)motor_3_tick - 32762));
-//
-////Asservissement en position
-//
-//	PID_3.consigne_vitesse_old = PID_3.consigne_vitesse;
-//
-//	PID_3.erreur_position_old  = PID_3.erreur_position;
-//
-//	PID_3.erreur_position      = PID_3.consigne_position - PID_3.position;
-//
-//	PID_3.integral_position   += PID_3.erreur_position * g_parameters.dt;
-//
-//	float derivee_erreur_position = (PID_3.erreur_position - PID_3.erreur_position_old) / g_parameters.dt;
-//
-//	PID_3.consigne_vitesse = g_parameters.motor_3_PKp * PID_3.erreur_position    +
-//						     g_parameters.motor_3_PKi * PID_3.integral_position  +
-//							 g_parameters.motor_3_PKd * derivee_erreur_position;
-//
-//	if(PID_3.consigne_vitesse > g_parameters.motor_3_Vmax)
-//		PID_3.consigne_vitesse = g_parameters.motor_3_Vmax;
-//
-//	if(PID_3.consigne_vitesse < - g_parameters.motor_3_Vmax)
-//		PID_3.consigne_vitesse = - g_parameters.motor_3_Vmax;
-//
-//	float acceleration = (PID_3.consigne_vitesse - PID_3.consigne_vitesse_old)  / g_parameters.dt;
-//
-//	if(acceleration > g_parameters.motor_3_Amax)
-//		PID_3.consigne_vitesse = PID_3.consigne_vitesse_old + (g_parameters.motor_3_Amax * g_parameters.dt);
-//
-//	if(acceleration < - g_parameters.motor_3_Amax)
-//		PID_3.consigne_vitesse = PID_3.consigne_vitesse_old - (g_parameters.motor_3_Amax * g_parameters.dt);
-//
-////Asservissement en vitesse
-//
-//	PID_3.vitesse = (PID_3.position - PID_3.position_old) / g_parameters.dt;
-//
-//	PID_3.position_old = PID_3.position;
-//
-//	PID_3.erreur_vitesse_old = PID_3.erreur_vitesse;
-//
-//	PID_3.erreur_vitesse = PID_3.consigne_vitesse - PID_3.vitesse;
-//
-//	float derivee_erreur_vitesse = (PID_3.erreur_vitesse - PID_3.erreur_vitesse_old) / g_parameters.dt;
-//
-//	PID_3.integral_vitesse += PID_3.erreur_vitesse * g_parameters.dt;
-//
-//	PID_3.pid_output = g_parameters.motor_3_VKp * PID_3.erreur_vitesse +
-//					   g_parameters.motor_3_VKi * PID_3.integral_vitesse +
-//					   g_parameters.motor_3_VKd * derivee_erreur_vitesse;
-//
-//	if(((PID_3.erreur_position > 0.0)? PID_3.erreur_position : - PID_3.erreur_position ) < 0.1)
-//		PID_3_reset();
-//
-//	motor3_set_speed_percent(PID_3.pid_output);
-//}
-//
-//void PID_4_compute(void){
-//
-////Calcul de la nouvelle position
-//
-//	uint16_t motor_4_tick = TIM4->CNT;
-//
-//	TIM4->CNT = 32762;
-//
-//	PID_4.position += TICK_TO_CM(((int)motor_4_tick - 32762));
-//
-////Asservissement en position
-//
-//	PID_4.consigne_vitesse_old = PID_4.consigne_vitesse;
-//
-//	PID_4.erreur_position_old  = PID_4.erreur_position;
-//
-//	PID_4.erreur_position      = PID_4.consigne_position - PID_4.position;
-//
-//	PID_4.integral_position   += PID_4.erreur_position * g_parameters.dt;
-//
-//	float derivee_erreur_position = (PID_4.erreur_position - PID_4.erreur_position_old) / g_parameters.dt;
-//
-//	PID_4.consigne_vitesse = g_parameters.motor_4_PKp * PID_4.erreur_position    +
-//						     g_parameters.motor_4_PKi * PID_4.integral_position  +
-//							 g_parameters.motor_4_PKd * derivee_erreur_position;
-//
-//	if(PID_4.consigne_vitesse > g_parameters.motor_4_Vmax)
-//		PID_4.consigne_vitesse = g_parameters.motor_4_Vmax;
-//
-//	if(PID_4.consigne_vitesse < - g_parameters.motor_4_Vmax)
-//		PID_4.consigne_vitesse = - g_parameters.motor_4_Vmax;
-//
-//	float acceleration = (PID_4.consigne_vitesse - PID_4.consigne_vitesse_old)  / g_parameters.dt;
-//
-//	if(acceleration > g_parameters.motor_4_Amax)
-//		PID_4.consigne_vitesse = PID_4.consigne_vitesse_old + (g_parameters.motor_4_Amax * g_parameters.dt);
-//
-//	if(acceleration < - g_parameters.motor_4_Amax)
-//		PID_4.consigne_vitesse = PID_4.consigne_vitesse_old - (g_parameters.motor_4_Amax * g_parameters.dt);
-//
-////Asservissement en vitesse
-//
-//	PID_4.vitesse = (PID_4.position - PID_4.position_old) / g_parameters.dt;
-//
-//	PID_4.position_old = PID_4.position;
-//
-//	PID_4.erreur_vitesse_old = PID_4.erreur_vitesse;
-//
-//	PID_4.erreur_vitesse = PID_4.consigne_vitesse - PID_4.vitesse;
-//
-//	float derivee_erreur_vitesse = (PID_4.erreur_vitesse - PID_4.erreur_vitesse_old) / g_parameters.dt;
-//
-//	PID_4.integral_vitesse += PID_4.erreur_vitesse * g_parameters.dt;
-//
-//	PID_4.pid_output = g_parameters.motor_4_VKp * PID_4.erreur_vitesse +
-//					   g_parameters.motor_4_VKi * PID_4.integral_vitesse +
-//					   g_parameters.motor_4_VKd * derivee_erreur_vitesse;
-//
-//	if(((PID_4.erreur_position > 0.0)? PID_4.erreur_position : - PID_4.erreur_position ) < 0.1)
-//		PID_4_reset();
-//
-//	motor4_set_speed_percent(PID_4.pid_output);
-//}
-
-void PID_Position_X_reset(void){
+void PID_resetAll(void){
 
 	motor1_set_speed_percent(0.0);
+	motor2_set_speed_percent(0.0);
+	motor3_set_speed_percent(0.0);
 	motor4_set_speed_percent(0.0);
 
-	Encoder_1.position = 0.0;
-	Encoder_1.position_old = 0.0;
-	Encoder_1.vitesse = 0.0;
+	Encoder_1.position                  = 0.0;
+	Encoder_1.position_old              = 0.0;
+	Encoder_1.vitesse                   = 0.0;
+
+	Encoder_2.position                  = 0.0;
+	Encoder_2.position_old              = 0.0;
+	Encoder_2.vitesse                   = 0.0;
+
+	Encoder_3.position                  = 0.0;
+	Encoder_3.position_old              = 0.0;
+	Encoder_3.vitesse                   = 0.0;
+
+	Encoder_4.position                  = 0.0;
+	Encoder_4.position_old              = 0.0;
+	Encoder_4.vitesse                   = 0.0;
 
 
-	Encoder_4.position = 0.0;
-	Encoder_4.position_old = 0.0;
-	Encoder_4.vitesse = 0.0;
-
-
-	PID_Position_X.consigne_position = 0.0;
-	PID_Position_X.position = 0.0;
-	PID_Position_X.position_old = 0.0;
-	PID_Position_X.erreur_position = 0.0;
-	PID_Position_X.erreur_position_old = 0.0;
-	PID_Position_X.integral_position = 0.0;
-	PID_Position_X.consigne_vitesse = 0.0;
+	PID_Position_X.consigne_position    = 0.0;
+	PID_Position_X.position             = 0.0;
+	PID_Position_X.position_old         = 0.0;
+	PID_Position_X.erreur_position      = 0.0;
+	PID_Position_X.erreur_position_old  = 0.0;
+	PID_Position_X.integral_position    = 0.0;
+	PID_Position_X.consigne_vitesse     = 0.0;
 	PID_Position_X.consigne_vitesse_old = 0.0;
 
-	PID_Vitesse_1.erreur_vitesse = 0.0;
-	PID_Vitesse_1.erreur_vitesse_old = 0.0;
-	PID_Vitesse_1.integral_vitesse = 0.0;
-	PID_Vitesse_1.pid_output = 0.0;
+	PID_Position_Y.consigne_position    = 0.0;
+	PID_Position_Y.position             = 0.0;
+	PID_Position_Y.position_old         = 0.0;
+	PID_Position_Y.erreur_position      = 0.0;
+	PID_Position_Y.erreur_position_old  = 0.0;
+	PID_Position_Y.integral_position    = 0.0;
+	PID_Position_Y.consigne_vitesse     = 0.0;
+	PID_Position_Y.consigne_vitesse_old = 0.0;
 
-	PID_Vitesse_4.erreur_vitesse = 0.0;
-	PID_Vitesse_4.erreur_vitesse_old = 0.0;
-	PID_Vitesse_4.integral_vitesse = 0.0;
-	PID_Vitesse_4.pid_output = 0.0;
+	PID_Position_R.consigne_position    = 0.0;
+	PID_Position_R.position             = 0.0;
+	PID_Position_R.position_old         = 0.0;
+	PID_Position_R.erreur_position      = 0.0;
+	PID_Position_R.erreur_position_old  = 0.0;
+	PID_Position_R.integral_position    = 0.0;
+	PID_Position_R.consigne_vitesse     = 0.0;
+	PID_Position_R.consigne_vitesse_old = 0.0;
 
+	PID_Vitesse_1.erreur_vitesse        = 0.0;
+	PID_Vitesse_1.erreur_vitesse_old    = 0.0;
+	PID_Vitesse_1.integral_vitesse      = 0.0;
+	PID_Vitesse_1.pid_output            = 0.0;
 
+	PID_Vitesse_2.erreur_vitesse        = 0.0;
+	PID_Vitesse_2.erreur_vitesse_old    = 0.0;
+	PID_Vitesse_2.integral_vitesse      = 0.0;
+	PID_Vitesse_2.pid_output            = 0.0;
 
-	TIM1->CNT 					= 32762;
-	TIM4->CNT 					= 32762;
+	PID_Vitesse_3.erreur_vitesse        = 0.0;
+	PID_Vitesse_3.erreur_vitesse_old    = 0.0;
+	PID_Vitesse_3.integral_vitesse      = 0.0;
+	PID_Vitesse_3.pid_output            = 0.0;
+
+	PID_Vitesse_4.erreur_vitesse        = 0.0;
+	PID_Vitesse_4.erreur_vitesse_old    = 0.0;
+	PID_Vitesse_4.integral_vitesse      = 0.0;
+	PID_Vitesse_4.pid_output            = 0.0;
+
+	TIM1->CNT 					        = 32762;
+	TIM2->CNT 					        = 32762;
+	TIM3->CNT 				 	        = 32762;
+	TIM4->CNT 					        = 32762;
 }
+
+
 

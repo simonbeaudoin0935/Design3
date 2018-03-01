@@ -43,34 +43,29 @@ typedef struct{
 }PID_Vitesse_t;
 
 extern Encoder_t Encoder_1, Encoder_2, Encoder_3, Encoder_4;
-extern PID_Position_t PID_Position_X, PID_Position_Y, PIX_Position_R;
+extern PID_Position_t PID_Position_X, PID_Position_Y, PID_Position_R;
 extern PID_Vitesse_t PID_Vitesse_1, PID_Vitesse_2, PID_Vitesse_3, PID_Vitesse_4;
 extern type_deplacement g_typeDeplacement;
 
 void PID_resetAll(void);
-void PID_computeAll(void);
 
+void PID_Position_X_reset(void);
+void PID_Position_Y_reset(void);
+void PID_Position_R_reset(void);
 
-
-void PID_1_reset(void);
-void PID_2_reset(void);
-void PID_3_reset(void);
-void PID_4_reset(void);
 
 void Encoder_1_Compute(void);
 void Encoder_2_Compute(void);
 void Encoder_3_Compute(void);
 void Encoder_4_Compute(void);
 
-void PID_Position_X_reset(void);
+
+
 void PID_Position_X_Compute(void);
 void PID_Position_Y_Compute(void);
 void PID_Position_R_Compute(void);
 
-void PID_Vitesse_1_compute(void);
-void PID_Vitesse_2_compute(void);
-void PID_Vitesse_3_compute(void);
-void PID_Vitesse_4_compute(void);
+
 
 
 #endif //PID_H

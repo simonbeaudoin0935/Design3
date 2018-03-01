@@ -12,7 +12,7 @@
 
 
 volatile unsigned int g_systickCount;
-UART g_selectedUART;
+
 
 void systemInit(){
 
@@ -43,19 +43,20 @@ void systemInit(){
 	GPIO_InitStruct.GPIO_Speed = GPIO_Speed_100MHz;
 	GPIO_Init(GPIOC, &GPIO_InitStruct);
 
-	if(GPIO_ReadInputDataBit(GPIOC, GPIO_Pin_15)){
-		g_selectedUART = UART_3; 						//If jumper is not present between PC14 and PC15
-	}else{
-		g_selectedUART = UART_2;
-	}
+
+//	if(GPIO_ReadInputDataBit(GPIOC, GPIO_Pin_15)){
+//							//If jumper is not present between PC14 and PC15
+//	}else{
+//
+//	}
 
 	SCB->CPACR |= (0x3 << 10 * 2 | 0x3 << 11 * 2);			//Enables the FPU
 
 	g_systickCount = 0;									//Reset the timer flag
 
-	UART_init(UART_2, 115200);										//init uart2
+	UART2_init(115200);										//init uart2
 
-	UART_init(UART_3, 115200);										//init uart3
+	UART3_init(2400);										//init uart3
 
 	initEEPROM();											//init eeprom
 

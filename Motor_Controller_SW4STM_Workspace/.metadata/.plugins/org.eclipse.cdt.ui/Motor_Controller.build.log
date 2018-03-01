@@ -1,6 +1,6 @@
-13:49:25 **** Incremental Build of configuration Debug for project Motor_Controller ****
+06:02:44 **** Incremental Build of configuration Debug for project Motor_Controller ****
 make -j8 all 
 make: Nothing to be done for 'all'.
 
-13:49:25 Build Finished (took 315ms)
+06:02:44 Build Finished (took 312ms)
 

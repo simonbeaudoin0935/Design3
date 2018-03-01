@@ -1,5 +1,5 @@
 #include "UART/UART2.h"
-
+#include "misc/union_utils.h"
 #include "stm32f4xx.h"
 
 
@@ -132,6 +132,30 @@ void UART2_print(char* p_string)
   
 }
 
+
+
+void UART2_writeFloatUnion(float p_float)
+{
+	floatUnion_t v_floatUnion;
+
+	v_floatUnion.floating = p_float;
+
+	UART2_write(v_floatUnion.bytes[0]);
+	UART2_write(v_floatUnion.bytes[1]);
+	UART2_write(v_floatUnion.bytes[2]);
+	UART2_write(v_floatUnion.bytes[3]);
+}
+void UART2_writeIntegerUnion(int p_integer)
+{
+	intUnion_t v_intUnion;
+
+	v_intUnion.integer = p_integer;
+
+	UART2_write(v_intUnion.bytes[0]);
+	UART2_write(v_intUnion.bytes[1]);
+	UART2_write(v_intUnion.bytes[2]);
+	UART2_write(v_intUnion.bytes[3]);
+}
 
 void USART2_IRQHandler(void)
 { 

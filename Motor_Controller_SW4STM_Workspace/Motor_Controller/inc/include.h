@@ -5,7 +5,8 @@
 
 #include "misc/system.h"
 #include "ParameterManager/ParameterManager.h"
-#include "UART/UART.h"
+#include "UART/UART2.h"
+#include "UART/UART3.h"
 #include "UART/Parser.h"
 #include "Motor/Motor.h"
 #include "Motor/PID.h"

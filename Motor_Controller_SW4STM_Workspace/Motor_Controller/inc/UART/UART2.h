@@ -11,6 +11,8 @@ int  UART2_available();
 void UART2_write(char p_data);
 void UART2_print(char* p_string);
 
+void UART2_writeFloatUnion(float p_float);
+void UART2_writeIntegerUnion(int p_integer);
 
 
 #endif //UART2_H
