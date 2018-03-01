@@ -23,32 +23,32 @@ PIDChart::PIDChart(QGraphicsItem *parent, Qt::WindowFlags wFlags):
     QPen pen1(Qt::black);
     pen1.setWidth(1);
     m_serie1->setPen(pen1);
-    m_serie1->setName("Actual speed");
+    m_serie1->setName("Encoder_1_speed");
 
     QPen pen2(Qt::magenta);
     pen2.setWidth(1);
     m_serie2->setPen(pen2);
-    m_serie2->setName("actual distance");
+    m_serie2->setName("Encoder_4_speed");
 
     QPen pen3(Qt::red);
     pen3.setWidth(1);
     m_serie3->setPen(pen3);
-    m_serie3->setName("expected speed");
+    m_serie3->setName("Encoder_1_position");
 
     QPen pen4(Qt::green);
     pen4.setWidth(1);
     m_serie4->setPen(pen4);
-    m_serie4->setName("expected distance");
+    m_serie4->setName("Encoder_4_position");
 
     QPen pen5(Qt::blue);
     pen5.setWidth(1);
     m_serie5->setPen(pen5);
-    m_serie5->setName("distance error");
+    m_serie5->setName("consigne_position");
 
     QPen pen6(Qt::gray);
     pen6.setWidth(1);
     m_serie6->setPen(pen6);
-    m_serie6->setName("speed error");
+    m_serie6->setName("consigne_vitesse");
 
     this->addSeries(m_serie1);
     this->addSeries(m_serie2);

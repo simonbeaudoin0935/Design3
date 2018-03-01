@@ -27,8 +27,10 @@ public slots:
 
 //slots non reliés à des widgets
     void dt_timeout();
-    void handleRobotConnectionStatus(ROBOT_CONNECTION p_status);
+    void handleRobotConnectionStatus(bool p_status);
     void PIDValuesReceived(PIDValuesStruct pid);
+
+    void addPIDPoint(QByteArray array);
 
 private slots:
 

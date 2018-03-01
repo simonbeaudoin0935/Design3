@@ -128,21 +128,21 @@ void execute_received_command(void){
 	case DISPLACEMENT_X:
 		PID_resetAll();
 		g_typeDeplacement = X;
-		PID_Position_X.consigne_position = readFloatUnion(&g_messageContent[1]);
+		PID_Position_X.consigne_position = readFloatUnion(&g_messageContent[0]);
 		g_immobilize = 0;
 		break;
 
 	case DISPLACEMENT_Y:
 		PID_resetAll();
 		g_typeDeplacement = Y;
-		PID_Position_Y.consigne_position = readFloatUnion(&g_messageContent[1]);
+		PID_Position_Y.consigne_position = readFloatUnion(&g_messageContent[0]);
 		g_immobilize = 0;
 		break;
 
 	case DISPLACEMENT_R:
 		PID_resetAll();
 		g_typeDeplacement = X;
-		PID_Position_X.consigne_position = readFloatUnion(&g_messageContent[1]);
+		PID_Position_X.consigne_position = readFloatUnion(&g_messageContent[0]);
 		g_immobilize = 0;
 		break;
 
@@ -174,7 +174,7 @@ void execute_received_command(void){
 		break;
 
 	case ACTIVATE_PID_DEBUG:
-		g_pid_debug = g_messageContent[0];
+		g_pid_debug = 1;//g_messageContent[0];
 		break;
 
 	case REQUEST_PID_VALUES: //read

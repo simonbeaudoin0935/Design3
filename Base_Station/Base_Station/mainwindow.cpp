@@ -58,9 +58,9 @@ MainWindow::MainWindow(QWidget *parent) :
                      SLOT(dt_timeout()));
 
     QObject::connect(m_robotManager,
-                     SIGNAL(robotConnectionStatus(ROBOT_CONNECTION)),
+                     SIGNAL(robotConnectionStatus(bool)),
                      this,
-                     SLOT(handleRobotConnectionStatus(ROBOT_CONNECTION)));
+                     SLOT(handleRobotConnectionStatus(bool)));
 
     QObject::connect(m_robotManager,
                      SIGNAL(PIDValuesReceived(PIDValuesStruct)),
@@ -69,8 +69,8 @@ MainWindow::MainWindow(QWidget *parent) :
 
     QObject::connect(m_robotManager,
                      SIGNAL(PIDOutputReceived(QByteArray)),
-                     m_pidChart,
-                     SLOT(addPIDOutputPoint(QByteArray)));
+                     this,
+                     SLOT(addPIDPoint(QByteArray)));
 
 
     QObject::connect(m_camera,
@@ -134,17 +134,17 @@ void MainWindow::dt_timeout()
 
 
 
-void MainWindow::handleRobotConnectionStatus(ROBOT_CONNECTION p_status)
+void MainWindow::handleRobotConnectionStatus(bool p_status)
 {
     switch(p_status)
     {
-    case SUCCES:
+    case 1:
         ui->pushButton_Connect_Robot->setText("Connecté !");
         m_statusBarRobotStatus->setText("Connected");
         m_statusBarRobotStatus->setStyleSheet("QLabel { background-color : white; color : green; }");
         break;
 
-    case FAILURE:
+    case 0:
         m_statusBarRobotStatus->setText("Connection error");
         m_statusBarRobotStatus->setStyleSheet("QLabel { background-color : white; color : red; }");
         ui->pushButton_Connect_Robot->setText("Réessayer...");
@@ -194,6 +194,12 @@ void MainWindow::PIDValuesReceived(PIDValuesStruct pid)
 
     ui->doubleSpinBox_dT->setValue((double) pid.dt);
     ui->doubleSpinBox_wheelDiameter->setValue((double) pid.wheel_diameter);
+
+}
+
+void MainWindow::addPIDPoint(QByteArray array)
+{
+    m_pidChart->addPIDOutputPoint(array);
 
 }
 

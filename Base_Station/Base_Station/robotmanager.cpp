@@ -46,7 +46,7 @@ RobotManager::~RobotManager()
 void RobotManager::connected()
 {
     m_isConnectedToRobot = true;
-    emit robotConnectionStatus(ROBOT_CONNECTION::SUCCES);
+    emit robotConnectionStatus(true);
    // this->start();
 
 }
@@ -54,7 +54,7 @@ void RobotManager::connected()
 void RobotManager::disconnected()
 {
     m_isConnectedToRobot = false;
-    emit robotConnectionStatus(ROBOT_CONNECTION::FAILURE);
+    emit robotConnectionStatus(false);
 }
 
 void RobotManager::error(QAbstractSocket::SocketError p_socketError)
@@ -84,7 +84,7 @@ void RobotManager::error(QAbstractSocket::SocketError p_socketError)
 
     m_isConnectedToRobot = false;
 
-    emit robotConnectionStatus(ROBOT_CONNECTION::FAILURE);
+    emit robotConnectionStatus(false);
 
 }
 

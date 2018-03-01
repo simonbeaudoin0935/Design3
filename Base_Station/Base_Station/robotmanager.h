@@ -9,12 +9,9 @@
 
 #include "robotreceivestatemachine.h"
 #include "pidvaluesstruct.h"
-#include "mainwindow.h"
 
-typedef enum {
-    SUCCES,
-    FAILURE
-}ROBOT_CONNECTION;
+
+
 
 
 class RobotManager : public QObject
@@ -49,7 +46,7 @@ public:
     bool sendCommand_Request_PID_Values();
 
 signals:
-    void robotConnectionStatus(ROBOT_CONNECTION);
+    void robotConnectionStatus(bool);
     void PIDValuesReceived(PIDValuesStruct p_pid);
     void PIDOutputReceived(QByteArray p_output);
 

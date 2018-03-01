@@ -1,7 +1,7 @@
 #ifndef PID_CHART_H
 #define PID_CHART_H
 
-#include <QtCharts/QChart>
+#include <QtCharts>
 
 
 QT_CHARTS_BEGIN_NAMESPACE
@@ -11,8 +11,10 @@ QT_CHARTS_END_NAMESPACE
 
 QT_CHARTS_USE_NAMESPACE
 
-class PIDChart: public QChart
+class PIDChart : public QChart
 {
+
+
 public:
     PIDChart(QGraphicsItem *parent = 0, Qt::WindowFlags wFlags = 0);
     virtual ~PIDChart();
