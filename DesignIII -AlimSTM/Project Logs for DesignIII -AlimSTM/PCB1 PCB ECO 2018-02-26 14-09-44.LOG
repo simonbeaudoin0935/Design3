@@ -1,0 +1,26 @@
+Added Component: Designator=S2(SPST-2)
+Added Component: Designator=S3(SPST-2)
+Added Component: Designator=S4(SPST-2)
+Added Component: Designator=S5(SPST-2)
+Added Pin To Net: NetName=NetFuse 1A_2 Pin=S2-1
+Added Pin To Net: NetName=NetD1_1 Pin=S2-2
+Added Pin To Net: NetName=NetFuse 3A_2 Pin=S3-1
+Added Pin To Net: NetName=NetDEL5_1 Pin=S3-2
+Added Pin To Net: NetName=NetPTN78020WAH_4 Pin=S4-1
+Added Pin To Net: NetName=NetDEL3_1 Pin=S4-2
+Added Pin To Net: NetName=NetFuse 8A_2 Pin=S5-1
+Added Pin To Net: NetName=NetDEL4_1 Pin=S5-2
+Added Pin To Net: NetName=PE0 Pin=B1-67
+Added Net: Name=PE0
+Added Pin To Net: NetName=PE1 Pin=B1-68
+Added Net: Name=PE1
+Added Pin To Net: NetName=PE2 Pin=B1-65
+Added Net: Name=PE2
+Added Pin To Net: NetName=PE3 Pin=B1-66
+Added Net: Name=PE3
+Added Pin To Net: NetName=PE4 Pin=B1-63
+Added Net: Name=PE4
+Added Member To Class: ClassName=Alim Member=Component S2 SW-SPST
+Added Member To Class: ClassName=Alim Member=Component S3 SW-SPST
+Added Member To Class: ClassName=Alim Member=Component S4 SW-SPST
+Added Member To Class: ClassName=Alim Member=Component S5 SW-SPST

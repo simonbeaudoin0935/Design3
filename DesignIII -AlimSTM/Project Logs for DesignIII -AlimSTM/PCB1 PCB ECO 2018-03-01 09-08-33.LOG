@@ -1,0 +1,9 @@
+Change Component Designator: OldDesignator=Fuse 8A NewDesignator=Fuse 5A
+Change Component Designator: OldDesignator=Fuse 10A NewDesignator=Fuse 8A
+Change Net Name : Old Net Name=NetFuse 8A_2 New Net Name=NetFuse 5A_2
+Change Net Name : Old Net Name=NetFuse 10A_1 New Net Name=NetFuse 8A_1
+Change Net Name : Old Net Name=NetFuse 10A_2 New Net Name=NetFuse 8A_2
+Added Member To Class: ClassName=Alim Member=Component R2 Res1
+Added Member To Class: ClassName=Alim Member=Component R3 Res1
+Added Member To Class: ClassName=Alim Member=Component R4 Res1
+Added Member To Class: ClassName=Alim Member=Component R5 Res1

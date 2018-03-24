@@ -141,7 +141,7 @@ void execute_received_command(void){
 
 	case DISPLACEMENT_R:
 		PID_resetAll();
-		g_typeDeplacement = X;
+		g_typeDeplacement = R;
 		PID_Position_X.consigne_position = readFloatUnion(&g_messageContent[0]);
 		g_immobilize = 0;
 		break;
@@ -159,6 +159,7 @@ void execute_received_command(void){
 		UART2_write(COUNTRY_CODE);
 		UART2_write(0x01);
 		UART2_write(UART3_read());
+		UART2_write('.');
 		break;
 
 	case TILT_CAMERA_LEFT_RIGHT:

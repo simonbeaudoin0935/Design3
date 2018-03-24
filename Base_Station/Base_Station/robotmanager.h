@@ -49,6 +49,7 @@ signals:
     void robotConnectionStatus(bool);
     void PIDValuesReceived(PIDValuesStruct p_pid);
     void PIDOutputReceived(QByteArray p_output);
+    void countryCodeReceived(char);
 
 
 private slots:

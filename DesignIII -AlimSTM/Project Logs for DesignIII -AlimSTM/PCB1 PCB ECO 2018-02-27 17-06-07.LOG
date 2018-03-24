@@ -1,0 +1,4 @@
+Added Component: Designator=S1(SPST-2)
+Added Pin To Net: NetName=NetFuse 10A_2 Pin=S1-1
+Added Pin To Net: NetName=NetBuck 18V_1 Pin=S1-2
+Added Member To Class: ClassName=Alim Member=Component S1 SW-SPST

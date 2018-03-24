@@ -52,7 +52,7 @@ public:
     QPushButton *pushButton_Start_Game;
     QLCDNumber *lcdNumber_Elapsed_Time;
     QLabel *label_Country;
-    QLabel *label;
+    QLabel *label_country;
     QHBoxLayout *horizontalLayout_5;
     QLabel *label_5;
     QCheckBox *checkBox;
@@ -197,9 +197,7 @@ public:
     QHBoxLayout *horizontalLayout_23;
     QLabel *label_28;
     QDoubleSpinBox *doubleSpinBox_wheelDiameter;
-    QSpacerItem *verticalSpacer_3;
     QFrame *line_7;
-    QSpacerItem *verticalSpacer_2;
     QHBoxLayout *horizontalLayout_55;
     QPushButton *pushButton_Read_PID_Values;
     QPushButton *pushButton_Store_PID_Values;
@@ -284,10 +282,10 @@ public:
 
         h_layout_Instruments_Game_View->addWidget(label_Country);
 
-        label = new QLabel(tab_View);
-        label->setObjectName(QStringLiteral("label"));
+        label_country = new QLabel(tab_View);
+        label_country->setObjectName(QStringLiteral("label_country"));
 
-        h_layout_Instruments_Game_View->addWidget(label);
+        h_layout_Instruments_Game_View->addWidget(label_country);
 
 
         v_layout_Whole_Game_View->addLayout(h_layout_Instruments_Game_View);
@@ -1122,10 +1120,6 @@ public:
 
         verticalLayout_26->addLayout(horizontalLayout_54);
 
-        verticalSpacer_3 = new QSpacerItem(20, 40, QSizePolicy::Minimum, QSizePolicy::Expanding);
-
-        verticalLayout_26->addItem(verticalSpacer_3);
-
         line_7 = new QFrame(tab_9);
         line_7->setObjectName(QStringLiteral("line_7"));
         line_7->setLineWidth(5);
@@ -1133,10 +1127,6 @@ public:
         line_7->setFrameShadow(QFrame::Sunken);
 
         verticalLayout_26->addWidget(line_7);
-
-        verticalSpacer_2 = new QSpacerItem(20, 40, QSizePolicy::Minimum, QSizePolicy::Expanding);
-
-        verticalLayout_26->addItem(verticalSpacer_2);
 
         horizontalLayout_55 = new QHBoxLayout();
         horizontalLayout_55->setSpacing(6);
@@ -1354,7 +1344,7 @@ public:
         retranslateUi(MainWindow);
 
         tabWidget->setCurrentIndex(1);
-        tabWidget_3->setCurrentIndex(1);
+        tabWidget_3->setCurrentIndex(0);
 
 
         QMetaObject::connectSlotsByName(MainWindow);
@@ -1366,7 +1356,7 @@ public:
         actionInfo->setText(QApplication::translate("MainWindow", "Info", nullptr));
         pushButton_Start_Game->setText(QApplication::translate("MainWindow", "Lancer", nullptr));
         label_Country->setText(QApplication::translate("MainWindow", "PAYS : ", nullptr));
-        label->setText(QApplication::translate("MainWindow", "Inconnu", nullptr));
+        label_country->setText(QApplication::translate("MainWindow", "Inconnu", nullptr));
         label_5->setText(QApplication::translate("MainWindow", "Afficher : ", nullptr));
         checkBox->setText(QApplication::translate("MainWindow", "Table", nullptr));
         checkBox_2->setText(QApplication::translate("MainWindow", "Zone", nullptr));

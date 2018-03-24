@@ -31,6 +31,7 @@ public slots:
     void PIDValuesReceived(PIDValuesStruct pid);
 
     void addPIDPoint(QByteArray array);
+    void countryCodeReceived(char code);
 
 private slots:
 

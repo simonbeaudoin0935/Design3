@@ -78,6 +78,11 @@ MainWindow::MainWindow(QWidget *parent) :
                      this,
                      SLOT(cameraDisconnected()));
 
+    QObject::connect(m_robotManager,
+                     SIGNAL(countryCodeReceived(char)),
+                     this,
+                     SLOT(countryCodeReceived(char)));
+
     m_statusBarCameraStatus->setStyleSheet("QLabel { background-color : white; color : blue; }");
     m_statusBarRobotStatus->setStyleSheet("QLabel { background-color : white; color : blue; }");
 
@@ -116,6 +121,7 @@ void MainWindow::dt_timeout()
             QPixmap pix = m_camera->Mat2QPixmap(src);
             ui->label_Computed_Image->setPixmap(pix);
             ui->label_Computed_Image->show();
+            m_robotManager->sendCommand_Request_Country_Code();
         }
         else{
             ui->lcdNumber_Elapsed_Time->display(0.0);
@@ -201,6 +207,13 @@ void MainWindow::addPIDPoint(QByteArray array)
 {
     m_pidChart->addPIDOutputPoint(array);
 
+}
+
+void MainWindow::countryCodeReceived(char code)
+{
+
+
+    ui->label_country->setText(QString::number((uint)code, 16));
 }
 
 void MainWindow::cameraDisconnected()

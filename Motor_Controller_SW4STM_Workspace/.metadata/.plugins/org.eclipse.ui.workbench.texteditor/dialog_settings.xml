@@ -8,6 +8,7 @@
 		<item value="true" key="wrap"/>
 		<item value="false" key="wholeword"/>
 		<list key="findhistory">
+			<item value="g_selectedUART"/>
 			<item value="SELECTED_UART"/>
 			<item value="uart"/>
 			<item value="UART2"/>

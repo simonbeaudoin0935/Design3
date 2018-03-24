@@ -1,0 +1,11 @@
+Added Component: Designator=*(Buck 18V D3)
+Added Component: Designator=Buck 18V(Buck 18V D3)
+Added Pin To Net: NetName=NetBuck_1 Pin=Buck 18V-1
+Added Pin To Net: NetName=GND Pin=Buck 18V-2
+Added Pin To Net: NetName=GND Pin=Buck 18V-3
+Change Net Name : Old Net Name=NetBuck_1 New Net Name=NetBuck 18V_1
+Added Pin To Net: NetName=NetBuck 18V_4 Pin=Buck 18V-4
+Added Pin To Net: NetName=NetBuck 18V_4 Pin=Fuse 8A-1
+Added Net: Name=NetBuck 18V_4
+Added Member To Class: ClassName=Alim Member=Component * Buck 18V D3 v2
+Added Member To Class: ClassName=Alim Member=Component Buck 18V Buck 18V D3 v2

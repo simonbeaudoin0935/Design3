@@ -1,0 +1,19 @@
+Removed Pin From Net: NetName=PB12 Pin=EEPROM-1
+Removed Pin From Net: NetName=PB14 Pin=EEPROM-2
+Removed Pin From Net: NetName=V5VSTM Pin=EEPROM-3
+Removed Pin From Net: NetName=GND Pin=EEPROM-4
+Removed Pin From Net: NetName=PB15 Pin=EEPROM-5
+Removed Pin From Net: NetName=PB13 Pin=EEPROM-6
+Removed Pin From Net: NetName=V5VSTM Pin=EEPROM-7
+Removed Pin From Net: NetName=V5VSTM Pin=EEPROM-8
+Removed Member From Class: ClassName=Alim Member=EEPROM
+Added Component: Designator=U?(J08A)
+Added Pin To Net: NetName=PB12 Pin=U?-1
+Added Pin To Net: NetName=PB14 Pin=U?-2
+Added Pin To Net: NetName=V5VSTM Pin=U?-3
+Added Pin To Net: NetName=GND Pin=U?-4
+Added Pin To Net: NetName=PB15 Pin=U?-5
+Added Pin To Net: NetName=PB13 Pin=U?-6
+Added Pin To Net: NetName=V5VSTM Pin=U?-7
+Added Pin To Net: NetName=V5VSTM Pin=U?-8
+Added Member To Class: ClassName=Alim Member=Component U? JL411BPA

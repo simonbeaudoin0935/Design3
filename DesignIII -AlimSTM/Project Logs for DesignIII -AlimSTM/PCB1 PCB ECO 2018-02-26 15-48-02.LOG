@@ -1,0 +1,27 @@
+Removed Member From Class: ClassName=Alim Member=Step
+Added Component: Designator=Stepper(stepper)
+Added Pin To Net: NetName=PB12 Pin=EEPROM-1
+Added Pin To Net: NetName=PB14 Pin=EEPROM-2
+Added Pin To Net: NetName=V5VSTM Pin=EEPROM-3
+Added Pin To Net: NetName=GND Pin=EEPROM-4
+Added Pin To Net: NetName=PB15 Pin=EEPROM-5
+Added Pin To Net: NetName=PB13 Pin=EEPROM-6
+Added Pin To Net: NetName=V5VSTM Pin=EEPROM-7
+Added Pin To Net: NetName=V5VSTM Pin=EEPROM-8
+Added Pin To Net: NetName=PE0 Pin=Stepper-1
+Added Pin To Net: NetName=V5VSTM Pin=Stepper-2
+Added Pin To Net: NetName=V5VSTM Pin=Stepper-3
+Added Pin To Net: NetName=V5VSTM Pin=Stepper-4
+Added Pin To Net: NetName=PE1 Pin=Stepper-5
+Added Pin To Net: NetName=PE2 Pin=Stepper-6
+Added Pin To Net: NetName=PE3 Pin=Stepper-7
+Added Pin To Net: NetName=PE4 Pin=Stepper-8
+Added Pin To Net: NetName=V12V Pin=Stepper-9
+Added Pin To Net: NetName=GND Pin=Stepper-10
+Added Pin To Net: NetName=NetP-motor_1 Pin=Stepper-11
+Added Pin To Net: NetName=NetP-motor_2 Pin=Stepper-12
+Added Pin To Net: NetName=NetP-motor_3 Pin=Stepper-13
+Added Pin To Net: NetName=NetP-motor_4 Pin=Stepper-14
+Added Pin To Net: NetName=V5VSTM Pin=Stepper-15
+Added Pin To Net: NetName=GND Pin=Stepper-16
+Added Member To Class: ClassName=Alim Member=Component Stepper

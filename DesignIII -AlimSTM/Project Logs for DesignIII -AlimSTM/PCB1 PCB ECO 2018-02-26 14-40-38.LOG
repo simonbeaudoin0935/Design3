@@ -1,0 +1,13 @@
+Added Component: Designator=P-motor(HDR1X4)
+Added Pin To Net: NetName=NetP-motor_1 Pin=P-motor-1
+Added Net: Name=NetP-motor_1
+Added Pin To Net: NetName=NetP-motor_2 Pin=P-motor-2
+Added Net: Name=NetP-motor_2
+Added Pin To Net: NetName=NetP-motor_3 Pin=P-motor-3
+Added Net: Name=NetP-motor_3
+Added Pin To Net: NetName=NetP-motor_4 Pin=P-motor-4
+Added Net: Name=NetP-motor_4
+Added Pin To Net: NetName=V12V Pin=DEL3-1
+Added Pin To Net: NetName=V12V Pin=S4-2
+Added Net: Name=V12V
+Added Member To Class: ClassName=Alim Member=Component P-motor Header 4

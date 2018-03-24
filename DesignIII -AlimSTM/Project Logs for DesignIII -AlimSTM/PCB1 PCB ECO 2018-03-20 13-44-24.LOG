@@ -1,0 +1,8 @@
+Removed Pin From Net: NetName=GND Pin=P-bat-1
+Removed Pin From Net: NetName=NetBuck 18V_1 Pin=P-bat-2
+Removed Member From Class: ClassName=Alim Member=P-bat
+Added Component: Designator=*(BAT)
+Added Pin To Net: NetName=NetBuck 18V_1 Pin=*-1
+Added Pin To Net: NetName=GND Pin=*-2
+Change Net Name : Old Net Name=NetBuck 18V_1 New Net Name=Net*_1
+Added Member To Class: ClassName=Alim Member=Component * BAT

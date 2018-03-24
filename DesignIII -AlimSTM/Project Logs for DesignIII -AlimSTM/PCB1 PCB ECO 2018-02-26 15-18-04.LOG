@@ -1,0 +1,10 @@
+Added Component: Designator=EEPROM(25LC128)
+Added Pin To Net: NetName=PB12 Pin=B1-36
+Added Net: Name=PB12
+Added Pin To Net: NetName=PB13 Pin=B1-37
+Added Net: Name=PB13
+Added Pin To Net: NetName=PB14 Pin=B1-38
+Added Net: Name=PB14
+Added Pin To Net: NetName=PB15 Pin=B1-39
+Added Net: Name=PB15
+Added Member To Class: ClassName=Alim Member=Component EEPROM 25LC128

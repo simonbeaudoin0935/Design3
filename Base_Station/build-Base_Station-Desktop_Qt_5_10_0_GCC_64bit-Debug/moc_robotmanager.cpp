@@ -21,8 +21,8 @@ QT_BEGIN_MOC_NAMESPACE
 QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
 struct qt_meta_stringdata_RobotManager_t {
-    QByteArrayData data[14];
-    char stringdata0[185];
+    QByteArrayData data[15];
+    char stringdata0[205];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -39,20 +39,21 @@ QT_MOC_LITERAL(4, 54, 15), // "PIDValuesStruct"
 QT_MOC_LITERAL(5, 70, 5), // "p_pid"
 QT_MOC_LITERAL(6, 76, 17), // "PIDOutputReceived"
 QT_MOC_LITERAL(7, 94, 8), // "p_output"
-QT_MOC_LITERAL(8, 103, 9), // "connected"
-QT_MOC_LITERAL(9, 113, 12), // "disconnected"
-QT_MOC_LITERAL(10, 126, 5), // "error"
-QT_MOC_LITERAL(11, 132, 28), // "QAbstractSocket::SocketError"
-QT_MOC_LITERAL(12, 161, 13), // "p_socketError"
-QT_MOC_LITERAL(13, 175, 9) // "readyRead"
+QT_MOC_LITERAL(8, 103, 19), // "countryCodeReceived"
+QT_MOC_LITERAL(9, 123, 9), // "connected"
+QT_MOC_LITERAL(10, 133, 12), // "disconnected"
+QT_MOC_LITERAL(11, 146, 5), // "error"
+QT_MOC_LITERAL(12, 152, 28), // "QAbstractSocket::SocketError"
+QT_MOC_LITERAL(13, 181, 13), // "p_socketError"
+QT_MOC_LITERAL(14, 195, 9) // "readyRead"
 
     },
     "RobotManager\0robotConnectionStatus\0\0"
     "PIDValuesReceived\0PIDValuesStruct\0"
     "p_pid\0PIDOutputReceived\0p_output\0"
-    "connected\0disconnected\0error\0"
-    "QAbstractSocket::SocketError\0p_socketError\0"
-    "readyRead"
+    "countryCodeReceived\0connected\0"
+    "disconnected\0error\0QAbstractSocket::SocketError\0"
+    "p_socketError\0readyRead"
 };
 #undef QT_MOC_LITERAL
 
@@ -62,33 +63,35 @@ static const uint qt_meta_data_RobotManager[] = {
        7,       // revision
        0,       // classname
        0,    0, // classinfo
-       7,   14, // methods
+       8,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
        0,       // flags
-       3,       // signalCount
+       4,       // signalCount
 
  // signals: name, argc, parameters, tag, flags
-       1,    1,   49,    2, 0x06 /* Public */,
-       3,    1,   52,    2, 0x06 /* Public */,
-       6,    1,   55,    2, 0x06 /* Public */,
+       1,    1,   54,    2, 0x06 /* Public */,
+       3,    1,   57,    2, 0x06 /* Public */,
+       6,    1,   60,    2, 0x06 /* Public */,
+       8,    1,   63,    2, 0x06 /* Public */,
 
  // slots: name, argc, parameters, tag, flags
-       8,    0,   58,    2, 0x08 /* Private */,
-       9,    0,   59,    2, 0x08 /* Private */,
-      10,    1,   60,    2, 0x08 /* Private */,
-      13,    0,   63,    2, 0x08 /* Private */,
+       9,    0,   66,    2, 0x08 /* Private */,
+      10,    0,   67,    2, 0x08 /* Private */,
+      11,    1,   68,    2, 0x08 /* Private */,
+      14,    0,   71,    2, 0x08 /* Private */,
 
  // signals: parameters
     QMetaType::Void, QMetaType::Bool,    2,
     QMetaType::Void, 0x80000000 | 4,    5,
     QMetaType::Void, QMetaType::QByteArray,    7,
+    QMetaType::Void, QMetaType::Char,    2,
 
  // slots: parameters
     QMetaType::Void,
     QMetaType::Void,
-    QMetaType::Void, 0x80000000 | 11,   12,
+    QMetaType::Void, 0x80000000 | 12,   13,
     QMetaType::Void,
 
        0        // eod
@@ -103,16 +106,17 @@ void RobotManager::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id
         case 0: _t->robotConnectionStatus((*reinterpret_cast< bool(*)>(_a[1]))); break;
         case 1: _t->PIDValuesReceived((*reinterpret_cast< PIDValuesStruct(*)>(_a[1]))); break;
         case 2: _t->PIDOutputReceived((*reinterpret_cast< QByteArray(*)>(_a[1]))); break;
-        case 3: _t->connected(); break;
-        case 4: _t->disconnected(); break;
-        case 5: _t->error((*reinterpret_cast< QAbstractSocket::SocketError(*)>(_a[1]))); break;
-        case 6: _t->readyRead(); break;
+        case 3: _t->countryCodeReceived((*reinterpret_cast< char(*)>(_a[1]))); break;
+        case 4: _t->connected(); break;
+        case 5: _t->disconnected(); break;
+        case 6: _t->error((*reinterpret_cast< QAbstractSocket::SocketError(*)>(_a[1]))); break;
+        case 7: _t->readyRead(); break;
         default: ;
         }
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
         switch (_id) {
         default: *reinterpret_cast<int*>(_a[0]) = -1; break;
-        case 5:
+        case 6:
             switch (*reinterpret_cast<int*>(_a[1])) {
             default: *reinterpret_cast<int*>(_a[0]) = -1; break;
             case 0:
@@ -140,6 +144,13 @@ void RobotManager::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id
             typedef void (RobotManager::*_t)(QByteArray );
             if (*reinterpret_cast<_t *>(_a[1]) == static_cast<_t>(&RobotManager::PIDOutputReceived)) {
                 *result = 2;
+                return;
+            }
+        }
+        {
+            typedef void (RobotManager::*_t)(char );
+            if (*reinterpret_cast<_t *>(_a[1]) == static_cast<_t>(&RobotManager::countryCodeReceived)) {
+                *result = 3;
                 return;
             }
         }
@@ -171,13 +182,13 @@ int RobotManager::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 7)
+        if (_id < 8)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 7;
+        _id -= 8;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 7)
+        if (_id < 8)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 7;
+        _id -= 8;
     }
     return _id;
 }
@@ -201,6 +212,13 @@ void RobotManager::PIDOutputReceived(QByteArray _t1)
 {
     void *_a[] = { nullptr, const_cast<void*>(reinterpret_cast<const void*>(&_t1)) };
     QMetaObject::activate(this, &staticMetaObject, 2, _a);
+}
+
+// SIGNAL 3
+void RobotManager::countryCodeReceived(char _t1)
+{
+    void *_a[] = { nullptr, const_cast<void*>(reinterpret_cast<const void*>(&_t1)) };
+    QMetaObject::activate(this, &staticMetaObject, 3, _a);
 }
 QT_WARNING_POP
 QT_END_MOC_NAMESPACE

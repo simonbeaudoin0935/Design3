@@ -708,7 +708,9 @@ void RobotManager::handleReply_Displacement_R_ACK()
 
 void RobotManager::handleReply_Country_Code()
 {
-
+    qDebug() << "yoo\n";
+    QByteArray data = m_robotReceiveStateMachine.getMessageContent();
+    emit countryCodeReceived(data.at(0));
 }
 
 void RobotManager::handleReply_Requested_PID_Values()
