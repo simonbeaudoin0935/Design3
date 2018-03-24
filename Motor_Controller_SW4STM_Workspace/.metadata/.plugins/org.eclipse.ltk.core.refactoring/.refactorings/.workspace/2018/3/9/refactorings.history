@@ -1,3 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<session version="1.0">&#x0A;<refactoring comment="Delete resource &apos;Motor_Controller/src/UART/UART.c&apos;" deleteContents="false" description="Delete resource &apos;Motor_Controller/src/UART/UART.c&apos;" element1="/Motor_Controller/src/UART/UART.c" flags="7" id="org.eclipse.ltk.core.refactoring.delete.resources" resources="1" stamp="1519898758018"/>&#x0A;<refactoring comment="Delete resource &apos;Motor_Controller/inc/UART/UART.h&apos;" deleteContents="false" description="Delete resource &apos;Motor_Controller/inc/UART/UART.h&apos;" element1="/Motor_Controller/inc/UART/UART.h" flags="7" id="org.eclipse.ltk.core.refactoring.delete.resources" resources="1" stamp="1519898764766"/>
-</session>

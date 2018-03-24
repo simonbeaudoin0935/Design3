@@ -1,8 +1,0 @@
-#ifndef MISC_SYSTEMINIT_H_
-#define MISC_SYSTEMINIT_H_
-
-#include "include.h"
-
-void systemInit(void);
-
-#endif /* MISC_SYSTEMINIT_H_ */

@@ -1,0 +1,119 @@
+#include "../../inc/Motor/PID.h"
+#include "../../inc/Motor/Motor.h"
+#include "../../inc/define.h"
+
+
+#include "stm32f4xx.h"
+
+
+
+Encodeur_t encodeur_1;
+
+PID_t PID_1;
+
+
+
+void PID_compute(void){
+
+	uint16_t motor_1_tick = TIM1->CNT;
+	TIM1->CNT = 32762;
+
+	int motor_1_delta_tick = (int) motor_1_tick - 32762;
+
+	encodeur_1.position += TICK_TO_CM(motor_1_delta_tick);
+
+
+
+//Asservissement en position
+
+	PID_1.consigne_vitesse_old = PID_1.consigne_vitesse;
+
+	PID_1.erreur_position_old  = PID_1.erreur_position;
+
+	PID_1.erreur_position      = PID_1.consigne_position - encodeur_1.position;
+
+	PID_1.integral_position   += PID_1.erreur_position * g_parameters.dt;
+
+	float derivee_erreur_position = (PID_1.erreur_position - PID_1.erreur_position_old) / g_parameters.dt;
+
+	PID_1.consigne_vitesse     = g_parameters.motor_1_PKp * PID_1.erreur_position     +
+								 g_parameters.motor_1_PKi * PID_1.integral_position   +
+								 g_parameters.motor_1_PKd * derivee_erreur_position;
+
+	if(PID_1.consigne_vitesse >   g_parameters.motor_1_Vmax)
+		PID_1.consigne_vitesse =   g_parameters.motor_1_Vmax;
+
+	if(PID_1.consigne_vitesse < - g_parameters.motor_1_Vmax)
+		PID_1.consigne_vitesse = - g_parameters.motor_1_Vmax;
+
+	float acceleration = (PID_1.consigne_vitesse - PID_1.consigne_vitesse_old)  / g_parameters.dt;
+
+	if(acceleration > g_parameters.motor_1_Amax)
+		PID_1.consigne_vitesse = PID_1.consigne_vitesse_old + (g_parameters.motor_1_Amax * g_parameters.dt);
+
+	if(acceleration < - g_parameters.motor_1_Amax)
+		PID_1.consigne_vitesse = PID_1.consigne_vitesse_old - (g_parameters.motor_1_Amax * g_parameters.dt);
+
+//Asservissement en vitesse
+
+	PID_1.vitesse = (encodeur_1.position - PID_1.position_old) / g_parameters.dt;
+
+	PID_1.position_old = encodeur_1.position;
+
+	PID_1.erreur_vitesse_old = PID_1.erreur_vitesse;
+
+	PID_1.erreur_vitesse = PID_1.consigne_vitesse - PID_1.vitesse;
+
+	float derivee_erreur_vitesse = (PID_1.erreur_vitesse - PID_1.erreur_vitesse_old) / g_parameters.dt;
+
+	PID_1.integral_vitesse += PID_1.erreur_vitesse * g_parameters.dt;
+
+	PID_1.pid = g_parameters.motor_1_VKp * PID_1.erreur_vitesse +
+				g_parameters.motor_1_VKi * PID_1.integral_vitesse +
+				g_parameters.motor_1_VKd * derivee_erreur_vitesse;
+
+	if(PID_1.pid > 1.0)  PID_1.pid = 1.0;
+	if(PID_1.pid < -1.0) PID_1.pid = -1.0;
+
+//	if(PID_1.erreur_position < 0.1 && PID_1.erreur_position > -0.1){
+//		PID_1.pid = 0.0;
+//		encodeur_1.position = PID_1.consigne_position;
+//		PID_1.integral_position = 0.0;
+//	}
+
+	motor1_set_speed_percent(PID_1.pid);
+}
+
+
+
+void PID_reset(void){
+
+	encodeur_1.position         = 0.0;
+
+
+	PID_1.vitesse               = 0.0;
+	PID_1.consigne_position     = 20.0;
+
+	PID_1.consigne_vitesse      = 0.0;
+	PID_1.consigne_vitesse_old  = 0.0;
+
+	PID_1.erreur_position       = 0.0;
+	PID_1.erreur_position_old   = 0.0;
+
+	PID_1.erreur_vitesse        = 0.0;
+	PID_1.erreur_vitesse_old    = 0.0;
+
+	PID_1.integral_position     = 0.0;
+	PID_1.integral_vitesse      = 0.0;
+
+	PID_1.pid                   = 0.0;
+
+	PID_1.position_old          = 0.0;
+
+
+	PID_1.vitesse_old           = 0.0;
+
+	TIM1->CNT = 32762;
+}
+
+

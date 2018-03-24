@@ -1,6 +1,0 @@
-#ifndef MISC_SYSTEMINIT_H_
-#define MISC_SYSTEMINIT_H_
-
-void systemInit(void);
-
-#endif /* MISC_SYSTEMINIT_H_ */

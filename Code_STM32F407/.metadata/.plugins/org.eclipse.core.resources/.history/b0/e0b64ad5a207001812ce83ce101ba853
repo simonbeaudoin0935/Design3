@@ -1,0 +1,13 @@
+#ifndef PID_H
+#define PID_H
+
+#include "../define.h"
+
+void compute_displacement_speed(void);
+
+void PID_reset(void);
+void PID_compute(void);
+
+
+
+#endif //PID_H

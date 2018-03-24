@@ -1,0 +1,97 @@
+/**
+  ******************************************************************************
+  * @file    main.c
+  * @author  Ac6
+  * @version V1.0
+  * @date    01-December-2013
+  * @brief   Default main function.
+  ******************************************************************************
+*/
+
+
+#include "stm32f4xx.h"
+			
+#include "../inc/UART/UART2.h"
+#include "../inc/UART/UART3.h"
+#include "../inc/UART/Parser.h"
+#include "../inc/Motor/Motor.h"
+
+
+
+
+void init_blue_led();
+
+int main(void)
+{
+	//uart2_init(115200);
+	//uart3_init(115200);
+
+	SysTick_Config((SystemCoreClock  * 0.001));
+
+//	motors_init();
+	init_blue_led();
+
+	//uart2_write('A');
+	//uart3_write('B');
+
+	while(1){
+		USART2->DR = 0xA0;
+		USART3->DR = 0xA0;
+	}
+
+
+
+	if(SystemCoreClock == 168000000)
+	{
+		//GPIOD->ODR |= 0x4000;
+
+	}
+	else{
+		//GPIOD->ODR |= 0x8000;
+	}
+
+//	while(1){
+//
+//		if(uart3_available()){
+//			uart2_write(uart3_read());
+//		}
+//		if(uart2_available()){
+//			uart3_write(uart2_read());
+//		}
+//	}
+
+
+//	for(;;){
+//
+//		if(uart3_available() != 0){
+//			char v_byte = uart3_read();
+//			uart2_write(v_byte);
+//			GPIOD->ODR ^= 0x8000;
+//			if(parseMessage(v_byte) == 1){
+//
+//				motor1_set_speed(g_messageContent[0]);
+//			}
+//		}
+//	}
+}
+
+void init_blue_led(){
+	RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOD, ENABLE);
+
+	GPIO_InitTypeDef GPIO_InitStruct;
+	GPIO_InitStruct.GPIO_Pin = GPIO_Pin_15|GPIO_Pin_14;
+	GPIO_InitStruct.GPIO_Mode = GPIO_Mode_OUT;
+	GPIO_InitStruct.GPIO_OType = GPIO_OType_PP;
+	GPIO_InitStruct.GPIO_PuPd = GPIO_PuPd_NOPULL;
+	GPIO_InitStruct.GPIO_Speed = GPIO_Speed_100MHz;
+	GPIO_Init(GPIOD, &GPIO_InitStruct);
+
+	//GPIOD->BSRRL = 0x8000; //set   PD1
+}
+
+
+void SysTick_Handler(void)
+{
+	GPIOD->ODR ^= 0x4000;
+
+}

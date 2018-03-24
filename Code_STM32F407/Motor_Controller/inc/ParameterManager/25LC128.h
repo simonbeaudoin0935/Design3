@@ -1,0 +1,42 @@
+#ifndef _25LC128_H
+#define _25LC128_H
+
+#include "stdint.h"
+
+
+#define CHIP_SELECT   GPIOB->BSRRH = GPIO_Pin_12;
+#define CHIP_DESELECT GPIOB->BSRRL = GPIO_Pin_12;
+
+#define BITS_PER_BYTE   8
+#define BYTES_PER_PAGE   64
+#define NUMBER_OF_BYTES 16384
+#define NUMBER_OF_PAGES (NUMBER_OF_BYTES / BYTES_PER_PAGE) //256
+
+//INSTRUCTION SET
+#define READ  0x03   //Read data from memory array beginning at selected address
+#define WRITE 0x02   //Write data to memory array beginning at selected address
+#define WRDI  0x04   //Reset the write enable latch (disable write operations)
+#define WREN  0x06   //Set the write enable latch (enable write operations)
+#define RDSR  0x05   //Read STATUS register
+#define WRSR  0x01   //Write STATUS register
+
+//STATUS REGISTER BITS
+#define WPEN  0x80   //Write Protect ENable
+#define BP1   0x08   //Block Protection 1
+#define BP0   0x04   //Block Protection 0
+#define WEL   0x02   //Write Enable Latch
+#define WIP   0x01   //Write In Progressfc
+
+
+
+
+void initEEPROM(void);
+
+
+char lireMemoireEEPROM(unsigned int AdresseEEPROM, unsigned int NbreOctets, unsigned char* Destination);
+
+char ecrireMemoireEEPROM(unsigned int AdresseEEPROM, unsigned int NbreOctets, unsigned char* Source);
+
+
+
+#endif //25LC128_H
