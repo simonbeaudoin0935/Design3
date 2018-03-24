@@ -1,0 +1,21 @@
+Removed Pin From Net: NetName=GND Pin=R2-1
+Removed Pin From Net: NetName=NetDEL3_2 Pin=R2-2
+Removed Pin From Net: NetName=GND Pin=R3-1
+Removed Pin From Net: NetName=NetDEL2_2 Pin=R3-2
+Removed Pin From Net: NetName=GND Pin=R4-1
+Removed Pin From Net: NetName=NetDEL4_2 Pin=R4-2
+Removed Pin From Net: NetName=GND Pin=R5-1
+Removed Pin From Net: NetName=NetDEL5_2 Pin=R5-2
+Removed Member From Class: ClassName=Alim Member=R?
+Change Component Designator: OldDesignator=R? NewDesignator=R2
+Change Component Designator: OldDesignator=R? NewDesignator=R3
+Change Component Designator: OldDesignator=R? NewDesignator=R4
+Change Component Designator: OldDesignator=R? NewDesignator=R5
+Added Pin To Net: NetName=NetDEL3_2 Pin=R2-1
+Added Pin To Net: NetName=GND Pin=R2-2
+Added Pin To Net: NetName=GND Pin=R3-1
+Added Pin To Net: NetName=NetDEL2_2 Pin=R3-2
+Added Pin To Net: NetName=GND Pin=R4-1
+Added Pin To Net: NetName=NetDEL4_2 Pin=R4-2
+Added Pin To Net: NetName=NetDEL5_2 Pin=R5-1
+Added Pin To Net: NetName=GND Pin=R5-2

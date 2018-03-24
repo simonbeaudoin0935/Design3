@@ -1,0 +1,7 @@
+Removed Pin From Net: NetName=GND Pin=P-PC-2
+Removed Member From Class: ClassName=Alim Member=P?
+Change Component DesignItemId : Designator=P-PC Old DesignItemId=Header 2 New DesignItemId=Header 3
+Change Component Footprint: Designator=P-PC Old Footprint=HDR1X2 New Footprint=HDR1X3
+Change Component Comment : Designator=P-PC Old Comment=Header 2 New Comment=Header 3
+Added Pin To Net: NetName=GND Pin=P-PC-3
+Added Room: Name=Alim

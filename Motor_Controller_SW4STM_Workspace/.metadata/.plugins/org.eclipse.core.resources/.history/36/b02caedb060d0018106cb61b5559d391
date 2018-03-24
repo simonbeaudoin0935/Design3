@@ -1,0 +1,57 @@
+/*
+ * ParameterManager.cpp
+ *
+ *  Created on: Feb 8, 2018
+ *      Author: simon
+ */
+
+#include "../../inc/ParameterManager/ParameterManager.h"
+#include "../../inc/ParameterManager/25LC128.h"
+
+ParameterManager::ParameterManager()
+{
+	eeprom_init();
+
+	this->retreiveParametersFromEeprom();
+
+}
+
+ParameterManager::~ParameterManager() {
+
+}
+
+typedef union{
+	float floating;
+	char  bytes[sizeof(float)];
+}float_t;
+
+float read_float(unsigned char *ptr){
+	float_t val;
+	val.bytes[0] = *ptr; ptr++;
+	val.bytes[1] = *ptr; ptr++;
+	val.bytes[2] = *ptr; ptr++;
+	val.bytes[3] = *ptr;
+
+	return val.floating;
+}
+
+void ParameterManager::retreiveParametersFromEeprom(){
+
+	unsigned int v_data_size = sizeof(this->m_parameters);
+
+	unsigned char v_data[v_data_size];
+
+	LireMemoireEEPROM(0, v_data_size, v_data);
+
+
+
+	this->m_parameters.m_motor_1_PKp  = read_float(&v_data[0]);
+	this->m_parameters.m_motor_1_PKi  = read_float(&v_data[4]);
+	this->m_parameters.m_motor_1_PKd  = read_float(&v_data[8]);
+	this->m_parameters.m_motor_1_VKp  = read_float(&v_data[12]);
+	this->m_parameters.m_motor_1_VKi  = read_float(&v_data[16]);
+	this->m_parameters.m_motor_1_VKd  = read_float(&v_data[20]);
+	this->m_parameters.m_motor_1_Amax = read_float(&v_data[24]);
+	this->m_parameters.m_motor_1_Vmax = read_float(&v_data[28]);
+
+}

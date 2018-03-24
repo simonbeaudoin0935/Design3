@@ -1,0 +1,3 @@
+Change Net Name : Old Net Name=Net*_1 New Net Name=NetBuck_1
+Added Pin To Net: NetName=NetBuck_4 Pin=Fuse 8A-1
+Added Net: Name=NetBuck_4

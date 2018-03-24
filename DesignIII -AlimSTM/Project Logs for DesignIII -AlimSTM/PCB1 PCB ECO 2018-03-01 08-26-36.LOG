@@ -1,0 +1,17 @@
+Change Component Footprint: Designator=R1 Old Footprint=c1206 New Footprint=AXIAL-0.3
+Change Component Comment : Designator=R1 Old Comment=0.25W New Comment=Res1
+Added Component: Designator=P-RecIF(HDR1X3)
+Added Component: Designator=R?(AXIAL-0.3)
+Added Component: Designator=R?(AXIAL-0.3)
+Added Component: Designator=R?(AXIAL-0.3)
+Added Component: Designator=R?(AXIAL-0.3)
+Added Pin To Net: NetName=GND Pin=P-RecIF-2
+Added Pin To Net: NetName=V5VSTM Pin=P-RecIF-3
+Added Pin To Net: NetName=PB11 Pin=B1-35
+Added Pin To Net: NetName=PB11 Pin=P-RecIF-1
+Added Net: Name=PB11
+Added Member To Class: ClassName=Alim Member=Component P-RecIF Header 3
+Added Member To Class: ClassName=Alim Member=Component R? Res1
+Added Member To Class: ClassName=Alim Member=Component R? Res1
+Added Member To Class: ClassName=Alim Member=Component R? Res1
+Added Member To Class: ClassName=Alim Member=Component R? Res1

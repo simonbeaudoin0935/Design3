@@ -1,0 +1,8 @@
+Removed Pin From Net: NetName=NetBuck 18V_1 Pin=DEL1-1
+Removed Pin From Net: NetName=GND Pin=R1-1
+Removed Pin From Net: NetName=NetBuck 18V_1 Pin=S1-2
+Removed Member From Class: ClassName=Alim Member=DEL1
+Removed Member From Class: ClassName=Alim Member=Fuse 8A
+Removed Member From Class: ClassName=Alim Member=R1
+Removed Member From Class: ClassName=Alim Member=S1
+Added Pin To Net: NetName=NetBuck 18V_1 Pin=P-bat-2

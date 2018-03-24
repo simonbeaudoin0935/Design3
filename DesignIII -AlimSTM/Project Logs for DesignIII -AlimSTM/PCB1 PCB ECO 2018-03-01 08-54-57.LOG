@@ -1,0 +1,28 @@
+Added Component: Designator=P-5VIN-servo(HDR1X2)
+Added Component: Designator=P-5VIN(HDR1X2)
+Added Component: Designator=P-5VOUT-servo(HDR1X2)
+Added Component: Designator=P-5VOUT(HDR1X2)
+Added Component: Designator=P-bat(HDR1X2)
+Added Component: Designator=P-PC(HDR1X2)
+Added Pin To Net: NetName=NetBuck 18V_1 Pin=P-5VIN-1
+Added Pin To Net: NetName=GND Pin=P-5VIN-2
+Added Pin To Net: NetName=NetBuck 18V_1 Pin=P-5VIN-servo-1
+Added Pin To Net: NetName=GND Pin=P-5VIN-servo-2
+Added Pin To Net: NetName=NetFuse 1A_1 Pin=P-5VOUT-1
+Added Pin To Net: NetName=GND Pin=P-5VOUT-2
+Added Pin To Net: NetName=NetFuse 3A_1 Pin=P-5VOUT-servo-1
+Added Pin To Net: NetName=GND Pin=P-5VOUT-servo-2
+Added Pin To Net: NetName=GND Pin=P-bat-1
+Added Pin To Net: NetName=NetFuse 10A_1 Pin=P-bat-2
+Added Pin To Net: NetName=NetDEL4_1 Pin=P-PC-1
+Added Pin To Net: NetName=GND Pin=P-PC-2
+Added Member To Class: ClassName=Alim Member=Component P-5VIN-servo Header 2
+Added Member To Class: ClassName=Alim Member=Component P-5VIN Header 2
+Added Member To Class: ClassName=Alim Member=Component P-5VOUT-servo Header 2
+Added Member To Class: ClassName=Alim Member=Component P-5VOUT Header 2
+Added Member To Class: ClassName=Alim Member=Component P-bat Header 2
+Added Member To Class: ClassName=Alim Member=Component P-PC Header 2
+Added Member To Class: ClassName=Alim Member=Component R2 Res1
+Added Member To Class: ClassName=Alim Member=Component R3 Res1
+Added Member To Class: ClassName=Alim Member=Component R4 Res1
+Added Member To Class: ClassName=Alim Member=Component R5 Res1

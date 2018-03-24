@@ -1,5 +1,4 @@
-#include "../../inc/UART/Parser.h"
-
+#include "UART/Parser.h"
 #include "stm32f4xx.h"
 
 static MessageParserState g_messageParserState = WAIT_START_CHARACTER;
@@ -19,7 +18,7 @@ char parseMessage(char p_byteToParse)
 
             resetMessageParserStateMachine();
             if(p_byteToParse == '#'){
-            	GPIOD->ODR ^= 0x4000;
+
             	g_messageParserState = WAIT_COMMAND_CHARACTER;
             }
 
@@ -39,7 +38,8 @@ char parseMessage(char p_byteToParse)
         case WAIT_DATA_SIZE_CHARACTER:
 
             g_messageLength = p_byteToParse;
-            g_messageParserState = WAIT_DATA_CONTENT;
+            if(g_messageLength == 0x00) g_messageParserState = WAIT_CHECKSUM;
+            else g_messageParserState = WAIT_DATA_CONTENT;
             break;
 
         case WAIT_DATA_CONTENT:

@@ -1,0 +1,44 @@
+Added Component: Designator=P-En1(HDR1X4)
+Added Component: Designator=P-En2(HDR1X4)
+Added Component: Designator=P-En3(HDR1X4)
+Added Component: Designator=P-En4(HDR1X4)
+Added Pin To Net: NetName=GND Pin=P-En1-1
+Added Pin To Net: NetName=V5VSTM Pin=P-En1-2
+Added Pin To Net: NetName=GND Pin=P-En2-1
+Added Pin To Net: NetName=V5VSTM Pin=P-En2-2
+Added Pin To Net: NetName=GND Pin=P-En3-1
+Added Pin To Net: NetName=V5VSTM Pin=P-En3-2
+Added Pin To Net: NetName=GND Pin=P-En4-1
+Added Pin To Net: NetName=V5VSTM Pin=P-En4-2
+Added Pin To Net: NetName=PA0 Pin=B1-12
+Added Pin To Net: NetName=PA0 Pin=P-En2-3
+Added Net: Name=PA0
+Added Pin To Net: NetName=PA1 Pin=B1-11
+Added Pin To Net: NetName=PA1 Pin=P-En2-4
+Added Net: Name=PA1
+Added Pin To Net: NetName=PB5 Pin=B1-76
+Added Pin To Net: NetName=PB5 Pin=P-En3-4
+Added Net: Name=PB5
+Added Pin To Net: NetName=PC6 Pin=B1-97
+Added Pin To Net: NetName=PC6 Pin=P-En3-3
+Added Net: Name=PC6
+Added Pin To Net: NetName=PD12 Pin=B1-44
+Added Pin To Net: NetName=PD12 Pin=P-En4-3
+Added Net: Name=PD12
+Added Pin To Net: NetName=PD13 Pin=B1-45
+Added Pin To Net: NetName=PD13 Pin=P-En4-4
+Added Net: Name=PD13
+Added Pin To Net: NetName=PE9 Pin=B1-27
+Added Pin To Net: NetName=PE9 Pin=P-En1-3
+Added Net: Name=PE9
+Added Pin To Net: NetName=PE11 Pin=B1-29
+Added Pin To Net: NetName=PE11 Pin=P-En1-4
+Added Net: Name=PE11
+Added Member To Class: ClassName=Alim Member=Component P-En1 Header 4
+Added Member To Class: ClassName=Alim Member=Component P-En2 Header 4
+Added Member To Class: ClassName=Alim Member=Component P-En3 Header 4
+Added Member To Class: ClassName=Alim Member=Component P-En4 Header 4
+Added Member To Class: ClassName=Alim Member=Component R2 Res1
+Added Member To Class: ClassName=Alim Member=Component R3 Res1
+Added Member To Class: ClassName=Alim Member=Component R4 Res1
+Added Member To Class: ClassName=Alim Member=Component R5 Res1

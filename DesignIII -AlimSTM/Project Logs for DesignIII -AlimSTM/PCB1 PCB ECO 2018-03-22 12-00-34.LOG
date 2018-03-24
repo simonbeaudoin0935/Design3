@@ -1,0 +1,9 @@
+Added Component: Designator=Fuse 3A(AXIAL-0.9)
+Added Pin To Net: NetName=NetFuse 3A_1 Pin=Fuse 3A-1
+Added Pin To Net: NetName=NetFuse 3A_1 Pin=P-5VOUT-servo-1
+Added Net: Name=NetFuse 3A_1
+Added Pin To Net: NetName=NetFuse 3A_2 Pin=Fuse 3A-2
+Added Pin To Net: NetName=NetFuse 3A_2 Pin=S3-1
+Added Net: Name=NetFuse 3A_2
+Added Member To Class: ClassName=Alim Member=Component Fuse 3A Fuse 8A
+Added Room: Name=Alim

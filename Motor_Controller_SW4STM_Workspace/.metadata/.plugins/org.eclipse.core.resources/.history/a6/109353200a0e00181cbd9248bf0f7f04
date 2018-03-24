@@ -1,0 +1,55 @@
+#include "misc/system.h"
+
+volatile unsigned int g_systickCount;
+UART g_selectedUART;
+
+void systemInit(){
+
+	RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOD, ENABLE);	//init blue and red leds
+	GPIO_InitTypeDef GPIO_InitStruct;
+	GPIO_InitStruct.GPIO_Pin = GPIO_Pin_15|GPIO_Pin_14;
+	GPIO_InitStruct.GPIO_Mode = GPIO_Mode_OUT;
+	GPIO_InitStruct.GPIO_OType = GPIO_OType_PP;
+	GPIO_InitStruct.GPIO_PuPd = GPIO_PuPd_NOPULL;
+	GPIO_InitStruct.GPIO_Speed = GPIO_Speed_100MHz;
+	GPIO_Init(GPIOD, &GPIO_InitStruct);
+
+	RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOC, ENABLE);
+	GPIO_InitStruct.GPIO_Pin = GPIO_Pin_14;
+	GPIO_InitStruct.GPIO_Mode = GPIO_Mode_OUT;
+	GPIO_InitStruct.GPIO_OType = GPIO_OType_OD;
+	GPIO_InitStruct.GPIO_PuPd = GPIO_PuPd_NOPULL;
+	GPIO_InitStruct.GPIO_Speed = GPIO_Speed_100MHz;
+	GPIO_Init(GPIOC, &GPIO_InitStruct);
+	GPIO_InitStruct.GPIO_Pin = GPIO_Pin_15;
+	GPIO_InitStruct.GPIO_Mode = GPIO_Mode_IN;
+	GPIO_InitStruct.GPIO_OType = GPIO_OType_PP;
+	GPIO_InitStruct.GPIO_PuPd = GPIO_PuPd_UP;
+	GPIO_InitStruct.GPIO_Speed = GPIO_Speed_100MHz;
+	GPIO_Init(GPIOC, &GPIO_InitStruct);
+
+	if(GPIO_ReadInputDataBit(GPIOC, GPIO_Pin_15)){
+		g_selectedUART = UART_2;
+	}else{
+		g_selectedUART = UART_3;
+	}
+
+	SCB->CPACR |= (0x3 << 10 * 2 | 0x3 << 11 * 2);			//Enables the FPU
+
+	g_systickCount = 0;									//Reset the timer flag
+
+	UART_init(UART_2, 115200);										//init uart2
+
+	UART_init(UART_3, 115200);										//init uart3
+
+	initEEPROM();											//init eeprom
+
+	loadParametersFromEEPROM();								//load parameters stored in eeprom
+
+	SysTick_Config((SystemCoreClock  * g_parameters.dt));		//configure the systick timer
+
+	motors_init();											//initialise all motors
+
+	PID_resetAll();											//reset pid internals
+}
+

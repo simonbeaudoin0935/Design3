@@ -1,0 +1,22 @@
+Added Component: Designator=P-DEL(HDR1X2)
+Added Component: Designator=Q-DEL(TO-92A)
+Added Component: Designator=R-DEL1(AXIAL-0.3)
+Added Component: Designator=R-DEL2(AXIAL-0.3)
+Added Pin To Net: NetName=V5VSTM Pin=P-DEL-1
+Added Pin To Net: NetName=GND Pin=Q-DEL-1
+Added Pin To Net: NetName=NetP-DEL_2 Pin=P-DEL-2
+Added Pin To Net: NetName=NetP-DEL_2 Pin=R-DEL1-2
+Added Net: Name=NetP-DEL_2
+Added Pin To Net: NetName=NetQ-DEL_2 Pin=Q-DEL-2
+Added Pin To Net: NetName=NetQ-DEL_2 Pin=R-DEL2-1
+Added Net: Name=NetQ-DEL_2
+Added Pin To Net: NetName=NetQ-DEL_3 Pin=Q-DEL-3
+Added Pin To Net: NetName=NetQ-DEL_3 Pin=R-DEL1-1
+Added Net: Name=NetQ-DEL_3
+Added Pin To Net: NetName=PE5 Pin=B1-64
+Added Pin To Net: NetName=PE5 Pin=R-DEL2-2
+Added Net: Name=PE5
+Added Member To Class: ClassName=Alim Member=Component P-DEL Header 2
+Added Member To Class: ClassName=Alim Member=Component Q-DEL 2N3904
+Added Member To Class: ClassName=Alim Member=Component R-DEL1 Res1
+Added Member To Class: ClassName=Alim Member=Component R-DEL2 Res1

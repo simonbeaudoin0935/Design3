@@ -1,0 +1,91 @@
+Added Component: Designator=B1(STM32F4DISCOVERY Board Shield)
+Added Component: Designator=C1(RB5-10.5)
+Added Component: Designator=C2(RB5-10.5)
+Added Component: Designator=C3(RB5-10.5)
+Added Component: Designator=C4(RB5-10.5)
+Added Component: Designator=D1(DO-35)
+Added Component: Designator=DEL1(LED-1)
+Added Component: Designator=DEL2(LED-1)
+Added Component: Designator=DEL3(LED-1)
+Added Component: Designator=DEL4(LED-1)
+Added Component: Designator=DEL5(LED-1)
+Added Component: Designator=Fuse 1A(AXIAL-0.9)
+Added Component: Designator=Fuse 3A(AXIAL-0.9)
+Added Component: Designator=Fuse 8A(AXIAL-0.9)
+Added Component: Designator=Fuse 10A(AXIAL-0.9)
+Added Component: Designator=R1(c1206)
+Added Component: Designator=R2(c0805)
+Added Component: Designator=R3(c0805)
+Added Component: Designator=R4(c0805)
+Added Component: Designator=R5(c0805)
+Added Pin To Net: NetName=GND Pin=B1-1
+Added Pin To Net: NetName=GND Pin=B1-2
+Added Pin To Net: NetName=GND Pin=B1-49
+Added Pin To Net: NetName=GND Pin=B1-50
+Added Pin To Net: NetName=GND Pin=B1-51
+Added Pin To Net: NetName=GND Pin=B1-52
+Added Pin To Net: NetName=GND Pin=B1-99
+Added Pin To Net: NetName=GND Pin=B1-100
+Added Pin To Net: NetName=GND Pin=C1-2
+Added Pin To Net: NetName=GND Pin=C2-2
+Added Pin To Net: NetName=GND Pin=C3-2
+Added Pin To Net: NetName=GND Pin=C4-2
+Added Pin To Net: NetName=GND Pin=R1-1
+Added Pin To Net: NetName=GND Pin=R2-1
+Added Pin To Net: NetName=GND Pin=R3-1
+Added Pin To Net: NetName=GND Pin=R4-1
+Added Pin To Net: NetName=GND Pin=R5-1
+Added Net: Name=GND
+Added Pin To Net: NetName=Net*_1 Pin=C1-1
+Added Pin To Net: NetName=Net*_1 Pin=C2-1
+Added Pin To Net: NetName=Net*_1 Pin=C3-1
+Added Pin To Net: NetName=Net*_1 Pin=C4-1
+Added Pin To Net: NetName=Net*_1 Pin=DEL1-1
+Added Net: Name=Net*_1
+Added Pin To Net: NetName=Net*_4 Pin=Fuse 8A-1
+Added Net: Name=Net*_4
+Added Pin To Net: NetName=NetD1_1 Pin=D1-1
+Added Pin To Net: NetName=NetD1_1 Pin=DEL2-1
+Added Net: Name=NetD1_1
+Added Pin To Net: NetName=NetDEL1_2 Pin=DEL1-2
+Added Pin To Net: NetName=NetDEL1_2 Pin=R1-2
+Added Net: Name=NetDEL1_2
+Added Pin To Net: NetName=NetDEL2_2 Pin=DEL2-2
+Added Pin To Net: NetName=NetDEL2_2 Pin=R3-2
+Added Net: Name=NetDEL2_2
+Added Pin To Net: NetName=NetDEL3_1 Pin=DEL3-1
+Added Net: Name=NetDEL3_1
+Added Pin To Net: NetName=NetDEL3_2 Pin=DEL3-2
+Added Pin To Net: NetName=NetDEL3_2 Pin=R2-2
+Added Net: Name=NetDEL3_2
+Added Pin To Net: NetName=NetDEL4_1 Pin=DEL4-1
+Added Net: Name=NetDEL4_1
+Added Pin To Net: NetName=NetDEL4_2 Pin=DEL4-2
+Added Pin To Net: NetName=NetDEL4_2 Pin=R4-2
+Added Net: Name=NetDEL4_2
+Added Pin To Net: NetName=NetDEL5_1 Pin=DEL5-1
+Added Net: Name=NetDEL5_1
+Added Pin To Net: NetName=NetDEL5_2 Pin=DEL5-2
+Added Pin To Net: NetName=NetDEL5_2 Pin=R5-2
+Added Net: Name=NetDEL5_2
+Added Pin To Net: NetName=NetFuse 1A_1 Pin=Fuse 1A-1
+Added Net: Name=NetFuse 1A_1
+Added Pin To Net: NetName=NetFuse 1A_2 Pin=Fuse 1A-2
+Added Net: Name=NetFuse 1A_2
+Added Pin To Net: NetName=NetFuse 3A_1 Pin=Fuse 3A-1
+Added Net: Name=NetFuse 3A_1
+Added Pin To Net: NetName=NetFuse 3A_2 Pin=Fuse 3A-2
+Added Net: Name=NetFuse 3A_2
+Added Pin To Net: NetName=NetFuse 8A_2 Pin=Fuse 8A-2
+Added Net: Name=NetFuse 8A_2
+Added Pin To Net: NetName=NetFuse 10A_1 Pin=Fuse 10A-1
+Added Net: Name=NetFuse 10A_1
+Added Pin To Net: NetName=NetFuse 10A_2 Pin=Fuse 10A-2
+Added Net: Name=NetFuse 10A_2
+Added Net: Name=NetPTN78020WAH_4
+Added Pin To Net: NetName=V5VSTM Pin=B1-53
+Added Pin To Net: NetName=V5VSTM Pin=B1-54
+Added Pin To Net: NetName=V5VSTM Pin=D1-2
+Added Net: Name=V5VSTM
+Added Class: Name=Alim
+Added Room: Name=Alim

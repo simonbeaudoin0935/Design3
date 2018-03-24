@@ -1,0 +1,24 @@
+Removed Pin From Net: NetName=GND Pin=P-pol-5
+Removed Pin From Net: NetName=V5VSERVO Pin=P-servo-1
+Removed Pin From Net: NetName=GND Pin=P-servo-2
+Removed Member From Class: ClassName=Alim Member=P-pol
+Removed Member From Class: ClassName=Alim Member=P-servo
+Added Component: Designator=P-ser1(HDR1X3)
+Added Component: Designator=P-ser2(HDR1X3)
+Added Component: Designator=P-ser3(HDR1X3)
+Added Pin To Net: NetName=PC6 Pin=P-ser1-1
+Added Pin To Net: NetName=V5VSERVO Pin=P-ser1-2
+Added Pin To Net: NetName=GND Pin=P-ser1-3
+Added Pin To Net: NetName=V5VSERVO Pin=P-ser2-2
+Added Pin To Net: NetName=GND Pin=P-ser2-3
+Added Pin To Net: NetName=V5VSERVO Pin=P-ser3-2
+Added Pin To Net: NetName=GND Pin=P-ser3-3
+Added Pin To Net: NetName=PC7 Pin=B1-98
+Added Pin To Net: NetName=PC7 Pin=P-ser2-1
+Added Net: Name=PC7
+Added Pin To Net: NetName=PC8 Pin=B1-95
+Added Pin To Net: NetName=PC8 Pin=P-ser3-1
+Added Net: Name=PC8
+Added Member To Class: ClassName=Alim Member=Component P-ser1 Header 3
+Added Member To Class: ClassName=Alim Member=Component P-ser2 Header 3
+Added Member To Class: ClassName=Alim Member=Component P-ser3 Header 3

@@ -1,0 +1,11 @@
+#ifndef POSITION_H
+#define POSITION_H
+
+
+
+
+void position_reset(void);
+void position_compute_iteration(void);
+void angulat_speed_compute(void);
+
+#endif //POSITION_H

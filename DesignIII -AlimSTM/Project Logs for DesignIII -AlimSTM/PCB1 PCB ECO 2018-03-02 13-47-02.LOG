@@ -1,0 +1,3 @@
+Change Component Designator: OldDesignator=U? NewDesignator=U-EEPROM
+Added Member To Class: ClassName=Alim Member=Component U-EEPROM JL411BPA
+Added Room: Name=Alim

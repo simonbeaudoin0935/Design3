@@ -1,16 +1,15 @@
 #ifndef UART3_H
 #define UART3_H
 
-#define UART3_RX_BUFF_SIZE 20
-#define UART3_TX_BUFF_SIZE 20
+#define UART3_RX_BUFF_SIZE 100
+#define UART3_TX_BUFF_SIZE 100
 
-#include "stdint.h"
 
-void uart3_init(uint32_t p_baud_rate);
-char uart3_read();
-int  uart3_available();
-void uart3_write(char p_data);
-void uart3_write_string(char* p_string);
+void UART3_init(unsigned int p_baud_rate);
+char UART3_read();
+int  UART3_available();
+void UART3_write(char p_data);
+void UART3_print(char* p_string);
 
 
 #endif //UART2_H

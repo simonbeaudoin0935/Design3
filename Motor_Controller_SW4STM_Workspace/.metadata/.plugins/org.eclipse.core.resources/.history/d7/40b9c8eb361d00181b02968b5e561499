@@ -1,0 +1,52 @@
+#ifndef PARAMETERMANAGER_H_
+#define PARAMETERMANAGER_H_
+
+#include "ParameterManager/25LC128.h"
+
+void loadParametersFromEEPROM();
+void storeParametersInEEPROM();
+
+typedef	struct{
+	float motor_1_PKp;
+	float motor_1_PKi;
+	float motor_1_PKd;
+	float motor_1_VKp;
+	float motor_1_VKi;
+	float motor_1_VKd;
+	float motor_1_Amax;
+	float motor_1_Vmax;
+
+	float motor_2_PKp;
+	float motor_2_PKi;
+	float motor_2_PKd;
+	float motor_2_VKp;
+	float motor_2_VKi;
+	float motor_2_VKd;
+	float motor_2_Amax;
+	float motor_2_Vmax;
+
+	float motor_3_PKp;
+	float motor_3_PKi;
+	float motor_3_PKd;
+	float motor_3_VKp;
+	float motor_3_VKi;
+	float motor_3_VKd;
+	float motor_3_Amax;
+	float motor_3_Vmax;
+
+	float motor_4_PKp;
+	float motor_4_PKi;
+	float motor_4_PKd;
+	float motor_4_VKp;
+	float motor_4_VKi;
+	float motor_4_VKd;
+	float motor_4_Amax;
+	float motor_4_Vmax;
+
+	float wheel_diameter;
+	float dt;
+}parameters_t;
+
+extern parameters_t g_parameters;
+
+#endif /* PARAMETERMANAGER_H_ */

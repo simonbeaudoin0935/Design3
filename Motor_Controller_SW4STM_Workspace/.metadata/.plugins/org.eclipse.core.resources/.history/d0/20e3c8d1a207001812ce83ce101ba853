@@ -1,0 +1,171 @@
+#include "../../inc/Motor/PID.h"
+#include "../../inc/Motor/Motor.h"
+#include "stm32f4xx.h"
+#include "../../inc/define.h"
+
+
+
+typedef struct{
+
+	struct{
+		float new;
+		float old;
+	}position;
+
+	struct{
+		float new;
+		float old;
+	}vitesse;
+
+
+	struct{
+		float old;
+		float new;
+	}consigne_position;
+
+	struct{
+		float old;
+		float new;
+	}consigne_vitesse;
+
+	struct{
+		float old;
+		float new;
+	}erreur_position;
+
+	struct{
+		float old;
+		float new;
+	}erreur_vitesse;
+
+	struct{
+		float position;
+		float vitesse;
+	}integral;
+
+
+	float pid;
+}PID_t;
+
+PID_t PID_1;
+PID_t PID_2;
+PID_t PID_3;
+PID_t PID_4;
+
+
+
+void PID_reset(void){
+
+	PID_1.consigne_position.new = 0.5;
+	PID_1.consigne_position.old = 0.0;
+
+	PID_1.consigne_vitesse.new  = 0.0;
+	PID_1.consigne_vitesse.old  = 0.0;
+
+	PID_1.erreur_position.new   = 0.0;
+	PID_1.erreur_position.old   = 0.0;
+
+	PID_1.erreur_vitesse.new    = 0.0;
+	PID_1.erreur_vitesse.old    = 0.0;
+
+	PID_1.integral.position     = 0.0;
+	PID_1.integral.vitesse      = 0.0;
+
+	PID_1.pid                   = 0.0;
+	PID_1.position.new          = 0.0;
+	PID_1.position.old          = 0.0;
+
+	PID_1.vitesse.new           = 0.0;
+	PID_1.vitesse.old           = 0.0;
+
+
+}
+
+
+void PID_compute(void){
+
+	uint16_t motor_1_tick = TIM1->CNT;
+	TIM1->CNT = 32762;
+	uint16_t motor_2_tick = TIM2->CNT;
+	TIM2->CNT = 32762;
+	uint16_t motor_3_tick = TIM3->CNT;
+	TIM3->CNT = 32762;
+	uint16_t motor_4_tick = TIM4->CNT;
+	TIM4->CNT = 32762;
+
+	PID_1.position.new += ((float)((int)motor_1_tick - 32762)) * TICK_TO_METER;
+	PID_1.position.new += ((float)((int)motor_2_tick - 32762)) * TICK_TO_METER;
+	PID_1.position.new += ((float)((int)motor_3_tick - 32762)) * TICK_TO_METER;
+	PID_1.position.new += ((float)((int)motor_4_tick - 32762)) * TICK_TO_METER;
+
+	PID_1.consigne_vitesse.old = PID_1.consigne_vitesse.new;
+	PID_1.erreur_position.old  = PID_1.erreur_position.new;
+	PID_1.erreur_position.new  = PID_1.consigne_position.new - PID_1.position.old;
+	PID_1.integral.position   += PID_1.erreur_position.new;
+	PID_1.consigne_vitesse.new = PKp * PID_1.erreur_position.new +
+								 PKi * PID_1.integral.position   +
+								 PKd * (PID_1.erreur_position.new - PID_1.erreur_position.old);
+
+	if(PID_1.consigne_vitesse.new > Vmax){
+		PID_1.consigne_vitesse.new = Vmax;
+	}else if(PID_1.consigne_vitesse.new < - Vmax){
+		PID_1.consigne_vitesse.new = - Vmax;
+	}
+
+	if((PID_1.consigne_vitesse.new - PID_1.consigne_vitesse.old) > Amax){
+		PID_1.consigne_vitesse.new = PID_1.consigne_vitesse.old + Amax;
+	}else if((PID_1.consigne_vitesse.new - PID_1.consigne_vitesse.old) < - Amax){
+		PID_1.consigne_vitesse.new = PID_1.consigne_vitesse.old - Amax;
+	}
+
+	PID_1.vitesse.new = (PID_1.position.new - PID_1.position.old) / CONTROL_LOOP_INTERVAL;
+	PID_1.position.old = PID_1.position.new;
+
+	PID_1.erreur_vitesse.old = PID_1.erreur_vitesse.new;
+	PID_1.erreur_vitesse.new = PID_1.consigne_vitesse.new - PID_1.vitesse.new;
+
+	float derivee = (PID_1.erreur_vitesse.new - PID_1.erreur_vitesse.old) / CONTROL_LOOP_INTERVAL;
+	PID_1.integral.vitesse += PID_1.erreur_vitesse.new * CONTROL_LOOP_INTERVAL;
+	PID_1.pid = VKp * PID_1.erreur_vitesse.new +
+			    VKi * PID_1.integral.vitesse +
+				VKd * derivee;
+
+
+	motor1_set_speed((int)(PID_1.pid));
+}
+
+float motor_1_angular_position = 0.0;
+float motor_2_angular_position = 0.0;
+float motor_3_angular_position = 0.0;
+float motor_4_angular_position = 0.0;
+
+float motor_1_angular_velocity = 0.0;
+float motor_2_angular_velocity = 0.0;
+float motor_3_angular_velocity = 0.0;
+float motor_4_angular_velocity = 0.0;
+
+void compute_displacement_speed(void){
+	uint16_t motor_1_tick = TIM1->CNT;
+	TIM1->CNT = 32762;
+	uint16_t motor_2_tick = TIM2->CNT;
+	TIM2->CNT = 32762;
+	uint16_t motor_3_tick = TIM3->CNT;
+	TIM3->CNT = 32762;
+	uint16_t motor_4_tick = TIM4->CNT;
+	TIM4->CNT = 32762;
+
+	float motor_1_angular_displacement = ((float)((int)motor_1_tick - 32762)) / 6400.0;
+	float motor_2_angular_displacement = ((float)((int)motor_2_tick - 32762)) / 6400.0;
+	float motor_3_angular_displacement = ((float)((int)motor_3_tick - 32762)) / 6400.0;
+	float motor_4_angular_displacement = ((float)((int)motor_4_tick - 32762)) / 6400.0;
+
+	motor_1_angular_position += motor_1_angular_displacement;
+	motor_2_angular_position += motor_2_angular_displacement;
+	motor_3_angular_position += motor_3_angular_displacement;
+	motor_4_angular_position += motor_4_angular_displacement;
+
+	motor_1_angular_velocity = motor_1_angular_displacement / CONTROL_LOOP_INTERVAL;
+	motor_2_angular_velocity = motor_2_angular_displacement / CONTROL_LOOP_INTERVAL;
+	motor_3_angular_velocity = motor_3_angular_displacement / CONTROL_LOOP_INTERVAL;
+	motor_4_angular_velocity = motor_4_angular_displacement / CONTROL_LOOP_INTERVAL;
+}

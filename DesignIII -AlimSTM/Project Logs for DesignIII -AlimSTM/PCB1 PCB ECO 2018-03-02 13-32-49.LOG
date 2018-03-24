@@ -1,0 +1,10 @@
+Added Component: Designator=Radj1(AXIAL-0.3)
+Added Component: Designator=Radj2(AXIAL-0.3)
+Added Pin To Net: NetName=GND Pin=Radj1-2
+Added Pin To Net: NetName=GND Pin=Radj2-2
+Added Pin To Net: NetName=NetRadj1_1 Pin=Radj1-1
+Added Pin To Net: NetName=NetRadj1_1 Pin=Radj2-1
+Added Pin To Net: NetName=NetRadj1_1 Pin=U1-4
+Added Net: Name=NetRadj1_1
+Added Member To Class: ClassName=Alim Member=Component Radj1 Res1
+Added Member To Class: ClassName=Alim Member=Component Radj2 Res1
